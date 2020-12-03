@@ -14,19 +14,24 @@
     <div sec:authorize="!isAuthenticated()">
         <a id="login" href="/login" th:href="@{/login}">Log In</a>
     </div>
+    <br>
 
     <div sec:authorize="isAuthenticated()">
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out">
         </form>
     </div>
+    <br>
 
     <div sec:authorize="hasRole('ROLE_USER')">
         <a href="/news" th:href="@{/news}">News (only for users)</a>
     </div>
+    <br>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <a id="register" href="/admin" th:href="@{/admin}">Admin (only for admin)</a>
     </div>
+    <br>
 </div>
 </body>
 </html>
+

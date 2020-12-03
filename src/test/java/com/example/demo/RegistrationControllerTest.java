@@ -4,6 +4,8 @@ package com.example.demo;
  * Time: 9:29 PM
  * */
 
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.junit.AfterClass;
@@ -20,8 +22,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -87,13 +93,12 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testAdminPage_AccessDenied() throws Exception {
+    public void testAdminPageAccess() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("user", "12");
+        doLogin("user","12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
-
     }
 
     private void doLogin(String username, String password) {
@@ -125,11 +130,6 @@ public class RegistrationControllerTest {
     private void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
-    }
-
-    private void clickAdminPageLink() {
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
-        browser.findElementByCssSelector("a[id='register']").click();
     }
 
 
