@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Home page</h1>
+
+<h4>Links:</h4>
+<ul>
+    <li>
+        <a id="login" href="/login" th:href="@{/login}">Log In</a>
+    </li>
+
+    <li>
+        <a href="/news" th:href="@{/news}">News (only for users)</a>
+    </li>
+
+    <li>
+        <a href="/admin" th:href="@{/admin}">Admin (only for admin)</a>
+    </li>
+</ul>
+</body>
+</html>
