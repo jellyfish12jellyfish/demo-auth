@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -10,18 +10,23 @@
 <h1>Home page</h1>
 
 <h4>Links:</h4>
-<ul>
-    <li>
+<div>
+    <div sec:authorize="!isAuthenticated()">
         <a id="login" href="/login" th:href="@{/login}">Log In</a>
-    </li>
+    </div>
 
-    <li>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out">
+        </form>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_USER')">
         <a href="/news" th:href="@{/news}">News (only for users)</a>
-    </li>
-
-    <li>
-        <a href="/admin" th:href="@{/admin}">Admin (only for admin)</a>
-    </li>
-</ul>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a id="register" href="/admin" th:href="@{/admin}">Admin (only for admin)</a>
+    </div>
+</div>
 </body>
 </html>

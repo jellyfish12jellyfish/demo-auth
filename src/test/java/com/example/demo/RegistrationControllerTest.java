@@ -84,6 +84,15 @@ public class RegistrationControllerTest {
         assertLandedOnLoginPage();
         doLogin("this user does not exist", "and this password too");
         assertEquals(loginPageUrl() + "?error", browser.getCurrentUrl());
+    }
+
+    @Test
+    public void testAdminPage_AccessDenied() throws Exception {
+        browser.get(homePageUrl());
+        clickLoginLink();
+        assertLandedOnLoginPage();
+        doLogin("user", "12");
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
 
     }
 
@@ -116,6 +125,11 @@ public class RegistrationControllerTest {
     private void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
+    }
+
+    private void clickAdminPageLink() {
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        browser.findElementByCssSelector("a[id='register']").click();
     }
 
 
