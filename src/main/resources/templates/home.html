@@ -17,7 +17,7 @@
     <br>
 
     <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" method="post">
+        <form th:action="@{/logout}" method="post" id="logoutForm">
             <input type="submit" value="Log Out">
         </form>
     </div>

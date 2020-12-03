@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,12 +94,15 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testAdminPageAccess() throws Exception {
+    public void testLoginAndLogut() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
         doLogin("user","12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
+        browser.findElementByCssSelector("form#logoutForm").submit();
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+
     }
 
     private void doLogin(String username, String password) {
