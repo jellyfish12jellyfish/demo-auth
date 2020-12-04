@@ -63,7 +63,7 @@ public class RegistrationControllerTest {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doRegistration("admin", "12");
+        doRegistration("newUser", "12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
@@ -72,8 +72,8 @@ public class RegistrationControllerTest {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doRegistration("admin", "12");
-        assertEquals(registrationPageUrl(), browser.getCurrentUrl());
+        doLogin("admin", "12");
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
     @Test
@@ -98,11 +98,22 @@ public class RegistrationControllerTest {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("user","12");
+        doLogin("user", "12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("form#logoutForm").submit();
         assertEquals(homePageUrl(), browser.getCurrentUrl());
 
+    }
+
+    @Test
+    public void shouldReturnUsernameError() throws Exception {
+        browser.get(homePageUrl());
+        clickLoginLink();
+        assertLandedOnLoginPage();
+        doRegistration("admin", "random password");
+        assertEquals(registrationPageUrl(), browser.getCurrentUrl());
+        assertEquals("A user with the same name already exists",
+                browser.findElementByCssSelector("span#usernameError").getText());
     }
 
     private void doLogin(String username, String password) {

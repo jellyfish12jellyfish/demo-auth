@@ -7,12 +7,15 @@
 </head>
 <body>
 <div>
+
     <form action="#" method="post" th:action="@{/registration}" id="registerForm">
 
+        <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
         <label>Username:
             <input type="text" name="username">
         </label>
 
+        <span style="color:red;" th:if="${passwordError}" th:text="${passwordError}"></span>
         <label>Password:
             <input type="password" name="password">
         </label>
