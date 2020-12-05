@@ -16,7 +16,7 @@ public class UserController {
 
     @GetMapping
     public String showNewsPage() {
+        log.info("> show news page controller");
         return "news";
     }
 }
-определил логгеры

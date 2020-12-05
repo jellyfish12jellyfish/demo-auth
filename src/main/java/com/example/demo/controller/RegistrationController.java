@@ -28,7 +28,7 @@ public class RegistrationController {
 
     @GetMapping
     public String showRegistrationPage(@ModelAttribute("user") User user) {
-        log.info("> register page");
+        log.info("> get registration page");
         return "registration";
     }
 
@@ -38,21 +38,24 @@ public class RegistrationController {
                           Model model) {
 
         if (bindingResult.hasErrors()) {
+            log.warn("> field has errors");
             return "registration";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
+            log.warn("> password error");
             return "registration";
         }
 
         if (!userService.saveNewUser(user)) {
+            log.warn("> user already exists error");
             model.addAttribute("usernameError", "A user with the same name already exists");
             return "registration";
         }
 
-        userService.saveNewUser(user);
         log.info("> saving the user to the DB");
+        userService.saveNewUser(user);
 
         return "redirect:/";
     }
