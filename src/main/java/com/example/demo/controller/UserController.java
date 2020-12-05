@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/news")
 public class UserController {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
     @GetMapping
     public String showNewsPage() {
         return "news";
     }
 }
+определил логгеры
