@@ -4,6 +4,7 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,13 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping("/user-list")
     public String listUsers(Model model) {
 
+        model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
         return "user-list";
     }
