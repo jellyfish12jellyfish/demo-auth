@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -48,6 +50,17 @@ public class AdminControllerTest {
     }
 
 
+    @Test
+    public void testDoAdminRegistration() {
+        browser.get(homePageUrl());
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        clickLoginLink();
+        assertLandedOnLoginPage();
+        doLogin("admin", "12");
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+    }
+
+
     /* URL helper methods */
     private String homePageUrl() {
         return "http://localhost:" + port + "/";
@@ -71,4 +84,21 @@ public class AdminControllerTest {
         return homePageUrl() + "user-list";
     }
 
+
+    private void doLogin(String username, String password) {
+        assertEquals(loginPageUrl(), browser.getCurrentUrl());
+        browser.findElementByName("username").sendKeys(username);
+        browser.findElementByName("password").sendKeys(password);
+
+        browser.findElementByCssSelector("form#loginForm").submit();
+    }
+
+    private void clickLoginLink() {
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        browser.findElementByCssSelector("a[id='login']").click();
+    }
+
+    private void assertLandedOnLoginPage() {
+        assertEquals(loginPageUrl(), browser.getCurrentUrl());
+    }
 }

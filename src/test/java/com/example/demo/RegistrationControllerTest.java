@@ -162,6 +162,8 @@ public class RegistrationControllerTest {
         return homePageUrl() + "user-list";
     }
 
-
-
+    // users
+    private String newsPageUrl() {
+        return homePageUrl() + "news";
+    }
 }
