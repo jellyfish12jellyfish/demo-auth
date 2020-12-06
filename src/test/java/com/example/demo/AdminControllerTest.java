@@ -58,20 +58,26 @@ public class AdminControllerTest {
         assertLandedOnLoginPage();
         doLogin("admin", "12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
+        clickAdminLink();
+        assertLandedOnAdminPage();
+        assertEquals("Admin page", browser.findElementByTagName("h1").getText());
     }
 
+    private void clickAdminLink() {
+        browser.findElementByCssSelector("a#adminLink").click();
+        assertLandedOnAdminPage();
+    }
 
-    /* URL helper methods */
+    private void assertLandedOnAdminPage() {
+        assertEquals(adminUserListPageUrl(), browser.getCurrentUrl());
+    }
+
     private String homePageUrl() {
         return "http://localhost:" + port + "/";
     }
 
     private String loginPageUrl() {
         return homePageUrl() + "login";
-    }
-
-    private String registrationPageUrl() {
-        return homePageUrl() + "registration";
     }
 
     // admin
@@ -81,7 +87,7 @@ public class AdminControllerTest {
 
     // admin
     private String adminUserListPageUrl() {
-        return homePageUrl() + "user-list";
+        return adminPageUrl() + "/user-list";
     }
 
 
