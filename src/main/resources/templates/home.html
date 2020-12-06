@@ -28,7 +28,7 @@
     </div>
     <br>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <a id="register" href="/admin" th:href="@{/admin}">Admin (only for admin)</a>
+        <a id="adminLink" href="/admin/user-list" th:href="@{/admin/user-list}">Admin (only for admin)</a>
     </div>
     <br>
 </div>

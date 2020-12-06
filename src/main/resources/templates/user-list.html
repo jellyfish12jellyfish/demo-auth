@@ -10,7 +10,9 @@
 <body>
 
 <div>
-    <table>
+    <h1>Admin page</h1>
+    <hr>
+    <table style="border: 2px solid black; width: 100%">
         <thead>
         <tr>
             <th>username</th>
@@ -23,8 +25,8 @@
         <tr data-th-each="user: ${users}">
             <td data-th-text="${user.username}">username</td>
             <td data-th-each="role: ${roles}">
-                <label th:text="${role.name}">
-                    <input type="checkbox" th:value="${role}" th:checked="${user.roles.contains(role)}">
+                <label>
+                    <input type="checkbox" th:value="${role}" th:text="${role.name}" th:checked="${user.roles.contains(role)}">
                 </label>
             </td>
             <td>
