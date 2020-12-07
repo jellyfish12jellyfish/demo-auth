@@ -25,19 +25,17 @@
         <tr th:each="user: ${users}">
             <td data-th-text="${user.username}">username</td>
 
-            <!--            <td data-th-each="role: ${roles}">
-                            <label>
-                                <input type="checkbox" th:value="${role}" th:text="${role.name}"
-                                       th:checked="${user.roles.contains(role)}">
-                            </label>
-                        </td>-->
             <td>
-                <span th:each="a, iterStat : ${user.getRoles()}" th:text="${!iterStat.last} ? ${a.name} + ', ' : ${a.name}">
+                <span th:each="a, iterStat : ${user.getRoles()}"
+                      th:text="${!iterStat.last} ? ${a.name} + ', ' : ${a.name}">
                 </span>
             </td>
 
             <td>
-                <a th:href="@{/admin/delete(userId=${user.id})}">delete</a>
+
+                <a th:hidden="${user.getUsername() == #request.remoteUser}"
+                   onclick="return confirm('Are you sure you want to delete this user?')"
+                   th:href="@{/admin/delete(userId=${user.id})}">delete</a>
                 <a href="#">update</a>
             </td>
 
