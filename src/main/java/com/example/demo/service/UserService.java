@@ -45,10 +45,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Did not fine uesr id: " + id));
     }
 
-    public void save(User user) {
-        userRepository.save(user);
-    }
-
     public boolean saveNewUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
