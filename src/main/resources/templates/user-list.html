@@ -22,18 +22,21 @@
         </thead>
 
         <tbody>
-        <tr data-th-each="user: ${users}">
+        <tr th:each="user: ${users}">
             <td data-th-text="${user.username}">username</td>
+
             <td data-th-each="role: ${roles}">
                 <label>
                     <input type="checkbox" th:value="${role}" th:text="${role.name}"
                            th:checked="${user.roles.contains(role)}">
                 </label>
             </td>
+
             <td>
-                <a th:href="@{/user-list/delete(userId=${user.id})}">delete</a>
+                <a th:href="@{/admin/delete(userId=${user.id})}">delete</a>
                 <a href="#">update</a>
             </td>
+
         </tr>
         </tbody>
     </table>
