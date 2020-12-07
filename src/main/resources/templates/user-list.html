@@ -25,11 +25,15 @@
         <tr th:each="user: ${users}">
             <td data-th-text="${user.username}">username</td>
 
-            <td data-th-each="role: ${roles}">
-                <label>
-                    <input type="checkbox" th:value="${role}" th:text="${role.name}"
-                           th:checked="${user.roles.contains(role)}">
-                </label>
+            <!--            <td data-th-each="role: ${roles}">
+                            <label>
+                                <input type="checkbox" th:value="${role}" th:text="${role.name}"
+                                       th:checked="${user.roles.contains(role)}">
+                            </label>
+                        </td>-->
+            <td>
+                <span th:each="a, iterStat : ${user.getRoles()}" th:text="${!iterStat.last} ? ${a.name} + ', ' : ${a.name}">
+                </span>
             </td>
 
             <td>
