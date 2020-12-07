@@ -102,6 +102,32 @@ public class RegistrationControllerTest {
                 browser.findElementByCssSelector("span#usernameError").getText());
     }
 
+    @Test
+    public void testDoAdminLogin() throws Exception {
+        successAdminLogin();
+    }
+
+    private void successAdminLogin() {
+        browser.get(homePageUrl());
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        clickLoginLink();
+        assertLandedOnLoginPage();
+        doLogin("admin", "12");
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        clickAdminLink();
+        assertLandedOnAdminPage();
+        assertEquals("Admin page", browser.findElementByTagName("h1").getText());
+    }
+
+    private void clickAdminLink() {
+        browser.findElementByCssSelector("a#adminLink").click();
+        assertLandedOnAdminPage();
+    }
+    private void assertLandedOnAdminPage() {
+        assertEquals(adminUserListPageUrl(), browser.getCurrentUrl());
+    }
+
+
     private void doLogin(String username, String password) {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
         browser.findElementByName("username").sendKeys(username);
@@ -146,4 +172,13 @@ public class RegistrationControllerTest {
     private String registrationPageUrl() {
         return homePageUrl() + "registration";
     }
+
+    private String adminPageUrl() {
+        return homePageUrl() + "admin";
+    }
+
+    private String adminUserListPageUrl() {
+        return adminPageUrl() + "/user-list";
+    }
+
 }
