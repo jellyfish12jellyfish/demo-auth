@@ -89,7 +89,6 @@ public class RegistrationControllerTest {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("form#logoutForm").submit();
         assertEquals(homePageUrl(), browser.getCurrentUrl());
-
     }
 
     @Test

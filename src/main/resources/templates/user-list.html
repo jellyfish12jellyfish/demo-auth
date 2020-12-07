@@ -26,12 +26,14 @@
             <td data-th-text="${user.username}">username</td>
             <td data-th-each="role: ${roles}">
                 <label>
-                    <input type="checkbox" th:value="${role}" th:text="${role.name}" th:checked="${user.roles.contains(role)}">
+                    <input type="checkbox" th:value="${role}" th:text="${role.name}"
+                           th:checked="${user.roles.contains(role)}">
                 </label>
             </td>
             <td>
-                <a href="#">delete</a>
-                <a href="#">update</a>
+                <a onclick="return confirm('Are you sure you want to delete this user?')"
+                   th:href="@{/admin/user-list/delete(userId=${user.id})}">delete</a>
+                <a th:href="">update</a>
             </td>
         </tr>
         </tbody>

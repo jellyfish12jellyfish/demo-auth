@@ -51,7 +51,7 @@ public class AdminControllerTest {
 
 
     @Test
-    public void testDoAdminRegistration() {
+    public void testDoAdminLogin() {
         browser.get(homePageUrl());
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         clickLoginLink();
