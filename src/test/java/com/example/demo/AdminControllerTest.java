@@ -67,15 +67,6 @@ public class AdminControllerTest {
         successAdminLogin();
     }
 
-    @Test
-    public void testDeleteUserById() {
-        successAdminLogin();
-        browser.findElement(By.linkText("delete")).click();
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = browser.switchTo().alert();
-        alert.accept();
-    }
-
     private void successAdminLogin() {
         browser.get(homePageUrl());
         assertEquals(homePageUrl(), browser.getCurrentUrl());
