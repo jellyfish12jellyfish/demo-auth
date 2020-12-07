@@ -38,7 +38,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public Set<Role> getRoles() {
