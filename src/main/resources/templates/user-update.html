@@ -8,12 +8,12 @@
 <body>
 <div class="container">
 
-    <form method="post" th:action="" th:object="${user}">
+    <form method="post" th:action="@{/admin/save}" th:object="${user}">
 
         <input type="hidden" th:field="*{id}">
 
         <label>User id:
-            <input type="text" th:value="user.id">
+            <input type="text" disabled th:value="${user.id}">
         </label>
 
         <label> Username:

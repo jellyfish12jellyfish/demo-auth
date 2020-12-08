@@ -55,7 +55,7 @@ public class AdminController {
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
-
+        log.info("> saving the user");
         userService.save(user);
 
         return "redirect:/admin/user-list";
