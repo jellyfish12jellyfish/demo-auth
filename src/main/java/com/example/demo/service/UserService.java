@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -62,7 +63,15 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
+/*
+
+    public void updateUser(Long id, Set<Role> roles) {
+        userRepository.updateUserRole(id, roles);
+    }
+*/
+
     public void save(User user) {
         userRepository.save(user);
     }
+
 }

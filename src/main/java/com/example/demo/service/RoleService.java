@@ -20,4 +20,8 @@ public class RoleService {
     public List<Role> findAll() {
         return roleRepository.findAll();
     }
+
+    public Role findById(Long id) {
+        return roleRepository.findById(id).orElseThrow(() -> new RuntimeException(">> role not found: " + id));
+    }
 }
