@@ -21,6 +21,9 @@ import java.util.Set;
 @Service
 public class UserService implements UserDetailsService {
 
+    private static final String ADMIN = "ROLE_ADMIN";
+    private static final String USER = "ROLE_USER";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -53,7 +56,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(1L, USER)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -64,12 +67,29 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void updateUser(Long id, Set<Role> roles) {
-        userRepository.updateUserRole(id, roles);
-    }
-
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public boolean isCandidate(Set<String> roles, User user, RoleService roleService) {
+        if (roles.isEmpty()) {
+            return false;
+
+        } else {
+            user.getRoles().clear();
+
+            if (roles.size() == 2) {
+                user.getRoles().add(roleService.findByName(USER));
+                user.getRoles().add(roleService.findByName(ADMIN));
+
+            } else if (roles.size() == 1 && roles.contains(USER)) {
+                user.getRoles().add(roleService.findByName(USER));
+
+            } else if (roles.size() == 1 && roles.contains(ADMIN)) {
+                user.getRoles().add(roleService.findByName(ADMIN));
+            }
+            return true;
+        }
     }
 
 }

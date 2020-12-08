@@ -25,12 +25,13 @@
     <div class="container">
         <h1 class="text-center">Admin page</h1>
         <hr>
+        <span style="color: red" th:if="${error}" th:text="${error}"></span>
+
         <table class="table" style="margin: 0 auto;">
             <thead class="thead-dark">
             <tr>
                 <th>username</th>
                 <th>role</th>
-                <th>actions</th>
             </tr>
             </thead>
 
@@ -39,21 +40,31 @@
                 <td data-th-text="${user.username}">username</td>
 
                 <td>
-                <span th:each="a, iterStat : ${user.getRoles()}"
-                      th:text="${!iterStat.last} ? ${a.name} + ', ' : ${a.name}">
-                </span>
-                </td>
+                    <form th:action="@{/admin/upd}" method="post">
 
-                <td>
+                    <span th:each="role, i : ${roles}">
+                        <input type="checkbox" th:text="${!i.last} ? ${role.name} +', ': ${role.name}"
+                               th:value="${role.name}"
+                               th:checked="${user.roles.contains(role)}"
+                               name="formRoles"
+                        >
+                    </span>
 
-                    <a th:hidden="${user.getUsername() == #request.remoteUser}"
-                       onclick="return confirm('Are you sure you want to delete this user?')"
-                       th:href="@{/admin/delete(userId=${user.id})}">delete</a>
-                    |
-                    <a th:href="@{/admin/update(userId=${user.id})}">update</a>
+                        <a th:hidden="${user.getUsername() == #request.remoteUser}"
+                           onclick="return confirm('Are you sure you want to delete this user?')"
+                           th:href="@{/admin/delete(userId=${user.id})}">delete</a>
+                        |
+                        <!--                    <a th:href="@{/admin/update(userId=${user.id})}">update</a>-->
+                        <input type="hidden" name="userId" th:value="${user.id}">
+
+                        <button type="submit">update</button>
+                    </form>
+
+
                 </td>
 
             </tr>
+
             </tbody>
         </table>
     </div>
