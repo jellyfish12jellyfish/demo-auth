@@ -54,33 +54,14 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
         try {
-        /*try {
-            log.info("> get user by id");
             User user = userService.findById(id);
-            log.info("> clear user roles");
-            user.getRoles().clear();
-            System.out.println("formRoles = " + formRoles);
-
-            if (formRoles.size() == 2) {
-                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
-                user.getRoles().add(roleService.findByName("ROLE_USER"));
-                userService.save(user);
-            } else if (formRoles.contains("ROLE_ADMIN") && formRoles.size() == 1) {
-                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
-            } else if (formRoles.contains("ROLE_USER") && formRoles.size() == 1) {
-                user.getRoles().add(roleService.findByName("ROLE_USER"));
-            } else if (formRoles.contains("")) {
-                return "user-list";
-            }
-
-            userService.save(user);*/
-
-            User user = userService.findById(id);
-
             boolean candidate = userService.isCandidate(formRoles, user, roleService);
+
             if (candidate) {
+                log.info("> updating the user");
                 userService.save(user);
             } else
+                log.info("> deleting the user by id: " + id);
                 userService.deleteById(id);
 
         } catch (Exception exception) {
