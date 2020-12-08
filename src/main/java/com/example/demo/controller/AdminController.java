@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -56,6 +59,40 @@ public class AdminController {
         return "user-update";
     }
 
+    @PostMapping("/upd")
+    public String setUserRoles(@RequestParam("userId") Long id,
+                               @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
+                               Model model) {
+        try {
+            log.info("> get user by id");
+            User user = userService.findById(id);
+            log.info("> clear user roles");
+            user.getRoles().clear();
+            System.out.println("formRoles = " + formRoles);
+
+            if (formRoles.size() == 2) {
+                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+                user.getRoles().add(roleService.findByName("ROLE_USER"));
+                userService.save(user);
+            } else if (formRoles.contains("ROLE_ADMIN") && formRoles.size() == 1) {
+                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+            } else if (formRoles.contains("ROLE_USER") && formRoles.size() == 1) {
+                user.getRoles().add(roleService.findByName("ROLE_USER"));
+            } else if (formRoles.contains("")) {
+                return "user-list";
+            }
+
+            userService.save(user);
+            return "redirect:/admin/user-list";
+
+        } catch (Exception exception) {
+            log.warn(">>> ERROR >>> : " + exception);
+        }
+
+        return "user-list";
+    }
+
+
     @PostMapping("/save")
     public String saveUser(
             @RequestParam("id") Long id) {
@@ -73,7 +110,7 @@ public class AdminController {
             log.warn("??? something went wrong");
             System.out.println("??? error = " + e);
         }
-        return "redirect:/admin/user-list";
+        return "user-list";
     }
 
 }
