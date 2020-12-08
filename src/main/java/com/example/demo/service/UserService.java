@@ -6,6 +6,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +17,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
+
+
+    RoleService roleService;
 
     @Autowired
     private UserRepository userRepository;
@@ -65,6 +70,27 @@ public class UserService implements UserDetailsService {
 
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public boolean isCandidate(Set<String> roles, User user, RoleService roleService) {
+        if (roles.isEmpty()) {
+            return false;
+
+        } else {
+            user.getRoles().clear();
+
+            if (roles.size() == 2) {
+                user.getRoles().add(roleService.findByName("ROLE_USER"));
+                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+
+            } else if (roles.size() == 1 && roles.contains("ROLE_USER")) {
+                user.getRoles().add(roleService.findByName("ROLE_USER"));
+
+            } else if (roles.size() == 1 && roles.contains("ROLE_ADMIN")) {
+                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+            }
+            return true;
+        }
     }
 
 }

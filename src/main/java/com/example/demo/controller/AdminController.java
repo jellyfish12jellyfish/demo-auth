@@ -54,6 +54,7 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
         try {
+        /*try {
             log.info("> get user by id");
             User user = userService.findById(id);
             log.info("> clear user roles");
@@ -72,14 +73,23 @@ public class AdminController {
                 return "user-list";
             }
 
-            userService.save(user);
-            return "redirect:/admin/user-list";
+            userService.save(user);*/
+
+            User user = userService.findById(id);
+
+            boolean candidate = userService.isCandidate(formRoles, user, roleService);
+            if (candidate) {
+                userService.save(user);
+            } else
+                userService.deleteById(id);
 
         } catch (Exception exception) {
             log.warn(">>> ERROR >>> : " + exception);
+            model.addAttribute("error", "Somethint went wrong!");
+            return "user-list";
         }
 
-        return "user-list";
+        return "redirect:/admin/user-list";
     }
 
 
