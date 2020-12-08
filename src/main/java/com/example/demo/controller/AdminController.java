@@ -60,9 +60,10 @@ public class AdminController {
             if (candidate) {
                 log.info("> updating the user");
                 userService.save(user);
-            } else
+            } else {
                 log.info("> deleting the user by id: " + id);
                 userService.deleteById(id);
+            }
 
         } catch (Exception exception) {
             log.warn(">>> ERROR >>> : " + exception);
