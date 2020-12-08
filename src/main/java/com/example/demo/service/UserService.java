@@ -6,7 +6,6 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
-import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +21,8 @@ import java.util.Set;
 @Service
 public class UserService implements UserDetailsService {
 
-
-    RoleService roleService;
+    private static final String ADMIN = "ROLE_ADMIN";
+    private static final String USER = "ROLE_USER";
 
     @Autowired
     private UserRepository userRepository;
@@ -57,7 +56,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(1L, USER)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -80,14 +79,14 @@ public class UserService implements UserDetailsService {
             user.getRoles().clear();
 
             if (roles.size() == 2) {
-                user.getRoles().add(roleService.findByName("ROLE_USER"));
-                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+                user.getRoles().add(roleService.findByName(USER));
+                user.getRoles().add(roleService.findByName(ADMIN));
 
-            } else if (roles.size() == 1 && roles.contains("ROLE_USER")) {
-                user.getRoles().add(roleService.findByName("ROLE_USER"));
+            } else if (roles.size() == 1 && roles.contains(USER)) {
+                user.getRoles().add(roleService.findByName(USER));
 
-            } else if (roles.size() == 1 && roles.contains("ROLE_ADMIN")) {
-                user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+            } else if (roles.size() == 1 && roles.contains(ADMIN)) {
+                user.getRoles().add(roleService.findByName(ADMIN));
             }
             return true;
         }
