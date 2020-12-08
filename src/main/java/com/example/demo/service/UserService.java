@@ -63,12 +63,10 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-/*
 
     public void updateUser(Long id, Set<Role> roles) {
         userRepository.updateUserRole(id, roles);
     }
-*/
 
     public void save(User user) {
         userRepository.save(user);
