@@ -4,15 +4,13 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
+import com.example.demo.entity.User;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -44,4 +42,23 @@ public class AdminController {
         userService.deleteById(userId);
         return "redirect:/admin/user-list";
     }
+
+    @GetMapping("/update")
+    public String updateUser(@RequestParam("userId") Long userId, Model model) {
+        log.info("> getting user by id");
+        log.info("> getting user-upate page");
+
+        model.addAttribute("user", userService.findById(userId));
+        model.addAttribute("roles", roleService.findAll());
+        return "user-update";
+    }
+
+    @PostMapping("/save")
+    public String saveUser(@ModelAttribute("user") User user) {
+
+        userService.save(user);
+
+        return "redirect:/admin/user-list";
+    }
+
 }
