@@ -40,7 +40,7 @@
                 <td data-th-text="${user.username}">username</td>
 
                 <td>
-                    <form th:action="@{/admin/upd}" method="post">
+                    <form th:action="@{/admin/update}" method="post">
 
                     <span th:each="role, i : ${roles}">
                         <input type="checkbox" th:text="${!i.last} ? ${role.name} +', ': ${role.name}"

@@ -49,10 +49,12 @@ public class AdminController {
     }
 
 
-    @PostMapping("/upd")
+    @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
+
+        // https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
         try {
             User user = userService.findById(id);
             boolean candidate = userService.isCandidate(formRoles, user, roleService);
@@ -72,27 +74,6 @@ public class AdminController {
         }
 
         return "redirect:/admin/user-list";
-    }
-
-
-    @PostMapping("/save")
-    public String saveUser(
-            @RequestParam("id") Long id) {
-
-        try {
-            // https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
-            User user = userService.findById(id);
-            user.getRoles().clear();
-            user.getRoles().add(roleService.findById(2L));
-            userService.save(user);
-
-            return "redirect:/admin/user-list/";
-
-        } catch (Exception e) {
-            log.warn("??? something went wrong");
-            System.out.println("??? error = " + e);
-        }
-        return "user-list";
     }
 
 }
