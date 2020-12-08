@@ -53,8 +53,7 @@
                         <a th:hidden="${user.getUsername() == #request.remoteUser}"
                            onclick="return confirm('Are you sure you want to delete this user?')"
                            th:href="@{/admin/delete(userId=${user.id})}">delete</a>
-                        |
-                        <!--                    <a th:href="@{/admin/update(userId=${user.id})}">update</a>-->
+                        <br>
                         <input type="hidden" name="userId" th:value="${user.id}">
 
                         <button type="submit">update</button>
