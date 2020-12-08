@@ -49,15 +49,6 @@ public class AdminController {
         return "redirect:/admin/user-list";
     }
 
-    @GetMapping("/update")
-    public String updateUser(@RequestParam("userId") Long userId, Model model) {
-        log.info("> getting user by id");
-        log.info("> getting user-upate page");
-
-        model.addAttribute("user", userService.findById(userId));
-        model.addAttribute("roles", roleService.findAll());
-        return "user-update";
-    }
 
     @PostMapping("/upd")
     public String setUserRoles(@RequestParam("userId") Long id,
