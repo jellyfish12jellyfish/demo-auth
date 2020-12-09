@@ -69,7 +69,7 @@ public class AdminController {
 
         } catch (Exception exception) {
             log.warn(">>> ERROR >>> : " + exception);
-            model.addAttribute("error", "Somethint went wrong!");
+            model.addAttribute("error", "Something went wrong!");
             return "user-list";
         }
 
