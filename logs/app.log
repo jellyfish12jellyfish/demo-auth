@@ -1,0 +1,7 @@
+2020-12-09 09:03:57,514 INFO com.example.demo.DemoApplication [restartedMain] Starting DemoApplication using Java 14.0.2 on leon with PID 4974 (/home/jelly/Desktop/JAVA/PROJECTS/demo-security/target/classes started by jelly in /home/jelly/Desktop/JAVA/PROJECTS/demo-security)
+2020-12-09 09:03:57,519 DEBUG com.example.demo.DemoApplication [restartedMain] Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-12-09 09:03:57,520 INFO com.example.demo.DemoApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-12-09 09:04:03,532 INFO com.example.demo.DemoApplication [restartedMain] Started DemoApplication in 7.157 seconds (JVM running for 9.525)
+2020-12-09 09:05:39,666 INFO com.example.demo.controller.AdminController [http-nio-8080-exec-2] > updating the user
+2020-12-09 09:06:07,634 INFO com.example.demo.controller.AdminController [http-nio-8080-exec-10] > updating the user
+2020-12-09 09:09:48,405 INFO com.example.demo.controller.UserController [http-nio-8080-exec-10] > show quizzes page controller
