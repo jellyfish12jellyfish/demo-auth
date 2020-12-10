@@ -16,8 +16,8 @@ public class UserController {
 
     @GetMapping
     public String showNewsPage() {
-        log.info("> return 'quizzes' page");
 
+        log.info("> return 'quizzes' page");
         return "quizzes";
     }
 }

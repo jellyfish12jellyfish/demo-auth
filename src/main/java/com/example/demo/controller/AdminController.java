@@ -72,7 +72,6 @@ public class AdminController {
             }
 
         } catch (Exception exception) {
-
             log.error(">>> error: " + exception);
             model.addAttribute("error", "Something went wrong!");
 
