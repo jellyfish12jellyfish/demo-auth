@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/quizzes")
+@RequestMapping("/user")
 public class UserController {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
-    @GetMapping
+    @GetMapping("/quizzes")
     public String showNewsPage() {
 
         log.info("> return 'quizzes' page");
