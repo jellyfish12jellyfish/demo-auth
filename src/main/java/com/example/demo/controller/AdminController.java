@@ -32,7 +32,6 @@ public class AdminController {
     // get all users
     @GetMapping("/user-list")
     public String listUsers(Model model) {
-        log.info("> getting 'user-list' page");
 
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
@@ -44,6 +43,7 @@ public class AdminController {
     // delete the user by id
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long userId) {
+
         log.info("> deleting the user by id: " + userId);
         userService.deleteById(userId);
 
@@ -57,7 +57,6 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
 
-        // https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
         try {
             User user = userService.findById(id);
             boolean candidate = userService.isCandidate(formRoles, user, roleService);
@@ -73,7 +72,7 @@ public class AdminController {
             }
 
         } catch (Exception exception) {
-            log.warn(">>> ERROR >>> : " + exception);
+            log.error(">>> error: " + exception);
             model.addAttribute("error", "Something went wrong!");
 
             log.info("> return 'user-list' page");
