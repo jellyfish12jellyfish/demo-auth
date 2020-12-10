@@ -73,6 +73,12 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean isCandidate(Set<String> roles, User user, RoleService roleService) {
+
+        /*
+         * user.getRoles.addRole(role)
+         * https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
+         * */
+
         // при получении пустого мн-ва возвращаем 0
         if (roles.isEmpty()) {
             return false;

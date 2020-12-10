@@ -57,7 +57,6 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
 
-        // https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
         try {
             User user = userService.findById(id);
             boolean candidate = userService.isCandidate(formRoles, user, roleService);
