@@ -15,6 +15,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 
+        // передаем создание контроллеров SPRING'у
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/").setViewName("home");
     }
@@ -22,6 +23,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+        // заставляем нашу статику работать :)
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
     }
