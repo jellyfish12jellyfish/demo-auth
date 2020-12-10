@@ -28,7 +28,6 @@ public class RegistrationController {
 
     @GetMapping
     public String showRegistrationPage(@ModelAttribute("user") User user) {
-        log.info("> getting 'registration' page");
 
         log.info("> return 'registration' page");
         return "registration";
@@ -59,7 +58,7 @@ public class RegistrationController {
         // registerUser вернул 0, значит, такой пользователь уже зарегистрирован;
         // возращаем страницу и отображаем 'usernameError'
         if (!userService.registerUser(user)) {
-            log.error("> user already exists error");
+            log.warn("> user already exists error");
             model.addAttribute("usernameError", "A user with the same name already exists");
 
             log.info("> return 'registration' page");

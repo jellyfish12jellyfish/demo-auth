@@ -32,7 +32,6 @@ public class AdminController {
     // get all users
     @GetMapping("/user-list")
     public String listUsers(Model model) {
-        log.info("> getting 'user-list' page");
 
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
@@ -44,6 +43,7 @@ public class AdminController {
     // delete the user by id
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long userId) {
+
         log.info("> deleting the user by id: " + userId);
         userService.deleteById(userId);
 
@@ -73,7 +73,8 @@ public class AdminController {
             }
 
         } catch (Exception exception) {
-            log.warn(">>> ERROR >>> : " + exception);
+
+            log.error(">>> error: " + exception);
             model.addAttribute("error", "Something went wrong!");
 
             log.info("> return 'user-list' page");
