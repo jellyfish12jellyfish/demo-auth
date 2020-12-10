@@ -21,6 +21,7 @@ import java.util.Set;
 @Service
 public class UserService implements UserDetailsService {
 
+    // создаю константы для ролей
     private static final String ADMIN = "ROLE_ADMIN";
     private static final String USER = "ROLE_USER";
 
@@ -33,12 +34,12 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username);
+        User userFromDB = userRepository.findByUsername(username);
 
-        if (user == null)
+        if (userFromDB == null) // если пользователь не зарегистрирован, то выбросить исключение
             throw new UsernameNotFoundException("User '" + username + "' not found");
 
-        return user;
+        return userFromDB;
     }
 
     public List<User> findAll() {
@@ -49,7 +50,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Did not fine uesr id: " + id));
     }
 
-    public boolean saveNewUser(User user) {
+    public boolean registerUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
@@ -72,19 +73,23 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean isCandidate(Set<String> roles, User user, RoleService roleService) {
+        // при получении пустого мн-ва возвращаем 0
         if (roles.isEmpty()) {
             return false;
 
         } else {
+            // очищаем роли
             user.getRoles().clear();
 
+            // если переданы 2 роли, мы назначаем их
             if (roles.size() == 2) {
                 user.getRoles().add(roleService.findByName(USER));
                 user.getRoles().add(roleService.findByName(ADMIN));
 
+                // если только 1 роль и мн-во содержит ROLE_USER, назаначаем юзеру эту роль
             } else if (roles.size() == 1 && roles.contains(USER)) {
                 user.getRoles().add(roleService.findByName(USER));
-
+                // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
             } else if (roles.size() == 1 && roles.contains(ADMIN)) {
                 user.getRoles().add(roleService.findByName(ADMIN));
             }
