@@ -30,9 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showProfilePage(@RequestParam("id") Long id, Model model) {
+    public String showProfilePage(@RequestParam("username") String username, Model model) {
 
-        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("user", userService.);
 
         log.info("> return 'profile' page");
         return "profile";
