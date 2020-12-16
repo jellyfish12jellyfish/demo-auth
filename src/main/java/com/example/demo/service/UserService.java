@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
         if (userFromDB == null) // если пользователь не зарегистрирован, то выбросить исключение
             throw new UsernameNotFoundException("User '" + username + "' not found");
 
+        userRepository.setLastLoginTime(username);
         return userFromDB;
     }
 
