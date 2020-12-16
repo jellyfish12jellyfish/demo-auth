@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @Column(name = "created_at", columnDefinition = "timestamp default null")
     private Date createdAt;
 
+    @Column(name = "last_login_at", columnDefinition = "timestamp default null")
+    private Date lastLoginAt;
+
     @PrePersist
     void createdAt() {
         Date asiaYekb = new Date();
