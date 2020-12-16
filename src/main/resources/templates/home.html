@@ -28,7 +28,7 @@
     <br>
 
     <div sec:authorize="hasRole('ROLE_USER')">
-        <a href="/quizzes" th:href="@{/quizzes}">News (only for users)</a>
+        <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
     </div>
     <br>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
