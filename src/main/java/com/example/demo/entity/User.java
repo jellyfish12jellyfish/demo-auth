@@ -42,8 +42,6 @@ public class User implements UserDetails {
 
     @PrePersist
     void createdAt() {
-        Date asiaYekb = new Date();
-
         this.createdAt = new Date();
     }
 
@@ -56,6 +54,13 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    public Date getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(Date lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }
 
     public void addRole(Role role) {
         roles.add(role);
