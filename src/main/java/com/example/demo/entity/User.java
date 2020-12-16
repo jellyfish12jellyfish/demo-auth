@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,16 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "created_at", columnDefinition = "timestamp default null")
+    private Date createdAt;
+
+    @PrePersist
+    void createdAt() {
+        Date asiaYekb = new Date();
+
+        this.createdAt = new Date();
+    }
+
     @Transient // не будем сохранять в бд
     private String confirmPassword;
 
@@ -53,6 +64,13 @@ public class User implements UserDetails {
         role.getUsers().remove(this);
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Set<Role> getRoles() {
         return roles;
