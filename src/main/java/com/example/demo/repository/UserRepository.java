@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query("update User u set u.createdAt = current_timestamp where u.username=:name")
+    @Query("update User u set u.lastLoginAt = current_timestamp where u.username=:name")
     void setLastLoginTime(@Param("name") String username);
 
 }
