@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{fragments/base}">
 <head>
-
-    <div th:replace="fragments/head.html :: head"></div>
-
     <title>Sign Up</title>
 </head>
 <body>
-<div th:replace="fragments/navbar.html :: navbar"></div>
-
-<div>
+<div layout:fragment="content">
     <form action="#" method="post" th:action="@{/registration}" id="registerForm">
 
         <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
