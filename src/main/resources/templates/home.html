@@ -19,12 +19,6 @@
             </div>
             <br>
 
-            <div sec:authorize="isAuthenticated()">
-
-                <a th:href="@{/profile(username=${#authentication.name})}">Profile</a>
-
-            </div>
-            <br>
 
             <div sec:authorize="hasRole('ROLE_USER')">
                 <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
