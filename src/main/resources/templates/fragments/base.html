@@ -4,13 +4,17 @@
     <div th:replace="fragments/head.html :: head"></div>
 </head>
 <body>
-<div th:replace="fragments/navbar.html :: navbar"></div>
+<header>
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+</header>
 
 <div class="container">
-
     <div layout:fragment="content"></div>
-
 </div>
+
+<footer>
+    <div th:replace="fragments/footer.html :: footer"></div>
+</footer>
 
 </body>
 </html>
