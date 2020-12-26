@@ -55,7 +55,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        // registerUser вернул 0, значит, такой пользователь уже зарегистрирован;
+        // registerUser вернул False, значит, такой пользователь уже зарегистрирован;
         // возращаем страницу и отображаем 'usernameError'
         if (!userService.registerUser(user)) {
             log.warn("> user already exists error");

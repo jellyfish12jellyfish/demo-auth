@@ -19,5 +19,12 @@
                 </li>
             </ul>
         </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" id="logoutForm">
+                <input class="btn btn-light" type="submit" value="Sign Out">
+            </form>
+        </div>
+
     </nav>
 </th:block>
