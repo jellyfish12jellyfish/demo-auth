@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/base}">
 <head>
-
-    <div th:replace="fragments/head.html :: head"></div>
-
     <title>Login</title>
 </head>
 <body>
-<h1>Login page</h1>
 
-<div th:if="${param.error}" id="errorMsg">
-    Invalid username and password.
-</div>
+<div layout:fragment="content">
+    <h1>Login page</h1>
 
-<div>
-    <form th:action="@{/login}" method="post" id="loginForm">
+    <div th:if="${param.error}" id="errorMsg">
+        Invalid username and password.
+    </div>
 
-        <label>Username:
-            <input type="text" name="username">
-        </label>
-        <label>Password:
-            <input type="password" name="password">
-        </label>
+    <div>
+        <form th:action="@{/login}" method="post" id="loginForm">
 
-        <input type="submit" value="Log In">
-    </form>
+            <label>Username:
+                <input type="text" name="username">
+            </label>
+            <label>Password:
+                <input type="password" name="password">
+            </label>
 
-    <a href="/registration" th:href="@{/registration}">Sign Up</a>
-    <br>
-    <a href="/" th:href="@{/}">Home page</a>
-</div>
+            <input type="submit" value="Log In">
+        </form>
+
+        <a href="/registration" th:href="@{/registration}">Sign Up</a>
+        <br>
+        <a href="/" th:href="@{/}">Home page</a>
+    </div>
 
 </body>
+</div>
 </html>

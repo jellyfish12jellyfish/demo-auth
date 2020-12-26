@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-
+      xmlns:sec="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/base}">
 <head>
-    <div th:replace="fragments/head.html :: head"></div>
     <title>Home</title>
 </head>
 
-
 <body>
-<div class="container">
-    <h1>Home page</h1>
-
-    <h4>Links:</h4>
+<div layout:fragment="content">
     <div>
-        <div sec:authorize="!isAuthenticated()">
-            <a id="login" href="/login" th:href="@{/login}">Log In</a>
+        <h1>Home page</h1>
+
+        <h4>Links:</h4>
+        <div>
+            <div sec:authorize="!isAuthenticated()">
+                <a id="login" href="/login" th:href="@{/login}">Log In</a>
+            </div>
+            <br>
+
+            <div sec:authorize="isAuthenticated()">
+
+                <a th:href="@{/user/profile(username=${#authentication.name})}">Profile</a>
+
+
+                <form th:action="@{/logout}" method="post" id="logoutForm">
+                    <input type="submit" value="Log Out">
+                </form>
+            </div>
+            <br>
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
+            </div>
+            <br>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a id="adminLink" href="/admin/user-list" th:href="@{/admin/user-list}">Admin (only for admin)</a>
+            </div>
+            <br>
         </div>
-        <br>
-
-        <div sec:authorize="isAuthenticated()">
-
-            <a th:href="@{/user/profile(username=${#authentication.name})}">Profile</a>
-
-
-            <form th:action="@{/logout}" method="post" id="logoutForm">
-                <input type="submit" value="Log Out">
-            </form>
-        </div>
-        <br>
-
-        <div sec:authorize="hasRole('ROLE_USER')">
-            <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
-        </div>
-        <br>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <a id="adminLink" href="/admin/user-list" th:href="@{/admin/user-list}">Admin (only for admin)</a>
-        </div>
-        <br>
     </div>
 </div>
 </body>
