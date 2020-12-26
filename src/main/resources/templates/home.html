@@ -12,22 +12,13 @@
         <h1>Home page</h1>
 
         <h4>Links:</h4>
+
         <div>
             <div sec:authorize="!isAuthenticated()">
                 <a id="login" href="/login" th:href="@{/login}">Log In</a>
             </div>
             <br>
 
-            <div sec:authorize="isAuthenticated()">
-
-                <a th:href="@{/user/profile(username=${#authentication.name})}">Profile</a>
-
-
-                <form th:action="@{/logout}" method="post" id="logoutForm">
-                    <input type="submit" value="Log Out">
-                </form>
-            </div>
-            <br>
 
             <div sec:authorize="hasRole('ROLE_USER')">
                 <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
