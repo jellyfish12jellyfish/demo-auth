@@ -8,8 +8,9 @@
     <title>Sign Up</title>
 </head>
 <body>
-<div>
+<div th:replace="fragments/navbar.html :: navbar"></div>
 
+<div>
     <form action="#" method="post" th:action="@{/registration}" id="registerForm">
 
         <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
