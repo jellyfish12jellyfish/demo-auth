@@ -10,16 +10,8 @@
 <div layout:fragment="content">
     <div>
         <h1>Home page</h1>
-
-        <h4>Links:</h4>
-
-        <div>
-            <div sec:authorize="!isAuthenticated()">
-                <a id="login" href="/login" th:href="@{/login}">Log In</a>
-            </div>
-            <br>
-            <br>
-            <br>
+        <div sec:authorize="!isAuthenticated()">
+            <a id="login" href="/login" th:href="@{/login}">Log In</a>
         </div>
     </div>
 </div>
