@@ -19,11 +19,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/quizzes")
+    @GetMapping("/questions")
     public String showNewsPage() {
 
         log.info("> return 'quizzes' page");
-        return "quizzes";
+        return "questions";
     }
 
     @GetMapping("/profile")
