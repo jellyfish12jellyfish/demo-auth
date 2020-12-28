@@ -82,6 +82,9 @@ public class RegistrationControllerTests {
         assertLandedOnLoginPage();
         doLogin("this user does not exist", "and this password too");
         assertEquals(loginPageUrl() + "?error", browser.getCurrentUrl());
+
+        String errorMessage = browser.findElementById("errorMsg").getText();
+        assertEquals(errorMessage, "Invalid username or password");
     }
 
     @Test
