@@ -59,14 +59,18 @@ public class RegistrationControllerTests {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("admin", "12");
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        doRegistration("admin", "12");
+        assertEquals(registrationPageUrl(), browser.getCurrentUrl());
+
+        String errorMessage = browser.findElementById("usernameError").getText();
+        assertEquals(errorMessage, "A user with the same name already exists");
     }
 
     @Test
     public void testLogin_HappyPath() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
+        assertLandedOnLoginPage();
         doLogin("admin", "12");
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
@@ -123,6 +127,7 @@ public class RegistrationControllerTests {
         browser.findElementByCssSelector("a#adminLink").click();
         assertLandedOnAdminPage();
     }
+
     private void assertLandedOnAdminPage() {
         assertEquals(adminUserListPageUrl(), browser.getCurrentUrl());
     }
