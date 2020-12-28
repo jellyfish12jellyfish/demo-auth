@@ -18,15 +18,7 @@
                 <a id="login" href="/login" th:href="@{/login}">Log In</a>
             </div>
             <br>
-
-
-            <div sec:authorize="hasRole('ROLE_USER')">
-                <a href="/quizzes" th:href="@{/quizzes}">Quizzes (only for users)</a>
-            </div>
             <br>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <a id="adminLink" href="/admin/user-list" th:href="@{/admin/user-list}">Admin (only for admin)</a>
-            </div>
             <br>
         </div>
     </div>
