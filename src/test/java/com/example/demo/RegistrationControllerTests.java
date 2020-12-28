@@ -98,16 +98,6 @@ public class RegistrationControllerTests {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
-    @Test
-    public void shouldReturnUsernameError() throws Exception {
-        browser.get(homePageUrl());
-        clickLoginLink();
-        assertLandedOnLoginPage();
-        doRegistration("admin", "random password");
-        assertEquals(registrationPageUrl(), browser.getCurrentUrl());
-        assertEquals("A user with the same name already exists",
-                browser.findElementByCssSelector("span#usernameError").getText());
-    }
 
     @Test
     public void testDoAdminLogin() throws Exception {
