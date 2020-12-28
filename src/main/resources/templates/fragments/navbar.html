@@ -8,11 +8,15 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/quizzes" th:href="@{/quizzes}">Quizzess <span
-                            class="sr-only">(current)</span></a>
+                    <div sec:authorize="hasRole('ROLE_USER')">
+                        <a class="nav-link" href="/quizzes" th:href="@{/quizzes}">Quizzess <span
+                                class="sr-only">(current)</span></a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/user-list}" href="/admin/user-list">Admin</a>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a id="adminLink" href="/admin/user-list" th:href="@{/admin/user-list}">Admin</a>
+                    </div>
                 </li>
             </ul>
         </div>
