@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/registration")
 public class RegistrationController {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RegistrationController.class);
@@ -27,14 +26,22 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    // get login page
+    @GetMapping("/login")
+    public String login(Principal principal) {
+        return principal == null ? "login" : "home";
+    }
+
+    // get registration page
+    @GetMapping("/registration")
     public String showRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
         log.info("> return 'registration' page");
         return principal == null ? "registration" : "home";
     }
 
-    @PostMapping
+    // do registration
+    @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") @Valid User user,
                           BindingResult bindingResult,
                           Model model) {
