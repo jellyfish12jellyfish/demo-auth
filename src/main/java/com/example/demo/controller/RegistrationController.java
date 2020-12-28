@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/registration")
@@ -27,10 +28,10 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping
-    public String showRegistrationPage(@ModelAttribute("user") User user) {
+    public String showRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
         log.info("> return 'registration' page");
-        return "registration";
+        return principal == null ? "registration" : "home";
     }
 
     @PostMapping
