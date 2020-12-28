@@ -22,7 +22,8 @@
         </div>
 
         <div class="c-profile" sec:authorize="isAuthenticated()">
-            <a th:href="@{/profile(username=${#authentication.name})}">Profile</a>
+            <a th:href="@{/profile(username=${#authentication.name})}"
+            th:text="${#authentication.name}">Profile</a>
         </div>
 
         <div sec:authorize="isAuthenticated()">
