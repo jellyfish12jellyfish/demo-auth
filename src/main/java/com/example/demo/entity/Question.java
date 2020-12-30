@@ -7,6 +7,7 @@ package com.example.demo.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "question")
@@ -24,6 +25,9 @@ public class Question {
     @NotBlank
     @Column(name = "body")
     private String body;
+
+    @Column(name = "last_view_at", columnDefinition = "timestamp default null")
+    private Date lastViewAt;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
@@ -75,6 +79,22 @@ public class Question {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getLastViewAt() {
+        return lastViewAt;
+    }
+
+    public void setLastViewAt(Date lastViewAt) {
+        this.lastViewAt = lastViewAt;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
     @Override
