@@ -25,6 +25,7 @@ public class UserService implements UserDetailsService {
     private static final String ADMIN = "ROLE_ADMIN";
     private static final String USER = "ROLE_USER";
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -108,6 +109,10 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public List<UserRepository.NameAndLastLoginAt> recentUsers() {
+        return userRepository.findAllByOrderByLastLoginAtDesc();
     }
 
 }

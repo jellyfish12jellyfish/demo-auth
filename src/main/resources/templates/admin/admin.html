@@ -12,7 +12,11 @@
     </div>
 
     <div>
-
+        <!-- todo there will be a sidebar -->
+        Recently logged on users
+        <ul th:each="user : ${recentUsers}">
+            <li th:text="${user.username} + ' ' + ${user.lastLoginAt}"></li>
+        </ul>
     </div>
 
 </div>

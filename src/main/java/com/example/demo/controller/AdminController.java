@@ -31,7 +31,8 @@ public class AdminController {
 
     // get admin page
     @GetMapping
-    public String getAdminPage() {
+    public String getAdminPage(Model model) {
+        model.addAttribute("recentUsers", userService.recentUsers());
         return "admin/admin";
     }
 
