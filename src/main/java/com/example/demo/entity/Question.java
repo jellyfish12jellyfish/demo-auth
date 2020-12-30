@@ -4,6 +4,8 @@ package com.example.demo.entity;
  * Time: 9:10 AM
  * */
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -26,6 +28,16 @@ public class Question {
     @Column(name = "body")
     private String body;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
     @Column(name = "last_view_at", columnDefinition = "timestamp default null")
     private Date lastViewAt;
 
@@ -46,9 +58,25 @@ public class Question {
     public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, Date lastViewAt, User user, Theme theme) {
         this.title = title;
         this.body = body;
-        this.lastViewAt = lastViewAt;
         this.user = user;
         this.theme = theme;
+    }
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
