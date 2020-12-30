@@ -25,12 +25,12 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, message = "Не меньше 2 символов")
+    @Size(min = 3, max = 20)
     @Column(name = "username")
     private String username;
 
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 8, message = "at least 8 characters")
     @Column(name = "password")
     private String password;
 
@@ -122,7 +122,7 @@ public class User implements UserDetails {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     @Override
