@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username"
-                       placeholder="Enter username" name="username" autocomplete="off">
+                       placeholder="Enter username" name="username" autofocus autocomplete="new-password">
                 <span class="c-error" th:if="${#fields.hasErrors('username')}"
                       th:errors="*{username}">Username error</span>
             </div>
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password"
-                       name="password">
+                       name="password" autocomplete="new-password">
                 <span class="c-error" th:if="${#fields.hasErrors('password')}"
                       th:errors="*{password}">Password error</span>
             </div>
