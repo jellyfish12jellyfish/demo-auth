@@ -19,6 +19,13 @@ public class Theme {
     @Column(name = "title")
     private String title;
 
+    public Theme() {
+    }
+
+    public Theme(@Size(min = 5) String title) {
+        this.title = title;
+    }
+
     public Long getId() {
         return id;
     }
