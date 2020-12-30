@@ -27,13 +27,13 @@ public class RegistrationController {
 
     // get login page
     @GetMapping("/login")
-    public String login(Principal principal) {
+    public String getLoginPage(Principal principal) {
         return principal == null ? "registration/login" : "home";
     }
 
     // get registration page
     @GetMapping("/registration")
-    public String showRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
+    public String getRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
         log.info("> return 'registration' page");
         return principal == null ? "registration/registration" : "home";
