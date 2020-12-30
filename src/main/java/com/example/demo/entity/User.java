@@ -25,12 +25,12 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank
-    @Size(min = 2, message = "Не меньше 2 символов")
+    @Size(min = 3, message = "Не меньше 2 символов")
     @Column(name = "username")
     private String username;
 
     @NotBlank
-    @Size(min = 2, message = "Не меньше 2 знаков")
+    @Size(min = 8)
     @Column(name = "password")
     private String password;
 
