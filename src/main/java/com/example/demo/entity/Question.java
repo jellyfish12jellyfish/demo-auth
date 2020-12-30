@@ -43,10 +43,12 @@ public class Question {
     public Question() {
     }
 
-    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, User user) {
+    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, Date lastViewAt, User user, Theme theme) {
         this.title = title;
         this.body = body;
+        this.lastViewAt = lastViewAt;
         this.user = user;
+        this.theme = theme;
     }
 
     public Long getId() {
