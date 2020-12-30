@@ -30,6 +30,11 @@ public class Question {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
+
 
     public Question() {
     }

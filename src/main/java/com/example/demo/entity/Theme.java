@@ -19,11 +19,6 @@ public class Theme {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "question_id")
-    private Question question;
-
     public Long getId() {
         return id;
     }
@@ -40,13 +35,6 @@ public class Theme {
         this.title = title;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
 
     @Override
     public String toString() {
