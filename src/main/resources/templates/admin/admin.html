@@ -18,8 +18,9 @@
         Recently logged on users
         <div>
             <ul>
-                <li th:each="user : ${recentUsers}"
-                    th:text="${user.username} + ' ' + ${#strings.substring(user.lastLoginAt, 0, #strings.length(user.lastLoginAt)-7)}"></li>
+<!--                <li th:each="item : ${recentUsers}"-->
+<!--                    th:text="${item} + ' ' + ${#strings.substring(user.lastLoginAt, 0,-->
+<!--                #strings.length(user.lastLoginAt)-7)}"></li>-->
             </ul>
         </div>
     </div>

@@ -4,6 +4,7 @@ package com.example.demo.service;
  * Time: 9:24 AM
  * */
 
+import com.example.demo.entity.Question;
 import com.example.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,17 @@ public class QuestionService {
 
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
+    }
+
+// todo pay attention
+    public void updateView(Long id) {
+        System.out.println("update view post: " + id);
+    }
+
+    public Question findById(Long id) {
+        Question question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question id not found: " + id));
+        updateView(id);
+        return question;
     }
 
 }
