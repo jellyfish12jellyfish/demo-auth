@@ -20,14 +20,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/questions")
-    public String showNewsPage() {
+    public String getQuestionsPage() {
 
         log.info("> return 'quizzes' page");
         return "user/questions";
     }
 
     @GetMapping("/profile")
-    public String showProfilePage(@RequestParam("username") String username, Model model) {
+    public String getProfilePage(@RequestParam("username") String username, Model model) {
 
         model.addAttribute("user", userService.findByUsername(username));
         log.info("> return 'profile' page");
