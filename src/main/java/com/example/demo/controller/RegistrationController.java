@@ -36,7 +36,7 @@ public class RegistrationController {
     public String showRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
         log.info("> return 'registration' page");
-        return principal == null ? "registration" : "home";
+        return principal == null ? "registration/registration" : "home";
     }
 
     // do registration
@@ -50,7 +50,7 @@ public class RegistrationController {
             log.warn("> field has errors");
 
             log.info("> return 'registration' page");
-            return "registration";
+            return "registration/registration";
         }
 
         // если пароли не совпадают, вернуть ту же страницу и отображить 'passwordError' на странице
@@ -59,7 +59,7 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Passwords do not match");
 
             log.info("> return 'registration' page");
-            return "registration";
+            return "registration/registration";
         }
 
         // registerUser вернул False, значит, такой пользователь уже зарегистрирован;
@@ -69,7 +69,7 @@ public class RegistrationController {
             model.addAttribute("usernameError", "A user with the same name already exists");
 
             log.info("> return 'registration' page");
-            return "registration";
+            return "registration/registration";
         }
 
         log.info("> saving the user to the DB");
