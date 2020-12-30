@@ -29,6 +29,12 @@ public class AdminController {
     @Autowired
     private RoleService roleService;
 
+    // get admin page
+    @GetMapping
+    public String getAdminPage() {
+        return "admin/admin";
+    }
+
     // get all users
     @GetMapping("/user-list")
     public String listUsers(Model model) {
