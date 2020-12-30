@@ -18,15 +18,12 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-// todo pay attention
-    public void updateView(Long id) {
-        System.out.println("update view post: " + id);
-    }
 
     public Question findById(Long id) {
-        Question question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question id not found: " + id));
-        updateView(id);
-        return question;
+        questionRepository.setLastViewTime(id);
+
+        return questionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }
 
 }
