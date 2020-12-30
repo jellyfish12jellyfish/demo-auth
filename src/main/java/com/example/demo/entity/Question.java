@@ -4,7 +4,9 @@ package com.example.demo.entity;
  * Time: 9:10 AM
  * */
 
+import jdk.jfr.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +35,7 @@ public class Question {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
@@ -62,6 +64,15 @@ public class Question {
         this.theme = theme;
     }
 
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    void updatedAt() {
+        this.updatedAt = new Date();
+    }
 
     public Date getCreatedAt() {
         return createdAt;
