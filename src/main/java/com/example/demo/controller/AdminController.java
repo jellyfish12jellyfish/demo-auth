@@ -37,7 +37,7 @@ public class AdminController {
         model.addAttribute("users", userService.findAll());
 
         log.info("return 'user-list' page");
-        return "user-list";
+        return "admin/user-list";
     }
 
     // delete the user by id
@@ -76,7 +76,7 @@ public class AdminController {
             model.addAttribute("error", "Something went wrong!");
 
             log.info("> return 'user-list' page");
-            return "user-list";
+            return "admin/user-list";
         }
 
         log.info("> redirect to 'user-list' page");
