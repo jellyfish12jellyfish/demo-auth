@@ -23,7 +23,7 @@ public class UserController {
     public String showNewsPage() {
 
         log.info("> return 'quizzes' page");
-        return "questions";
+        return "user/questions";
     }
 
     @GetMapping("/profile")
@@ -32,7 +32,7 @@ public class UserController {
         model.addAttribute("user", userService.findByUsername(username));
         log.info("> return 'profile' page");
 
-        return "profile";
+        return "user/profile";
     }
 }
 

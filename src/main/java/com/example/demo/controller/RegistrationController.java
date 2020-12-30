@@ -28,7 +28,7 @@ public class RegistrationController {
     // get login page
     @GetMapping("/login")
     public String login(Principal principal) {
-        return principal == null ? "login" : "home";
+        return principal == null ? "registration/login" : "home";
     }
 
     // get registration page
