@@ -61,12 +61,9 @@ public class Question {
 
     public Question(@NotBlank @Size(min = 10) String title,
                     @NotBlank String body,
-                    Date createdAt, Date updatedAt,
                     User user, Theme theme, UserQuestion... userQuestions) {
         this.title = title;
         this.body = body;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.user = user;
         this.theme = theme;
         for (UserQuestion userQuestion : userQuestions) userQuestion.setQuestion(this);
