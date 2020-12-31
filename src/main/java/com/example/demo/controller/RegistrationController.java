@@ -31,11 +31,6 @@ public class RegistrationController {
         return principal == null ? "registration/login" : "home";
     }
 
-
-    public String login(Principal principal) {
-        return principal == null ? "login" : "home";
-    }
-
     // get registration page
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
