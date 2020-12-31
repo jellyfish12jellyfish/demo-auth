@@ -11,6 +11,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "question")
@@ -49,15 +52,25 @@ public class Question {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private Set<UserQuestion> userQuestions;
+
 
     public Question() {
     }
 
-    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, User user, Theme theme) {
+    public Question(@NotBlank @Size(min = 10) String title,
+                    @NotBlank String body,
+                    Date createdAt, Date updatedAt,
+                    User user, Theme theme, UserQuestion... userQuestions) {
         this.title = title;
         this.body = body;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.user = user;
         this.theme = theme;
+        for (UserQuestion userQuestion : userQuestions) userQuestion.setQuestion(this);
+        this.userQuestions = Stream.of(userQuestions).collect(Collectors.toSet());
     }
 
     @PrePersist

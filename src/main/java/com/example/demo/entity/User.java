@@ -54,6 +54,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserQuestion> userQuestions = new HashSet<>();
+
     public Date getLastLoginAt() {
         return lastLoginAt;
     }
