@@ -19,8 +19,6 @@ public class QuestionService {
 
 
     public Question findById(Long id) {
-        questionRepository.setLastViewTime(id);
-
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }

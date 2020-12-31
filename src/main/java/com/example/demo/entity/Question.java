@@ -40,9 +40,6 @@ public class Question {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "last_view_at", columnDefinition = "timestamp default null")
-    private Date lastViewAt;
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
@@ -57,7 +54,7 @@ public class Question {
     public Question() {
     }
 
-    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, Date lastViewAt, User user, Theme theme) {
+    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, User user, Theme theme) {
         this.title = title;
         this.body = body;
         this.user = user;
@@ -120,14 +117,6 @@ public class Question {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Date getLastViewAt() {
-        return lastViewAt;
-    }
-
-    public void setLastViewAt(Date lastViewAt) {
-        this.lastViewAt = lastViewAt;
     }
 
     public Theme getTheme() {
