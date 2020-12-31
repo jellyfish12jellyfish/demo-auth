@@ -46,19 +46,21 @@ public class RegistrationController {
                           Model model) {
 
         if (bindingResult.hasErrors()) {
+            log.warn("> field has errors");
             return "registration/registration";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
+            log.warn("> passwords do not match");
             return "registration/registration";
         }
 
         if (!userService.registerUser(user)) {
+            log.warn("> username already exists");
             model.addAttribute("usernameError", "A user with the same name already exists");
             return "registration/registration";
         }
-
 
         log.info("> saving the user to the DB");
         userService.registerUser(user);
