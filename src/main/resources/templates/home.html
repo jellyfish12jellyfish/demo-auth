@@ -12,14 +12,10 @@
         <h1>Home page</h1>
         <div sec:authorize="!isAuthenticated()">
             <a id="login" href="/login" th:href="@{/login}">Log In</a>
-<<<<<<< HEAD
         </div>
 
         <div sec:authorize="isAuthenticated()">
             <h2>Recently viewed:</h2>
-
-=======
->>>>>>> b665e9792281cd80b302d13fc36d086f8d9e8b6d
         </div>
     </div>
 </div>
