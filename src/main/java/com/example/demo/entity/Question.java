@@ -4,7 +4,6 @@ package com.example.demo.entity;
  * Time: 9:10 AM
  * */
 
-import jdk.jfr.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
