@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="col-md-4">
+        <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
+
+        <form action="#" method="post" th:action="@{/registration}" id="registerForm">
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" aria-describedby="emailHelp"
+                       placeholder="Enter username" name="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password"
+                       name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Confirm password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Password"
+                       name="password">
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Create my account</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

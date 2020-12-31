@@ -99,6 +99,12 @@ public class Question {
         this.updatedAt = updatedAt;
     }
 
+    public Question(@NotBlank @Size(min = 10) String title, @NotBlank String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -130,6 +136,7 @@ public class Question {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     public Theme getTheme() {
         return theme;

@@ -12,8 +12,13 @@
                 </li>
                 <li class="nav-item">
                     <div sec:authorize="hasRole('ROLE_ADMIN')">
+<<<<<<< HEAD
                         <a class="nav-link" id="adminLink" href="/admin"
                            th:href="@{/admin}">Admin</a>
+=======
+                        <a class="nav-link" id="adminLink" href="/admin/user-list"
+                           th:href="@{/admin/user-list}">Admin</a>
+>>>>>>> b665e9792281cd80b302d13fc36d086f8d9e8b6d
                     </div>
                 </li>
             </ul>

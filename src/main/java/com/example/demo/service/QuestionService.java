@@ -22,5 +22,4 @@ public class QuestionService {
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }
-
 }
