@@ -47,10 +47,17 @@ public class RegistrationControllerTests {
 
     @Test
     public void testLoginAndRegister_HappyPath() throws Exception {
+
+        String username = "newUser";
+        String password = "12345678";
+
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doRegistration("newUser", "12");
+
+        doRegistration(username, password);
+        assertEquals(loginPageUrl(), browser.getCurrentUrl());
+        doLogin(username, password);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
