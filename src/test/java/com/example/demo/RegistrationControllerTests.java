@@ -81,15 +81,17 @@ public class RegistrationControllerTests {
         assertEquals(errorMessage, "A user with the same name already exists");
     }
 
+    // todo check
     @Test
     public void testLogin_HappyPath() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("admin", "12");
+        doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
+    // todo check
     @Test
     public void testLoginPage_Invalid() throws Exception {
         browser.get(homePageUrl());
@@ -102,6 +104,7 @@ public class RegistrationControllerTests {
         assertEquals(errorMessage, "Invalid username or password");
     }
 
+    // todo check
     @Test
     public void testLoginAndLogut() throws Exception {
         browser.get(homePageUrl());
@@ -114,6 +117,7 @@ public class RegistrationControllerTests {
     }
 
 
+    // todo check
     @Test
     public void testDoAdminLogin() throws Exception {
         successAdminLogin();
