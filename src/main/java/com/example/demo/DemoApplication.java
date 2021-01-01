@@ -18,7 +18,7 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    // instead of data.sql script
+    // instead of using the data.sql script
     @Bean
     InitializingBean addRoles() {
         return () -> {
