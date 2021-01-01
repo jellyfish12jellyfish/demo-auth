@@ -29,6 +29,9 @@ public class RegistrationControllerTests {
 
     private static HtmlUnitDriver browser;
 
+    private static final String USERNAME = "john";
+    private static final String PASSWORD = "12345678";
+
     @LocalServerPort
     private int port;
 
@@ -50,16 +53,13 @@ public class RegistrationControllerTests {
     @Test
     public void testLoginAndRegister_HappyPath() throws Exception {
 
-        String username = "newUser";
-        String password = "12345678";
-
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
 
-        doRegistration(username, password);
+        doRegistration(USERNAME, PASSWORD);
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
-        doLogin(username, password);
+        doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
@@ -68,7 +68,13 @@ public class RegistrationControllerTests {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doRegistration("admin", "12");
+
+        /* т.к. данные БД очищаются каждый раз: */
+        // 1) сразу регистрирую нового юзера;
+        doRegistration(USERNAME, "some_secret_password");
+        // 2) пытаюсь зарегистрировать тот же username
+        doRegistration(USERNAME, "same_username_another_password");
+
         assertEquals(registrationPageUrl(), browser.getCurrentUrl());
 
         String errorMessage = browser.findElementById("usernameError").getText();
