@@ -8,6 +8,7 @@ import com.example.demo.entity.User;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,6 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -44,9 +44,12 @@ public class RegistrationControllerTests {
 
     @Autowired
     private RoleService roleService;
+<<<<<<< HEAD
 
     @Autowired
     TestRestTemplate rest;
+=======
+>>>>>>> dev
 
     @BeforeClass
     public static void setup() {
@@ -60,6 +63,14 @@ public class RegistrationControllerTests {
         browser.quit();
     }
 
+    @Before
+    public void registerUser() {
+        User user = new User();
+        user.setUsername(USERNAME);
+        user.setPassword(PASSWORD);
+        userService.registerUser(user);
+    }
+
     @Test
     public void testLoginAndRegister_HappyPath() throws Exception {
 
@@ -67,7 +78,11 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
+<<<<<<< HEAD
         doRegistration(USERNAME, PASSWORD);
+=======
+//        doRegistration(USERNAME, PASSWORD);
+>>>>>>> dev
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
         doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
@@ -79,12 +94,16 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
+<<<<<<< HEAD
         /* т.к. данные БД очищаются каждый раз: */
         // 1) сразу регистрирую нового юзера;
         doRegistration(USERNAME, PASSWORD);
         // 2) пытаюсь зарегистрировать тот же username
         doRegistration(USERNAME, "same_username_another_password");
 
+=======
+        doRegistration(USERNAME, "same_username_another_password");
+>>>>>>> dev
         assertEquals(registrationPageUrl(), browser.getCurrentUrl());
 
         String errorMessage = browser.findElementById("usernameError").getText();
@@ -96,8 +115,11 @@ public class RegistrationControllerTests {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
+<<<<<<< HEAD
         // т.к. данные БД очищаются каждый раз, регистрирую нового юзера
         doRegistration(USERNAME, PASSWORD);
+=======
+>>>>>>> dev
         doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
@@ -120,7 +142,10 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
+<<<<<<< HEAD
         doRegistration(USERNAME, PASSWORD);
+=======
+>>>>>>> dev
         doLogin(USERNAME, PASSWORD);
 
         assertEquals(homePageUrl(), browser.getCurrentUrl());
@@ -138,7 +163,10 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
+<<<<<<< HEAD
         doRegistration(USERNAME, PASSWORD);
+=======
+>>>>>>> dev
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
 
         User test_user = userService.findByUsername(USERNAME);
@@ -192,7 +220,6 @@ public class RegistrationControllerTests {
         browser.findElementByCssSelector("a[id='login']").click();
     }
 
-
     /* URL helper methods */
     private String homePageUrl() {
         return "http://localhost:" + port + "/";
@@ -209,5 +236,8 @@ public class RegistrationControllerTests {
     private String adminPageUrl() {
         return homePageUrl() + "admin";
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 }
