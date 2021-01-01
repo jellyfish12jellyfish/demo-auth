@@ -4,6 +4,9 @@ package com.example.demo;
  * Time: 9:29 PM
  * */
 
+import com.example.demo.entity.User;
+import com.example.demo.service.RoleService;
+import com.example.demo.service.UserService;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -34,6 +38,12 @@ public class RegistrationControllerTests {
 
     @LocalServerPort
     private int port;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     TestRestTemplate rest;
@@ -71,7 +81,7 @@ public class RegistrationControllerTests {
 
         /* т.к. данные БД очищаются каждый раз: */
         // 1) сразу регистрирую нового юзера;
-        doRegistration(USERNAME, "some_secret_password");
+        doRegistration(USERNAME, PASSWORD);
         // 2) пытаюсь зарегистрировать тот же username
         doRegistration(USERNAME, "same_username_another_password");
 
@@ -81,17 +91,17 @@ public class RegistrationControllerTests {
         assertEquals(errorMessage, "A user with the same name already exists");
     }
 
-    // todo check
     @Test
     public void testLogin_HappyPath() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
+        // т.к. данные БД очищаются каждый раз, регистрирую нового юзера
+        doRegistration(USERNAME, PASSWORD);
         doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
-    // todo check
     @Test
     public void testLoginPage_Invalid() throws Exception {
         browser.get(homePageUrl());
@@ -104,44 +114,50 @@ public class RegistrationControllerTests {
         assertEquals(errorMessage, "Invalid username or password");
     }
 
-    // todo check
     @Test
     public void testLoginAndLogut() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("user", "12");
+
+        doRegistration(USERNAME, PASSWORD);
+        doLogin(USERNAME, PASSWORD);
+
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("form#logoutForm").submit();
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
 
-    // todo check
     @Test
     public void testDoAdminLogin() throws Exception {
-        successAdminLogin();
-    }
 
-    private void successAdminLogin() {
         browser.get(homePageUrl());
         assertEquals(homePageUrl(), browser.getCurrentUrl());
+
         clickLoginLink();
         assertLandedOnLoginPage();
-        doLogin("admin", "12");
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
-        clickAdminLink();
+
+        doRegistration(USERNAME, PASSWORD);
+        assertEquals(loginPageUrl(), browser.getCurrentUrl());
+
+        User test_user = userService.findByUsername(USERNAME);
+        test_user.getRoles().clear();
+        test_user.getRoles().add(roleService.findByName("ROLE_USER"));
+        test_user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
+        userService.save(test_user);
+
+        doLogin(USERNAME, PASSWORD);
+
+        browser.get(adminPageUrl());
         assertLandedOnAdminPage();
-        assertEquals("Admin page", browser.findElementByTagName("h1").getText());
+
+        assertTrue(browser.findElementById("adminPage").getText().contains("Admin"));
     }
 
-    private void clickAdminLink() {
-        browser.findElementByCssSelector("a#adminLink").click();
-        assertLandedOnAdminPage();
-    }
 
     private void assertLandedOnAdminPage() {
-        assertEquals(adminUserListPageUrl(), browser.getCurrentUrl());
+        assertEquals(adminPageUrl(), browser.getCurrentUrl());
     }
 
 
@@ -192,10 +208,6 @@ public class RegistrationControllerTests {
 
     private String adminPageUrl() {
         return homePageUrl() + "admin";
-    }
-
-    private String adminUserListPageUrl() {
-        return adminPageUrl() + "/user-list";
     }
 
 }

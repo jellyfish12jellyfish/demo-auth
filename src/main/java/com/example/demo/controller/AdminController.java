@@ -33,6 +33,7 @@ public class AdminController {
     @GetMapping
     public String getAdminPage(Model model) {
         model.addAttribute("recentUsers", userService.recentUsers());
+        log.debug("> get admin page");
         return "admin/admin";
     }
 
@@ -43,7 +44,7 @@ public class AdminController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        log.info("return 'user-list' page");
+        log.debug("> get 'user-list' page");
         return "admin/user-list";
     }
 
