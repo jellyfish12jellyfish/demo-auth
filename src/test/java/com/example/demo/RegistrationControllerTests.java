@@ -44,12 +44,6 @@ public class RegistrationControllerTests {
 
     @Autowired
     private RoleService roleService;
-<<<<<<< HEAD
-
-    @Autowired
-    TestRestTemplate rest;
-=======
->>>>>>> dev
 
     @BeforeClass
     public static void setup() {
@@ -78,11 +72,6 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
-<<<<<<< HEAD
-        doRegistration(USERNAME, PASSWORD);
-=======
-//        doRegistration(USERNAME, PASSWORD);
->>>>>>> dev
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
         doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
@@ -94,16 +83,7 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
-<<<<<<< HEAD
-        /* т.к. данные БД очищаются каждый раз: */
-        // 1) сразу регистрирую нового юзера;
-        doRegistration(USERNAME, PASSWORD);
-        // 2) пытаюсь зарегистрировать тот же username
         doRegistration(USERNAME, "same_username_another_password");
-
-=======
-        doRegistration(USERNAME, "same_username_another_password");
->>>>>>> dev
         assertEquals(registrationPageUrl(), browser.getCurrentUrl());
 
         String errorMessage = browser.findElementById("usernameError").getText();
@@ -115,11 +95,7 @@ public class RegistrationControllerTests {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();
-<<<<<<< HEAD
-        // т.к. данные БД очищаются каждый раз, регистрирую нового юзера
-        doRegistration(USERNAME, PASSWORD);
-=======
->>>>>>> dev
+
         doLogin(USERNAME, PASSWORD);
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
@@ -142,10 +118,6 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
-<<<<<<< HEAD
-        doRegistration(USERNAME, PASSWORD);
-=======
->>>>>>> dev
         doLogin(USERNAME, PASSWORD);
 
         assertEquals(homePageUrl(), browser.getCurrentUrl());
@@ -163,10 +135,6 @@ public class RegistrationControllerTests {
         clickLoginLink();
         assertLandedOnLoginPage();
 
-<<<<<<< HEAD
-        doRegistration(USERNAME, PASSWORD);
-=======
->>>>>>> dev
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
 
         User test_user = userService.findByUsername(USERNAME);
@@ -236,8 +204,4 @@ public class RegistrationControllerTests {
     private String adminPageUrl() {
         return homePageUrl() + "admin";
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 }
