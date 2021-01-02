@@ -21,7 +21,7 @@ public class DemoApplication {
 
     // instead of using the data.sql script
     @Bean
-    InitializingBean addRoles() {
+    InitializingBean createRolesIfDoNotExist() {
         return () -> {
             Role role_user = roleRepository.findByName("ROLE_USER");
             Role role_admin = roleRepository.findByName("ROLE_ADMIN");
@@ -36,7 +36,7 @@ public class DemoApplication {
 
     @Bean
     @Profile("test")
-    InitializingBean addRolesAndAdmin() {
+    InitializingBean createRoles() {
         return () -> {
             roleRepository.save(new Role(1L, "ROLE_USER"));
             roleRepository.save(new Role(2L, "ROLE_ADMIN"));
