@@ -4,6 +4,7 @@ package com.example.demo.controller;
  * Time: 8:19 PM
  * */
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -41,7 +43,7 @@ public class RegistrationController {
 
     // do registration
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("user") @Valid User user,
+    public String addUser(@Valid @ModelAttribute("user") User user,
                           BindingResult bindingResult,
                           Model model) {
 
@@ -56,15 +58,14 @@ public class RegistrationController {
             return "registration/registration";
         }
 
-        if (!userService.registerUser(user)) {
+        if (userService.findByUsername(user.getUsername()) != null) {
             log.warn("> username already exists");
             model.addAttribute("usernameError", "A user with the same name already exists");
             return "registration/registration";
         }
 
-        log.info("> saving the user to the DB");
-        userService.registerUser(user);
-        log.info("> redirect to 'home' page");
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        userService.save(user);
 
         return "redirect:/login";
     }
