@@ -7,6 +7,20 @@
 <body>
 <div layout:fragment="content">
     <h1>Profile page</h1>
+
+    <div>
+        <form action="#" method="post" th:action="@{/save}" th:object="${user}">
+
+            <input type="hidden" th:field="*{id}">
+
+            <input type="text" th:field="*{username}">
+
+            <input type="password" th:field="*{password}">
+
+            <button type="submit">Save</button>
+
+        </form>
+    </div>
 </div>
 </body>
 </html>
