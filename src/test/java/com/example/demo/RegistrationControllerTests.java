@@ -4,6 +4,7 @@ package com.example.demo;
  * Time: 9:29 PM
  * */
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
@@ -20,6 +21,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,7 +64,8 @@ public class RegistrationControllerTests {
         User user = new User();
         user.setUsername(USERNAME);
         user.setPassword(PASSWORD);
-        userService.registerUser(user);
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        userService.save(user);
     }
 
     @Test
