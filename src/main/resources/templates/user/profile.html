@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/base}">
 <head>
+    <div th:replace="fragments/head.html :: head"></div>
     <title>Profile</title>
 </head>
 <body>
@@ -11,14 +12,26 @@
     <div>
         <form action="#" method="post" th:action="@{/save}" th:object="${user}">
 
+            <!-- to handle update -->
             <input type="hidden" th:field="*{id}">
 
-            <input type="text" th:field="*{username}">
 
-            <input type="password" th:field="*{password}">
+            <div>
+                <label>Username
+                    <input type="text" th:field="*{username}" class="form-control mb-4">
+                </label>
+            </div>
 
-            <button type="submit">Save</button>
 
+            <div>
+                <label>New password
+                    <input type="password" th:field="*{password}" class="form-control mb-4">
+                </label>
+            </div>
+
+            <div>
+                <button class="btn btn-info col-2" type="submit">Save</button>
+            </div>
         </form>
     </div>
 </div>
