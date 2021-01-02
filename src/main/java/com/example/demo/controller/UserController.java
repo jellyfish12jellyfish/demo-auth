@@ -5,15 +5,20 @@ package com.example.demo.controller;
  * */
 
 import com.example.demo.entity.User;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -23,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/questions")
     public String getQuestionsPage() {
@@ -42,23 +50,28 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String updateUser(@RequestParam("id") Long id,
-                             @RequestParam("username") String username,
-                             @RequestParam("password") String password,
-                             HttpSession session) {
+    public String updateUser(@Valid @ModelAttribute("user") User user,
+                             @RequestParam("id") Long id,
+                             BindingResult bindingResult,
+                             HttpSession session,
+                             Model model) {
 
-        log.debug(">>> id = " + id);
-        log.debug(">>> username = " + username);
-        log.debug(">>> password = " + password);
+        User userFromDB = userService.findById(id);
 
-        User candidate = userService.findById(id);
+        if (bindingResult.hasErrors()) {
+            return "user/profile";
+        }
 
-        candidate.setUsername(username);
-        candidate.setPassword(password);
+        if (!user.getUsername().equals(userFromDB.getUsername())
+                && userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("usernameError", "A user with the same name already exists");
+            return "user/profile";
+        }
+        user.setRoles(userFromDB.getRoles());
+        user.setCreatedAt(userFromDB.getCreatedAt());
+        userService.save(user);
 
-        userService.save(candidate);
-
-        // destroy the user session
+        // destroy the session
         session.invalidate();
 
         return "redirect:/login";
