@@ -72,7 +72,7 @@ public class AdminController {
             if (candidate) {
                 // true - назначены роли, обновляем данные
                 log.info("> updating the user");
-                userService.save(user);
+                userService.update(user);
             } else {
                 // false - все роли сняты, удаляем пользователя
                 log.info("> deleting the user by id: " + id);
