@@ -52,18 +52,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Did not fine uesr id: " + id));
     }
 
-    public boolean registerUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
-        }
-
-        user.setRoles(Collections.singleton(new Role(1L, USER)));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
-    }
 
     public void deleteById(Long id) {
         userRepository.deleteById(id);
