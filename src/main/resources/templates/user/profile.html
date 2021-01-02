@@ -15,18 +15,15 @@
             <!-- to handle update -->
             <input type="hidden" th:field="*{id}">
 
-
             <div>
-                <label>Username
-                    <input type="text" th:field="*{username}" class="form-control mb-4">
-                </label>
+                <label for="username">Username</label>
+                <input type="text" id="username" th:field="*{username}" class="form-control mb-4 col-4">
             </div>
 
 
             <div>
-                <label>New password
-                    <input type="password" th:field="*{password}" class="form-control mb-4">
-                </label>
+                <label for="password">New password</label>
+                <input id="password" type="password" th:field="*{password}" class="form-control mb-4 col-4">
             </div>
 
             <div>
