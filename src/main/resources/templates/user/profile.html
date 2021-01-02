@@ -15,15 +15,20 @@
             <!-- to handle update -->
             <input type="hidden" th:field="*{id}">
 
+            <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
             <div>
                 <label for="username">Username</label>
+                <div class="c-error" th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}">Username error</div>
                 <input type="text" id="username" th:field="*{username}" class="form-control mb-4 col-4">
             </div>
 
-
             <div>
                 <label for="password">New password</label>
-                <input id="password" type="password" th:field="*{password}" class="form-control mb-4 col-4">
+                <div class="c-error" th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}">Password error</div>
+                <input id="password" name="password" type="password" th:field="*{password}"
+                       class="form-control mb-4 col-4">
             </div>
 
             <div>
