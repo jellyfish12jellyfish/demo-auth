@@ -29,10 +29,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public abstract class HelperClass {
+public abstract class TestClass {
 
     static HtmlUnitDriver browser;
 
+    static final String USERNAME = "john";
+    static final String PASSWORD = "12345678";
+
+    @LocalServerPort
+    protected int port;
 
     @Autowired
     UserService userService;
@@ -52,6 +57,7 @@ public abstract class HelperClass {
         browser.quit();
     }
 
+    // creates the specific user for each test case
     @Before
     public void registerUser() {
         User user = new User();
@@ -60,34 +66,6 @@ public abstract class HelperClass {
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userService.save(user);
     }
-
-
-    static final String USERNAME = "john";
-    static final String PASSWORD = "12345678";
-
-    @LocalServerPort
-    protected int port;
-
-    String homePageUrl() {
-        return "http://localhost:" + port + "/";
-    }
-
-    String loginPageUrl() {
-        return homePageUrl() + "login";
-    }
-
-    String registrationPageUrl() {
-        return homePageUrl() + "registration";
-    }
-
-    String profilePageUrl() {
-        return homePageUrl() + "profile";
-    }
-
-    String adminPageUrl() {
-        return homePageUrl() + "admin";
-    }
-
 
     void assertLandedOnAdminPage() {
         assertEquals(adminPageUrl(), browser.getCurrentUrl());
@@ -115,7 +93,6 @@ public abstract class HelperClass {
         browser.findElementByCssSelector("form#registerForm").submit();
     }
 
-
     void assertLandedOnLoginPage() {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
     }
@@ -123,5 +100,26 @@ public abstract class HelperClass {
     void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
+    }
+
+    // url helper methods
+    String homePageUrl() {
+        return "http://localhost:" + port + "/";
+    }
+
+    String loginPageUrl() {
+        return homePageUrl() + "login";
+    }
+
+    String registrationPageUrl() {
+        return homePageUrl() + "registration";
+    }
+
+    String profilePageUrl() {
+        return homePageUrl() + "profile";
+    }
+
+    String adminPageUrl() {
+        return homePageUrl() + "admin";
     }
 }

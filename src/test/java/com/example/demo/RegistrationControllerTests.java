@@ -4,13 +4,12 @@ package com.example.demo;
  * Time: 9:29 PM
  * */
 
-import com.example.demo.entity.User;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RegistrationControllerTests extends HelperClass {
+public class RegistrationControllerTests extends TestClass {
 
 
     @Test
