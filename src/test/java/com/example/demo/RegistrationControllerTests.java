@@ -73,31 +73,4 @@ public class RegistrationControllerTests extends HelperClass {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
-
-    @Test
-    public void testDoAdminLogin() throws Exception {
-
-        browser.get(homePageUrl());
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
-
-        clickLoginLink();
-        assertLandedOnLoginPage();
-
-        assertEquals(loginPageUrl(), browser.getCurrentUrl());
-
-        User test_user = userService.findByUsername(USERNAME);
-        test_user.getRoles().clear();
-        test_user.getRoles().add(roleService.findByName("ROLE_USER"));
-        test_user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
-        userService.save(test_user);
-
-        doLogin(USERNAME, PASSWORD);
-
-        browser.get(adminPageUrl());
-        assertLandedOnAdminPage();
-
-        assertTrue(browser.findElementById("adminPage").getText().contains("Admin"));
-    }
-
-
 }
