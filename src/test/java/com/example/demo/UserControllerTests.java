@@ -13,18 +13,31 @@ public class UserControllerTests extends TestClass {
 
     @Test
     public void testUpdateProfile_happyPath() {
+        // get home page
         browser.get(homePageUrl());
-        assertLandedOnHomePageUrl();
+        assertLandedOnHomePage();
+
+        // get login page
         browser.get(loginPageUrl());
+        assertLandedOnLoginPage();
+
+        doLogin(USERNAME, PASSWORD);
+        assertLandedOnHomePage();
+
+        // get profile page
+        clickProfileLink();
+        assertLandedOnProfilePage();
+
+        // update username
+        updateProfile("Jane", PASSWORD, PASSWORD);
+
+        assertLandedOnLoginPage();
+
+        doLogin("Jane", PASSWORD);
+        assertLandedOnHomePage();
+
+        // get username from navbar
+        String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
+        assertEquals(usernameFromNavbar, "Jane");
     }
-
-    private void assertLandedOnHomePageUrl() {
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
-    }
-
-    private void assertLandedOnProfilePageUrl() {
-        assertEquals(profilePageUrl(), browser.getCurrentUrl());
-    }
-
-
 }
