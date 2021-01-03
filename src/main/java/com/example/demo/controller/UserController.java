@@ -71,6 +71,7 @@ public class UserController {
             model.addAttribute("usernameError", "A user with the same name already exists");
             return "user/profile";
         }
+
         user.setRoles(userFromDB.getRoles());
         user.setCreatedAt(userFromDB.getCreatedAt());
         userService.save(user);
