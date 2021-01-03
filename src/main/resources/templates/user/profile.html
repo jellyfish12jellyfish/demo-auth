@@ -5,6 +5,7 @@
     <div th:replace="fragments/head.html :: head"></div>
     <title>Profile</title>
 </head>
+
 <body>
 <div layout:fragment="content">
     <h1>Profile page</h1>
@@ -24,6 +25,7 @@
                 <div class="c-error" th:if="${#fields.hasErrors('username')}"
                      th:errors="*{username}">Username error
                 </div>
+
                 <input type="text" id="username" th:field="*{username}" class="form-control mb-4 col-4">
             </div>
 
