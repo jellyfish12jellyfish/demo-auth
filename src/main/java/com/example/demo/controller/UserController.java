@@ -62,6 +62,11 @@ public class UserController {
             return "user/profile";
         }
 
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("passwordError", "Passwords do not match");
+            return "user/profile";
+        }
+
         if (!user.getUsername().equals(userFromDB.getUsername())
                 && userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "A user with the same name already exists");
