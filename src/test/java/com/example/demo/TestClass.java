@@ -97,6 +97,14 @@ public abstract class TestClass {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
     }
 
+    void assertLandedOnHomePageUrl() {
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+    }
+
+    void assertLandedOnProfilePageUrl() {
+        assertEquals(profilePageUrl(), browser.getCurrentUrl());
+    }
+
     void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
