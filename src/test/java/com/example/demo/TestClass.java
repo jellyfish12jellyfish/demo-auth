@@ -74,6 +74,7 @@ public abstract class TestClass {
 
     void doLogin(String username, String password) {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
+
         browser.findElementByName("username").sendKeys(username);
         browser.findElementByName("password").sendKeys(password);
 
@@ -93,21 +94,42 @@ public abstract class TestClass {
         browser.findElementByCssSelector("form#registerForm").submit();
     }
 
+    void updateProfile(String username, String password, String confirmPassword) {
+        assertLandedOnProfilePage();
+
+        // clear fields
+        browser.findElementByName("username").clear();
+        browser.findElementByName("password").clear();
+        browser.findElementByName("confirmPassword").clear();
+
+        // set new values
+        browser.findElementByName("username").sendKeys(username);
+        browser.findElementByName("password").sendKeys(password);
+        browser.findElementByName("confirmPassword").sendKeys(confirmPassword);
+
+        browser.findElementByCssSelector("form#updateForm").submit();
+    }
+
     void assertLandedOnLoginPage() {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
     }
 
-    void assertLandedOnHomePageUrl() {
+    void assertLandedOnHomePage() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
-    void assertLandedOnProfilePageUrl() {
+    void assertLandedOnProfilePage() {
         assertEquals(profilePageUrl(), browser.getCurrentUrl());
     }
 
     void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
+    }
+
+    void clickProfileLink() {
+        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        browser.findElementByCssSelector("a[id=profileLink]").click();
     }
 
     // url helper methods
