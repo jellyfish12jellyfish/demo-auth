@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
     @NotBlank
     @Size(min = 3, max = 20)
     @Column(name = "username")
+    @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
     private String username;
 
     @NotBlank
