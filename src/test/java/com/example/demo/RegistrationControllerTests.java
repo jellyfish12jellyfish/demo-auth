@@ -31,15 +31,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class RegistrationControllerTests {
+public class RegistrationControllerTests extends HelperClass{
 
     private static HtmlUnitDriver browser;
 
-    private static final String USERNAME = "john";
-    private static final String PASSWORD = "12345678";
-
-    @LocalServerPort
-    private int port;
+//    private static final String USERNAME = "john";
+//    private static final String PASSWORD = "12345678";
+//
+//    @LocalServerPort
+//    private int port;
 
     @Autowired
     private UserService userService;
@@ -191,20 +191,4 @@ public class RegistrationControllerTests {
         browser.findElementByCssSelector("a[id='login']").click();
     }
 
-    /* URL helper methods */
-    private String homePageUrl() {
-        return "http://localhost:" + port + "/";
-    }
-
-    private String loginPageUrl() {
-        return homePageUrl() + "login";
-    }
-
-    private String registrationPageUrl() {
-        return homePageUrl() + "registration";
-    }
-
-    private String adminPageUrl() {
-        return homePageUrl() + "admin";
-    }
 }
