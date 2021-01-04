@@ -7,10 +7,8 @@ package com.example.demo;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegistrationControllerTests extends TestClass {
-
 
     @Test
     public void testLoginAndRegister_HappyPath() throws Exception {
