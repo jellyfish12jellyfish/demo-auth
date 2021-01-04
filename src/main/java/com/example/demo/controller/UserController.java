@@ -59,7 +59,7 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             log.warn("> field has errors");
-            return "registration/registration";
+            return "user/profile";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
