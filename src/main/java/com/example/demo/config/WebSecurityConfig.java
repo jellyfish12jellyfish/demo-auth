@@ -4,7 +4,8 @@ package com.example.demo.config;
  * Time: 5:55 PM
  * */
 
-import com.example.demo.service.UserService;
+import com.example.demo.service.CustomUserDetailsService;
+import com.example.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final CustomUserDetailsService userDetailsService;
+
     @Autowired
-    private UserService userService;
+    public WebSecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -44,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userService)
+        auth.userDetailsService(userDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
 }

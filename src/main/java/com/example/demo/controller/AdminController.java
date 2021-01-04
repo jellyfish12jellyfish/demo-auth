@@ -23,11 +23,15 @@ public class AdminController {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AdminController.class);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     // get admin page
     @GetMapping
