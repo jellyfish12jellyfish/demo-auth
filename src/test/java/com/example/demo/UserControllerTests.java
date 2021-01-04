@@ -22,7 +22,6 @@ public class UserControllerTests extends TestClass {
 
         assertLandedOnLoginPage();
 
-
         doLogin("Jane", PASSWORD);
         assertLandedOnHomePage();
 
