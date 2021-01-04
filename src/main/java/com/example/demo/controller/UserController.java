@@ -50,15 +50,16 @@ public class UserController {
 
     @PostMapping("/save")
     public String updateUser(@Valid @ModelAttribute("user") User user,
-                             @RequestParam("id") Long id,
                              BindingResult bindingResult,
+                             Model model,
                              HttpSession session,
-                             Model model) {
+                             @RequestParam("id") Long id) {
 
         User userFromDB = userService.findById(id);
 
         if (bindingResult.hasErrors()) {
-            return "user/profile";
+            log.warn("> field has errors");
+            return "registration/registration";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
