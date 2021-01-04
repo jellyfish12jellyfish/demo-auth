@@ -31,12 +31,4 @@ public class ViewControllersTests {
                 .andExpect(view().name("home"))
                 .andExpect(content().string(containsString("Home page")));
     }
-
-    @Test
-    public void shouldReturnLoginPage() throws Exception {
-        mockMvc.perform(get("/login"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("registration/login"))
-                .andExpect(content().string(containsString("Login page")));
-    }
 }
