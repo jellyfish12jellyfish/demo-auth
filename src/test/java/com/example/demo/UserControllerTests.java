@@ -12,7 +12,24 @@ public class UserControllerTests extends TestClass {
 
 
     @Test
-    public void testUpdateProfile_happyPath() {
+    public void testUpdateUsername_happyPath() throws Exception {
+        getProfilePage();
+
+        // update username
+        updateProfile("Jane", PASSWORD, PASSWORD);
+
+        assertLandedOnLoginPage();
+
+        doLogin("Jane", PASSWORD);
+        assertLandedOnHomePage();
+
+        // get username from navbar
+        String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
+        assertEquals(usernameFromNavbar, "Jane");
+    }
+
+
+    public void getProfilePage() {
         // get home page
         browser.get(homePageUrl());
         assertLandedOnHomePage();
@@ -27,17 +44,5 @@ public class UserControllerTests extends TestClass {
         // get profile page
         clickProfileLink();
         assertLandedOnProfilePage();
-
-        // update username
-        updateProfile("Jane", PASSWORD, PASSWORD);
-
-        assertLandedOnLoginPage();
-
-        doLogin("Jane", PASSWORD);
-        assertLandedOnHomePage();
-
-        // get username from navbar
-        String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
-        assertEquals(usernameFromNavbar, "Jane");
     }
 }
