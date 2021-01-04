@@ -4,6 +4,7 @@ package com.example.demo;
  * Time: 8:03 AM
  * */
 
+import com.example.demo.entity.User;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +28,10 @@ public class UserControllerTests extends TestClass {
         // get username from navbar
         String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
         assertEquals(usernameFromNavbar, "Jane");
+
+        // get user from DB
+        User jane = userService.findByUsername("Jane");
+        assertEquals(jane.getUsername(), "Jane");
     }
 
     @Test
