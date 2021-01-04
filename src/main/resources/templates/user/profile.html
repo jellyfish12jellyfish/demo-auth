@@ -22,7 +22,7 @@
             <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
             <div>
                 <label for="username">Username</label>
-                <div class="c-error" th:if="${#fields.hasErrors('username')}"
+                <div id="c-error_username" class="c-error" th:if="${#fields.hasErrors('username')}"
                      th:errors="*{username}">Username error
                 </div>
 
