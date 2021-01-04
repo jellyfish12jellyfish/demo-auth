@@ -7,9 +7,6 @@ package com.example.demo.service;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +14,22 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, UserService {
+public class UserServiceImpl implements UserService {
 
     // создаю константы для ролей
     private static final String ADMIN = "ROLE_ADMIN";
     private static final String USER = "ROLE_USER";
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        User userFromDB = userRepository.findByUsername(username);
-
-        if (userFromDB == null) // если пользователь не зарегистрирован, то выбросить исключение
-            throw new UsernameNotFoundException("User '" + username + "' not found");
-
-        userRepository.setLastLoginTime(username);
-        return userFromDB;
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
 
     @Override
     public List<User> findAll() {
