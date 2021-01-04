@@ -30,8 +30,9 @@ public class UserControllerTests extends TestClass {
         assertEquals(usernameFromNavbar, "Jane");
 
         // get user from DB
-        User jane = userService.findByUsername("Jane");
-        assertEquals(jane.getUsername(), "Jane");
+        User updatedUser = userService.findById(1L);
+        assertEquals(updatedUser.getUsername(), "Jane");
+
     }
 
     @Test
