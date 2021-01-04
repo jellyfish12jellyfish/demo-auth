@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 20, message = "Username must have between 3 and 20 characters")
     @Column(name = "username")
     @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
     private String username;
