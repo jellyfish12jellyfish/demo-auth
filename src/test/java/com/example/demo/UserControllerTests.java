@@ -7,12 +7,13 @@ package com.example.demo;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserControllerTests extends TestClass {
 
 
     @Test
-    public void testUpdateUsername_happyPath() throws Exception {
+    public void testUpdateUsername_HappyPath() throws Exception {
         getProfilePage();
 
         // update username
@@ -27,6 +28,22 @@ public class UserControllerTests extends TestClass {
         String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
         assertEquals(usernameFromNavbar, "Jane");
     }
+
+    @Test
+    public void testUpdateUsername_Invalid() throws Exception {
+        getProfilePage();
+
+        // update username
+        updateProfile("us", PASSWORD, PASSWORD);
+
+        String errorMessage = browser.findElementById("c-error_username").getText();
+        assertTrue(errorMessage.contains("Username must have between 3 and 20 characters"));
+    }
+
+    // todo testUpdatePassword_HappyPath
+    // todo testUpdatePassword_Invalid
+    // todo testUpdateProfile_HappyPath
+    // todo testUpdateProfile_Invalid
 
 
     public void getProfilePage() {
