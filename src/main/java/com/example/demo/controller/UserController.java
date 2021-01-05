@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/questions")
     public String getQuestionsPage() {
 
-        log.info("> return 'quizzes' page");
+        log.info(">>> GET questions.html");
         return "user/questions";
     }
 
@@ -43,8 +43,8 @@ public class UserController {
 
         // get user from the service
         model.addAttribute("user", userService.findByUsername(principal.getName()));
-        log.info("> return 'profile' page");
 
+        log.info(">>> GET profile.html");
         return "user/profile";
     }
 
@@ -58,18 +58,21 @@ public class UserController {
         User userFromDB = userService.findById(id);
 
         if (bindingResult.hasErrors()) {
-            log.warn("> field has errors");
+            log.warn(">>> WARN: field has errors");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
         if (!user.getUsername().equals(userFromDB.getUsername())
                 && userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "A user with the same name already exists");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
@@ -80,6 +83,7 @@ public class UserController {
         // destroy the session
         session.invalidate();
 
+        log.info(">>> GET:redirect login.html");
         return "redirect:/login";
     }
 }
