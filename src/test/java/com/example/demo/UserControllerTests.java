@@ -59,8 +59,21 @@ public class UserControllerTests extends TestClass {
         assertLandedOnHomePage();
     }
 
+    // todo testUpdatePassword_InvalidLength
+    @Test
+    public void testUpdatePassword_InvalidLength() throws Exception {
+        getProfilePage();
 
-    // todo testUpdatePassword_Invalid
+        // update password
+        updateProfile(USERNAME, "1", "1");
+
+        // get error message
+        String errorMessage = browser.findElementById("c-error_password").getText();
+        assertTrue(errorMessage.contains("At least 8 characters"));
+    }
+
+
+    // todo testUpdatePassword_InvalidConfirmation
     // todo testUpdateProfile_HappyPath
     // todo testUpdateProfile_Invalid
 

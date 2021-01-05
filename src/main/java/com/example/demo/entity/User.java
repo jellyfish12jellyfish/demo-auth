@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String username;
 
     @NotBlank
-    @Size(min = 8, message = "at least 8 characters")
+    @Size(min = 8, message = "At least 8 characters")
     @Column(name = "password")
     private String password;
 

@@ -31,7 +31,7 @@
 
             <div>
                 <label for="password">New password</label>
-                <div class="c-error" th:if="${#fields.hasErrors('password')}"
+                <div id="c-error_password" class="c-error" th:if="${#fields.hasErrors('password')}"
                      th:errors="*{password}">Password error
                 </div>
                 <input id="password" name="password" type="password" th:field="*{password}"
