@@ -37,7 +37,7 @@ public class AdminController {
     @GetMapping
     public String getAdminPage(Model model) {
         model.addAttribute("recentUsers", userService.recentUsers());
-        log.debug("> get admin page");
+        log.debug(">>> GET admin.html");
         return "admin/admin";
     }
 
@@ -48,7 +48,7 @@ public class AdminController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        log.debug("> get 'user-list' page");
+        log.debug(">>> GET user-list.html");
         return "admin/user-list";
     }
 
@@ -56,10 +56,10 @@ public class AdminController {
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long userId) {
 
-        log.info("> deleting the user by id: " + userId);
+        log.debug(">>> DELETE user by id: {}", userId);
         userService.deleteById(userId);
 
-        log.info("> redirect to 'user-list' page");
+        log.info(">>> GET:redirect user-list.html");
         return "redirect:/admin/user-list";
     }
 
@@ -74,13 +74,14 @@ public class AdminController {
         try {
             userService.setUserRoles(formRoles, user);
         } catch (Exception exception) {
-            log.error(">>> error: " + exception);
+            log.error(">>> ERROR: " + exception);
             model.addAttribute("error", "Something went wrong!");
-            log.debug("> return 'user-list' page");
+
+            log.debug(">>> GET user-list.html");
             return "admin/user-list";
         }
 
-        log.info("> redirect to 'user-list' page");
+        log.debug(">>> GET:redirect user-list.html");
         return "redirect:/admin/user-list";
     }
 
