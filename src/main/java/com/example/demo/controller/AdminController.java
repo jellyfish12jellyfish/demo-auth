@@ -59,7 +59,7 @@ public class AdminController {
         log.debug(">>> DELETE user by id: {}", userId);
         userService.deleteById(userId);
 
-        log.info(">>> GET:redirect user-list.html");
+        log.debug(">>> GET:redirect user-list.html");
         return "redirect:/admin/user-list";
     }
 
