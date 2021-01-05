@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' not found");
 
         userRepository.setLastLoginTime(username);
-        log.info(">>> UPDATE last login timestamp");
+        log.info(">>> update login at timestamp");
         return userFromDB;
     }
 }
