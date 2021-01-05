@@ -7,6 +7,8 @@ package com.example.demo.service.implementation;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.service.RoleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
+
+    private final Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
+
 
     // DI
     private final RoleRepository roleRepository;
@@ -25,11 +30,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAll() {
-        return roleRepository.findAll();
+        List<Role> roles = roleRepository.findAll();
+        log.info(">>> get all roles: {}", roles.size());
+        return roles;
     }
 
     @Override
     public Role findByName(String name) {
+        log.info(">>> get role by name: {}", name);
         return roleRepository.findByName(name);
     }
 }
