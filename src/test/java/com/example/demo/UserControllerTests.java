@@ -72,8 +72,20 @@ public class UserControllerTests extends TestClass {
         assertTrue(errorMessage.contains("At least 8 characters"));
     }
 
-
     // todo testUpdatePassword_InvalidConfirmation
+    @Test
+    public void testUpdatePassword_InvalidConfirmation() throws Exception {
+        getProfilePage();
+
+        // update password
+        updateProfile(USERNAME, "12345678", "87654321");
+
+        // get error message
+        String errorMessage = browser.findElementById("confirmPasswordError").getText();
+        assertTrue(errorMessage.contains("Passwords do not match"));
+    }
+
+
     // todo testUpdateProfile_HappyPath
     // todo testUpdateProfile_Invalid
 
