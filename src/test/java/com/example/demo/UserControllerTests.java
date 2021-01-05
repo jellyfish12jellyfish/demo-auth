@@ -59,7 +59,7 @@ public class UserControllerTests extends TestClass {
         assertLandedOnHomePage();
     }
 
-    // todo testUpdatePassword_InvalidLength
+
     @Test
     public void testUpdatePassword_InvalidLength() throws Exception {
         getProfilePage();
@@ -72,7 +72,6 @@ public class UserControllerTests extends TestClass {
         assertTrue(errorMessage.contains("At least 8 characters"));
     }
 
-    // todo testUpdatePassword_InvalidConfirmation
     @Test
     public void testUpdatePassword_InvalidConfirmation() throws Exception {
         getProfilePage();
@@ -85,9 +84,23 @@ public class UserControllerTests extends TestClass {
         assertTrue(errorMessage.contains("Passwords do not match"));
     }
 
+    @Test
+    public void testUpdateProfile_HappyPath() throws Exception {
+        getProfilePage();
 
-    // todo testUpdateProfile_HappyPath
-    // todo testUpdateProfile_Invalid
+        // update username and password
+        String newPassword = "mary12345678";
+        String newUsername = "Mary";
+        updateProfile(newUsername, newPassword, newPassword);
+
+        assertLandedOnLoginPage();
+        doLogin(newUsername, newPassword);
+        assertLandedOnHomePage();
+
+        // get username from navbar
+        String usernameFromNavbar = browser.findElementByCssSelector("a[id=profileLink]").getText();
+        assertEquals(newUsername, usernameFromNavbar);
+    }
 
 
     public void getProfilePage() {
