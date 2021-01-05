@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private final Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
 
 
     // DI

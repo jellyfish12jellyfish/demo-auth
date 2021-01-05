@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    private final Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
 
     // DI
     private final QuestionRepository questionRepository;
