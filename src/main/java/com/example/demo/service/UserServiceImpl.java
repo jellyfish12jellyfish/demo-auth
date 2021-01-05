@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         else if (roles.size() == 1 && roles.contains(USER))
             user.getRoles().add(roleService.findByName(USER));
 
-            // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
+        // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
         else if (roles.size() == 1 && roles.contains(ADMIN))
             user.getRoles().add(roleService.findByName(ADMIN));
 
