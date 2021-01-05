@@ -4,12 +4,15 @@ package com.example.demo.service;
  * Time: 6:28 PM
  * */
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -67,15 +70,15 @@ public class UserServiceImpl implements UserService {
 
         // если переданы 2 роли, мы назначаем их
         if (roles.size() == 2) {
-            user.getRoles().add(roleService.findByName(USER));
-            user.getRoles().add(roleService.findByName(ADMIN));
+            Set<Role> roleSet = new HashSet<>(roleService.findAll());
+            user.setRoles(roleSet);
         }
 
         // если только 1 роль и мн-во содержит ROLE_USER, назаначаем юзеру эту роль
         else if (roles.size() == 1 && roles.contains(USER))
             user.getRoles().add(roleService.findByName(USER));
 
-        // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
+            // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
         else if (roles.size() == 1 && roles.contains(ADMIN))
             user.getRoles().add(roleService.findByName(ADMIN));
 
