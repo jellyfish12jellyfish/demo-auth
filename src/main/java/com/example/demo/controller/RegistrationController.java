@@ -41,7 +41,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
-        log.info("> return 'registration' page");
+        log.info(">>> GET (registration:home).html");
         return principal == null ? "registration/registration" : "home";
     }
 
@@ -52,25 +52,30 @@ public class RegistrationController {
                           Model model) {
 
         if (bindingResult.hasErrors()) {
-            log.warn("> field has errors");
+            log.warn(">>> WARN: field has errors");
             return "registration/registration";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
-            log.warn("> passwords do not match");
+            log.warn(">>> WARN: passwords do not match");
+
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
         if (userService.findByUsername(user.getUsername()) != null) {
-            log.warn("> username already exists");
+            log.warn(">>> WARN: username already exists");
             model.addAttribute("usernameError", "A user with the same name already exists");
+
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userService.save(user);
 
+        log.info(">>> GET:redirect login.html");
         return "redirect:/login";
     }
 }
