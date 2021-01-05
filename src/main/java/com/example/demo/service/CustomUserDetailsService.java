@@ -4,6 +4,7 @@ package com.example.demo.service;
  * Time: 1:28 PM
  * */
 
+import com.example.demo.controller.AdminController;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private final org.slf4j.Logger log =
+            org.slf4j.LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     private final UserRepository userRepository;
 
@@ -31,6 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' not found");
 
         userRepository.setLastLoginTime(username);
+        log.info(">>> UPDATE last login timestamp");
         return userFromDB;
     }
 }
