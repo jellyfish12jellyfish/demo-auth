@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 /*
  * Date: 12/28/20
  * Time: 9:24 AM
@@ -6,6 +6,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Question;
 import com.example.demo.repository.QuestionRepository;
+import com.example.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,7 +5,6 @@ package com.example.demo.config;
  * */
 
 import com.example.demo.service.CustomUserDetailsService;
-import com.example.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
