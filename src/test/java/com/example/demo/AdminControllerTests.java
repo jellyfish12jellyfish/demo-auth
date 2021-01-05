@@ -4,13 +4,23 @@ package com.example.demo;
  * Time: 9:04 AM
  * */
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminControllerTests extends TestClass {
+
+    @Before
+    public void setAdminRole() {
+        User user = userService.findByUsername(USERNAME);
+        Role role_admin = roleService.findByName("ROLE_ADMIN");
+        user.getRoles().add(role_admin);
+        userService.update(user);
+    }
 
     @Test
     public void testDoAdminLogin() throws Exception {
@@ -22,14 +32,6 @@ public class AdminControllerTests extends TestClass {
         assertLandedOnLoginPage();
 
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
-
-        User test_user = userService.findByUsername(USERNAME);
-
-        test_user.getRoles().clear();
-        test_user.getRoles().add(roleService.findByName("ROLE_USER"));
-        test_user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
-
-        userService.update(test_user);
 
         doLogin(USERNAME, PASSWORD);
 
