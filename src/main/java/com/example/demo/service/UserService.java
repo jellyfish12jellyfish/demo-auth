@@ -18,9 +18,9 @@ public interface UserService {
 
     public void update(User user);
 
-    public boolean isCandidate(Set<String> roles, User user, RoleService roleService);
-
     public User findByUsername(String username);
 
     public List<UserRepository.NameAndLastLoginAt> recentUsers();
+
+    public void setUserRoles(Set<String> roles, User user);
 }

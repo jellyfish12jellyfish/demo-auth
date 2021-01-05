@@ -69,25 +69,14 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Model model) {
 
+        User user = userService.findById(id);
+
         try {
-            User user = userService.findById(id);
-            boolean candidate = userService.isCandidate(formRoles, user, roleService);
-
-            if (candidate) {
-                // true - назначены роли, обновляем данные
-                log.info("> updating the user");
-                userService.update(user);
-            } else {
-                // false - все роли сняты, удаляем пользователя
-                log.info("> deleting the user by id: " + id);
-                userService.deleteById(id);
-            }
-
+            userService.setUserRoles(formRoles, user);
         } catch (Exception exception) {
             log.error(">>> error: " + exception);
             model.addAttribute("error", "Something went wrong!");
-
-            log.info("> return 'user-list' page");
+            log.debug("> return 'user-list' page");
             return "admin/user-list";
         }
 
