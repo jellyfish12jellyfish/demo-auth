@@ -1,10 +1,9 @@
-package com.example.demo.service;
+package com.example.demo.security;
 /*
  * Date: 1/4/21
  * Time: 1:28 PM
  * */
 
-import com.example.demo.controller.AdminController;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
