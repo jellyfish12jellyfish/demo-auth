@@ -7,6 +7,8 @@ package com.example.demo.service.implementation;
 import com.example.demo.entity.Theme;
 import com.example.demo.repository.ThemeRepository;
 import com.example.demo.service.ThemeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class ThemeServiceImpl implements ThemeService {
+
+    private static final Logger log = LoggerFactory.getLogger(ThemeServiceImpl.class);
 
     private final ThemeRepository themeRepository;
 
@@ -24,7 +28,9 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     public List<Theme> getAllThemes() {
-        return themeRepository.findAll();
+        List<Theme> themes = themeRepository.findAll();
+        log.info(">>> get all themes: {}", themes.size());
+        return themes;
     }
 
 }
