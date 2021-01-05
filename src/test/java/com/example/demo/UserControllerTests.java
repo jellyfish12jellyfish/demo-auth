@@ -46,7 +46,20 @@ public class UserControllerTests extends TestClass {
         assertTrue(errorMessage.contains("Username must have between 3 and 20 characters"));
     }
 
-    // todo testUpdatePassword_HappyPath
+    @Test
+    public void testUpdatePassword_HappyPath() throws Exception {
+        getProfilePage();
+
+        // update password
+        updateProfile(USERNAME, "new_password", "new_password");
+
+        assertLandedOnLoginPage();
+
+        doLogin(USERNAME, "new_password");
+        assertLandedOnHomePage();
+    }
+
+
     // todo testUpdatePassword_Invalid
     // todo testUpdateProfile_HappyPath
     // todo testUpdateProfile_Invalid
