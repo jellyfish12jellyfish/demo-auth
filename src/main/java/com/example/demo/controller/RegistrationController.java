@@ -36,6 +36,7 @@ public class RegistrationController {
     // get login page
     @GetMapping("/login")
     public String getLoginPage(Principal principal) {
+        log.info(">>> GET login.html");
         return principal == null ? "registration/login" : "home";
     }
 
@@ -43,7 +44,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
-        log.info(">>> GET (registration:home).html");
+        log.info(">>> GET registration.html");
         return principal == null ? "registration/registration" : "home";
     }
 
@@ -55,6 +56,7 @@ public class RegistrationController {
 
         if (bindingResult.hasErrors()) {
             log.warn(">>> WARN: field has errors");
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
