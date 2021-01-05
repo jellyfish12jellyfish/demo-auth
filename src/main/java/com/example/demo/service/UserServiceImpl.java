@@ -22,11 +22,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final RoleService roleService;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -58,37 +61,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isCandidate(Set<String> roles, User user, RoleService roleService) {
+    public void setUserRoles(Set<String> roles, User user) {
 
-        /*
-         * user.getRoles.addRole(role)
-         * https://ru.stackoverflow.com/questions/959711/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%D1%8C-unsupportedoperationexception-null-%D0%B2-spring
-         * */
+        user.getRoles().clear();
 
-        // при получении пустого мн-ва возвращаем false
-        if (roles.isEmpty()) {
-            return false;
+        // если переданы 2 роли, мы назначаем их
+        if (roles.size() == 2) {
+            user.getRoles().add(roleService.findByName(USER));
+            user.getRoles().add(roleService.findByName(ADMIN));
 
-        } else {
-            // очищаем роли
-            user.getRoles().clear();
+            // если только 1 роль и мн-во содержит ROLE_USER, назаначаем юзеру эту роль
+        } else if (roles.size() == 1 && roles.contains(USER))
+            user.getRoles().add(roleService.findByName(USER));
 
-            // если переданы 2 роли, мы назначаем их
-            if (roles.size() == 2 && (roles.contains(USER) && roles.contains(ADMIN))) {
-                user.getRoles().add(roleService.findByName(USER));
-                user.getRoles().add(roleService.findByName(ADMIN));
+            // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
+        else if (roles.size() == 1 && roles.contains(ADMIN))
+            user.getRoles().add(roleService.findByName(ADMIN));
 
-                // если только 1 роль и мн-во содержит ROLE_USER, назаначаем юзеру эту роль
-            } else if (roles.size() == 1 && roles.contains(USER)) {
-                user.getRoles().add(roleService.findByName(USER));
-
-                // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
-            } else if (roles.size() == 1 && roles.contains(ADMIN)) {
-                user.getRoles().add(roleService.findByName(ADMIN));
-            }
-            // если роли назначены - вернуть true
-            return true;
-        }
+        userRepository.save(user);
     }
 
     @Override
