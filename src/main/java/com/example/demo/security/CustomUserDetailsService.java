@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.security;
 /*
  * Date: 1/4/21
  * Time: 1:28 PM
@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private final org.slf4j.Logger log =
+            org.slf4j.LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     private final UserRepository userRepository;
 
@@ -31,6 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' not found");
 
         userRepository.setLastLoginTime(username);
+        log.info(">>> update login at timestamp");
         return userFromDB;
     }
 }

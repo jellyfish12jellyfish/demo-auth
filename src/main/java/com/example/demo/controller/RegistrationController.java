@@ -7,6 +7,8 @@ package com.example.demo.controller;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,7 @@ import java.util.Collections;
 @Controller
 public class RegistrationController {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RegistrationController.class);
+    private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);
 
     private final UserService userService;
 
@@ -34,6 +36,7 @@ public class RegistrationController {
     // get login page
     @GetMapping("/login")
     public String getLoginPage(Principal principal) {
+        log.info(">>> GET login.html");
         return principal == null ? "registration/login" : "home";
     }
 
@@ -41,7 +44,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") User user, Principal principal) {
 
-        log.info("> return 'registration' page");
+        log.info(">>> GET registration.html");
         return principal == null ? "registration/registration" : "home";
     }
 
@@ -52,25 +55,31 @@ public class RegistrationController {
                           Model model) {
 
         if (bindingResult.hasErrors()) {
-            log.warn("> field has errors");
+            log.warn(">>> WARN: field has errors");
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
-            log.warn("> passwords do not match");
+            log.warn(">>> WARN: passwords do not match");
+
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
         if (userService.findByUsername(user.getUsername()) != null) {
-            log.warn("> username already exists");
+            log.warn(">>> WARN: username already exists");
             model.addAttribute("usernameError", "A user with the same name already exists");
+
+            log.info(">>> GET registration.html");
             return "registration/registration";
         }
 
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userService.save(user);
 
+        log.info(">>> GET:redirect login.html");
         return "redirect:/login";
     }
 }

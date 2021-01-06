@@ -7,6 +7,8 @@ package com.example.demo.controller;
 import com.example.demo.entity.User;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,8 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AdminController.class);
+    private static final Logger log = LoggerFactory.getLogger(AdminController.class);
+
 
     private final UserService userService;
 
@@ -37,7 +40,7 @@ public class AdminController {
     @GetMapping
     public String getAdminPage(Model model) {
         model.addAttribute("recentUsers", userService.recentUsers());
-        log.debug("> get admin page");
+        log.info(">>> GET admin.html");
         return "admin/admin";
     }
 
@@ -48,7 +51,7 @@ public class AdminController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        log.debug("> get 'user-list' page");
+        log.info(">>> GET user-list.html");
         return "admin/user-list";
     }
 
@@ -56,10 +59,10 @@ public class AdminController {
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long userId) {
 
-        log.info("> deleting the user by id: " + userId);
+        log.info(">>> DELETE user by id: {}", userId);
         userService.deleteById(userId);
 
-        log.info("> redirect to 'user-list' page");
+        log.info(">>> GET:redirect user-list.html");
         return "redirect:/admin/user-list";
     }
 
@@ -74,13 +77,14 @@ public class AdminController {
         try {
             userService.setUserRoles(formRoles, user);
         } catch (Exception exception) {
-            log.error(">>> error: " + exception);
+            log.error(">>> ERROR: " + exception);
             model.addAttribute("error", "Something went wrong!");
-            log.debug("> return 'user-list' page");
+
+            log.info(">>> GET user-list.html");
             return "admin/user-list";
         }
 
-        log.info("> redirect to 'user-list' page");
+        log.info(">>> GET:redirect user-list.html");
         return "redirect:/admin/user-list";
     }
 

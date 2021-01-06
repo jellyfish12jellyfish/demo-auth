@@ -6,6 +6,8 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,7 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -34,7 +36,7 @@ public class UserController {
     @GetMapping("/questions")
     public String getQuestionsPage() {
 
-        log.info("> return 'quizzes' page");
+        log.info(">>> GET questions.html");
         return "user/questions";
     }
 
@@ -43,8 +45,8 @@ public class UserController {
 
         // get user from the service
         model.addAttribute("user", userService.findByUsername(principal.getName()));
-        log.info("> return 'profile' page");
 
+        log.info(">>> GET profile.html");
         return "user/profile";
     }
 
@@ -58,18 +60,21 @@ public class UserController {
         User userFromDB = userService.findById(id);
 
         if (bindingResult.hasErrors()) {
-            log.warn("> field has errors");
+            log.warn(">>> WARN: field has errors");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
         if (!user.getUsername().equals(userFromDB.getUsername())
                 && userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "A user with the same name already exists");
+            log.info(">>> GET profile.html");
             return "user/profile";
         }
 
@@ -80,6 +85,7 @@ public class UserController {
         // destroy the session
         session.invalidate();
 
+        log.info(">>> GET:redirect login.html");
         return "redirect:/login";
     }
 }

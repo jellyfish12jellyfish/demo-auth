@@ -4,8 +4,7 @@ package com.example.demo.config;
  * Time: 5:55 PM
  * */
 
-import com.example.demo.service.CustomUserDetailsService;
-import com.example.demo.service.UserServiceImpl;
+import com.example.demo.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
