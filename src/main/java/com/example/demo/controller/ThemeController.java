@@ -30,7 +30,7 @@ public class ThemeController {
     public String getThemes(Model model) {
         model.addAttribute("themes", themeService.getAllThemes());
 
-        log.info(">>> GET theme.html");
-        return "theme/theme";
+        log.info(">>> GET themes.html");
+        return "theme/themes";
     }
 }
