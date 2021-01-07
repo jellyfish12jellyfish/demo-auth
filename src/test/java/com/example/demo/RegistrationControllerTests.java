@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RegistrationControllerTests extends TestClass {
 
     @Test
-    public void testLoginAndRegister_HappyPath() throws Exception {
+    public void testLogin_HappyPath() throws Exception {
 
         browser.get(homePageUrl());
         clickLoginLink();
@@ -36,17 +36,7 @@ public class RegistrationControllerTests extends TestClass {
     }
 
     @Test
-    public void testLogin_HappyPath() throws Exception {
-        browser.get(homePageUrl());
-        clickLoginLink();
-        assertLandedOnLoginPage();
-
-        doLogin(USERNAME, PASSWORD);
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
-    }
-
-    @Test
-    public void testLoginPage_Invalid() throws Exception {
+    public void testLogin_Invalid() throws Exception {
         browser.get(homePageUrl());
         clickLoginLink();
         assertLandedOnLoginPage();

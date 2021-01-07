@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ThemeService {
 
-    public List<Theme> getAllThemes();
+    List<Theme> getAllThemes();
 }

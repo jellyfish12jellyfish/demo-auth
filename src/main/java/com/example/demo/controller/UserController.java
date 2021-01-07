@@ -33,13 +33,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/questions")
-    public String getQuestionsPage() {
-
-        log.info(">>> GET questions.html");
-        return "user/questions";
-    }
-
     @GetMapping("/profile")
     public String getProfilePage(Principal principal, Model model) {
 

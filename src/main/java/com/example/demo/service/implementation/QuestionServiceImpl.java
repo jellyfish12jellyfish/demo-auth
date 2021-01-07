@@ -10,6 +10,8 @@ import com.example.demo.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,4 +33,10 @@ public class QuestionServiceImpl implements QuestionService {
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }
+
+    @Override
+    public Page<Question> findAllPageable(Long id, Pageable pageable) {
+        return questionRepository.findAllByThemeId(id, pageable);
+    }
+
 }

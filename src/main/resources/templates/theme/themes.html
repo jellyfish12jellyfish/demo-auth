@@ -8,6 +8,15 @@
 <div layout:fragment="content">
     <h1>Themes</h1>
 
+    <div>
+        <ul>
+            <li th:each="theme : ${themes}">
+                <a href="#"
+                   th:href="@{/questions/{id}/all(id=${theme.id})}"
+                   th:text="${theme.title}"></a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

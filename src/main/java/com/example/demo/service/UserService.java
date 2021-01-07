@@ -8,19 +8,19 @@ import java.util.Set;
 
 public interface UserService {
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public User findById(Long id);
+    User findById(Long id);
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
-    public void save(User user);
+    void save(User user);
 
-    public void update(User user);
+    void update(User user);
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
-    public List<UserRepository.NameAndLastLoginAt> recentUsers();
+    List<UserRepository.NameAndLastLoginAt> recentUsers();
 
-    public void setUserRoles(Set<String> roles, User user);
+    void setUserRoles(Set<String> roles, User user);
 }
