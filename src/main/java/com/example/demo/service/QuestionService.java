@@ -4,5 +4,6 @@ import com.example.demo.entity.Question;
 
 public interface QuestionService {
 
-    public Question findById(Long id);
+    Question findById(Long id);
+
 }
