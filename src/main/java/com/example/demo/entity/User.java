@@ -151,4 +151,12 @@ public class User implements UserDetails {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public Set<UserQuestion> getUserQuestions() {
+        return userQuestions;
+    }
+
+    public void setUserQuestions(Set<UserQuestion> userQuestions) {
+        this.userQuestions = userQuestions;
+    }
 }
