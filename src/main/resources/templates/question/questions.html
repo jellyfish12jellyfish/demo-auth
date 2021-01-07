@@ -8,6 +8,13 @@
 <div layout:fragment="content">
     <h1>Questions</h1>
 
+    <div>
+        <ul>
+            <li th:each="question : ${questions}"
+                th:text="${question.title}">
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
