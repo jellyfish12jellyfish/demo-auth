@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
@@ -30,5 +32,10 @@ public class QuestionServiceImpl implements QuestionService {
         log.info(">>> find user by id: {}", id);
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
+    }
+
+    @Override
+    public List<Question> getThemeQuestions(Long id) {
+        return questionRepository.findAllByThemeId(id);
     }
 }
