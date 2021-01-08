@@ -31,6 +31,14 @@ public class User implements UserDetails {
     @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
     private String username;
 
+    @Size(max = 25)
+    @Column(name = "first_name", columnDefinition = "varchar default null")
+    private String firstName;
+
+    @Size(max = 25)
+    @Column(name = "last_name", columnDefinition = "varchar default null")
+    private String lastName;
+
     @NotBlank
     @Size(min = 8, message = "At least 8 characters")
     @Column(name = "password")
@@ -158,5 +166,21 @@ public class User implements UserDetails {
 
     public void setUserQuestions(Set<UserQuestion> userQuestions) {
         this.userQuestions = userQuestions;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
