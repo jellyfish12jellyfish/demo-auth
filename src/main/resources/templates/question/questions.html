@@ -20,7 +20,7 @@
             </table>
         </div>
 
-        <div class="row">
+        <div class="row" th:hidden="${questions.empty}">
             <div th:if="${questions.totalPages != 1}" class="form-group col-md-11 pagination-centered">
                 <ul class="pagination">
                     <li th:class="${questions.number == 0} ? disabled">
