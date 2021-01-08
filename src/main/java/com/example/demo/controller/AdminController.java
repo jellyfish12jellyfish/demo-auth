@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Set;
 
 @Controller
@@ -70,12 +72,23 @@ public class AdminController {
     @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
-                               Model model) {
+                               Principal principal, HttpSession session, Model model) {
 
         User user = userService.findById(id);
 
         try {
             userService.setUserRoles(formRoles, user);
+            log.info(">>> GET:redirect user-list.html");
+
+            if (principal.getName().equals(user.getUsername())) {
+                session.invalidate();
+                log.info(">>> Invalidate session && GET:redirect login.html");
+                return "redirect:/login";
+            }
+
+            log.info(">>> GET:redirect user-list.html");
+            return "redirect:/admin/user-list";
+
         } catch (Exception exception) {
             log.error(">>> ERROR: " + exception);
             model.addAttribute("error", "Something went wrong!");
@@ -83,9 +96,6 @@ public class AdminController {
             log.info(">>> GET user-list.html");
             return "admin/user-list";
         }
-
-        log.info(">>> GET:redirect user-list.html");
-        return "redirect:/admin/user-list";
     }
 
 }
