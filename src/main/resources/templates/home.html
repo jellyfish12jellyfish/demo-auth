@@ -12,6 +12,8 @@
         <h1>Home page</h1>
         <div sec:authorize="!isAuthenticated()">
             <a id="login" href="/login" th:href="@{/login}">Log In</a>
+
+            <a href="/registration" th:href="@{/registration}">Sign In</a>
         </div>
 
         <div sec:authorize="isAuthenticated()">

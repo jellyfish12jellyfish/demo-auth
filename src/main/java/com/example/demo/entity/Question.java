@@ -136,6 +136,14 @@ public class Question {
         this.theme = theme;
     }
 
+    public Set<UserQuestion> getUserQuestions() {
+        return userQuestions;
+    }
+
+    public void setUserQuestions(Set<UserQuestion> userQuestions) {
+        this.userQuestions = userQuestions;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
