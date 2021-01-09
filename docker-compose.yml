@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:11.4-alpine
+    container_name: database
+    ports:
+      - 5430:5432
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: 1352
+      POSTGRES_DB: logreg
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+
+  app:
+    build: .
+    container_name: demo-auth-app
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DB_URL: jdbc:postgresql://db:5432/logreg
+      SPRING_DB_USERNAME: postgres
+      SPRING_DB_PASSWORD: 1352
+    restart: always
+    links:
+      - db

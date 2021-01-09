@@ -2,8 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/base}">
 <head>
-    <div th:replace="fragments/head.html :: head"></div>
-    <title>Profile</title>
+    <title th:text="'Profile - ' + ${#authentication.name}">Profile</title>
 </head>
 
 <body>

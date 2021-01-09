@@ -15,7 +15,8 @@
                     <th>Title</th>
                 </tr>
                 <tr th:each="question : ${questions}">
-                    <td><a th:text="${question.title}" href="#">Question title</a></td>
+                    <td><a th:text="${question.title}"
+                           th:href="@{/questions/{id}/(id=${question.getId()})}">Question title</a></td>
                 </tr>
             </table>
         </div>

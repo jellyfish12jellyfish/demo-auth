@@ -18,6 +18,14 @@
 
         <div sec:authorize="isAuthenticated()">
             <h2>Recently viewed:</h2>
+
+            <div>
+                <ul>
+                    <li th:each="userQuestion : ${userQuestions}">
+                        <a href="#" th:text="${userQuestion.question.title}">Question title</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
