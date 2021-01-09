@@ -47,6 +47,7 @@ public class QuestionController {
 
         Page<Question> questions =
                 questionService.findAllPageable(id, PageRequest.of(evalPage, evalPageSize));
+
         Pager pager = new Pager(questions.getTotalPages(), questions.getNumber(), BUTTONS_TO_SHOW);
 
         questionPage.addObject("questions", questions);
@@ -54,6 +55,7 @@ public class QuestionController {
         questionPage.addObject("themeId", id);
         questionPage.addObject("pager", pager);
 
+        log.info(">>> GET questions.html");
         return questionPage;
     }
 }
