@@ -15,7 +15,7 @@
                     <th>Title</th>
                 </tr>
                 <tr th:each="question : ${questions}">
-                    <td th:text="${question.title}"></td>
+                    <td><a th:text="${question.title}" href="#">Question title</a></td>
                 </tr>
             </table>
         </div>
