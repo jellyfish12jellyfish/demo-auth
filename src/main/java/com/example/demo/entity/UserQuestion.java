@@ -4,8 +4,6 @@ package com.example.demo.entity;
  * Time: 7:59 AM
  * */
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,17 +23,15 @@ public class UserQuestion {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_view_at")
     private Date lastViewAt;
 
     public UserQuestion() {
     }
 
-    public UserQuestion(User user, Date lastViewAt) {
+    public UserQuestion(User user, Question question) {
         this.user = user;
-        this.lastViewAt = lastViewAt;
+        this.question = question;
     }
 
     public Long getId() {
