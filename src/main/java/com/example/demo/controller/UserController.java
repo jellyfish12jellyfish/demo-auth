@@ -5,10 +5,12 @@ package com.example.demo.controller;
  * */
 
 import com.example.demo.entity.User;
+import com.example.demo.service.UserQuestionService;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +30,24 @@ public class UserController {
 
     private final UserService userService;
 
+    private final UserQuestionService userQuestionService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserQuestionService userQuestionService) {
         this.userService = userService;
+        this.userQuestionService = userQuestionService;
+    }
+
+    @GetMapping("/")
+    public String home(Principal principal, Model model) {
+
+        if (principal != null) {
+            var authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+            model.addAttribute("userQuestions", userQuestionService.findAllByUserId(user.getId()));
+        }
+
+        return "home";
     }
 
     @GetMapping("/profile")
