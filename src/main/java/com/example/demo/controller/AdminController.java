@@ -6,6 +6,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.RoleService;
+import com.example.demo.service.ThemeService;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +31,13 @@ public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final ThemeService themeService;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService, ThemeService themeService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.themeService = themeService;
     }
 
     // get admin page
@@ -102,5 +105,12 @@ public class AdminController {
         model.addAttribute("users", userService.findAll());
         return "admin/admin-users";
     }
+
+    @GetMapping("/themes")
+    public String getThemes(Model model) {
+        model.addAttribute("themes", themeService.findAll());
+        return "admin/admin-themes";
+    }
+
 
 }
