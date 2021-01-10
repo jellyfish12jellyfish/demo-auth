@@ -29,7 +29,6 @@ public class AdminController {
 
 
     private final UserService userService;
-
     private final RoleService roleService;
 
     @Autowired
@@ -96,6 +95,12 @@ public class AdminController {
             log.info(">>> GET user-list.html");
             return "admin/user-list";
         }
+    }
+
+    @GetMapping("/users")
+    public String getUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "admin/users";
     }
 
 }
