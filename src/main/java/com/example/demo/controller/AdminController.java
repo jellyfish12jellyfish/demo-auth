@@ -52,8 +52,8 @@ public class AdminController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        log.info(">>> GET user-list.html");
-        return "admin/user-list";
+        log.info(">>> GET admin-admin-user-list.html");
+        return "admin/admin-user-list";
     }
 
     // delete the user by id
@@ -63,7 +63,7 @@ public class AdminController {
         log.info(">>> DELETE user by id: {}", userId);
         userService.deleteById(userId);
 
-        log.info(">>> GET:redirect user-list.html");
+        log.info(">>> GET:redirect admin-user-list.html");
         return "redirect:/admin/user-list";
     }
 
@@ -77,7 +77,7 @@ public class AdminController {
 
         try {
             userService.setUserRoles(formRoles, user);
-            log.info(">>> GET:redirect user-list.html");
+            log.info(">>> GET:redirect admin-user-list.html");
 
             if (principal.getName().equals(user.getUsername())) {
                 session.invalidate();
@@ -85,22 +85,22 @@ public class AdminController {
                 return "redirect:/login";
             }
 
-            log.info(">>> GET:redirect user-list.html");
+            log.info(">>> GET:redirect admin-user-list.html");
             return "redirect:/admin/user-list";
 
         } catch (Exception exception) {
             log.error(">>> ERROR: " + exception);
             model.addAttribute("error", "Something went wrong!");
 
-            log.info(">>> GET user-list.html");
-            return "admin/user-list";
+            log.info(">>> GET admin-user-list.html");
+            return "admin/admin-user-list";
         }
     }
 
     @GetMapping("/users")
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "admin/users";
+        return "admin/admin-users";
     }
 
 }
