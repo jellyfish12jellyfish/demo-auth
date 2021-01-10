@@ -27,7 +27,7 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public List<Theme> getAllThemes() {
+    public List<Theme> findAll() {
         List<Theme> themes = themeRepository.findAll();
         log.info(">>> get all themes: {}", themes.size());
         return themes;
