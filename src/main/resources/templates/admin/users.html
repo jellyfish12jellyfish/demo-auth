@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Admin - users</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Joined at</th>
+                <th scope="col">Login at</th>
+                <th scope="col">Questions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}">username</td>
+                <td th:text="${user.firstName}">firstname</td>
+                <td th:text="${user.lastName}">lastname</td>
+                <td th:text="${#dates.format(user.createdAt, 'dd.MM.yy, HH:mm:ss')}">created at</td>
+                <td th:text="${#dates.format(user.lastLoginAt, 'dd.MM.yy, HH:mm:ss')}">login at</td>
+                <td th:text="${user.userQuestions.size()}">questions</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
