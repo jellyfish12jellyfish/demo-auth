@@ -28,7 +28,7 @@ public class ThemeController {
 
     @GetMapping
     public String getThemes(Model model) {
-        model.addAttribute("themes", themeService.getAllThemes());
+        model.addAttribute("themes", themeService.findAll());
 
         log.info(">>> GET themes.html");
         return "theme/themes";
