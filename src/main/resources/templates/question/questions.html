@@ -8,47 +8,52 @@
 <div layout:fragment="content">
     <h1>Questions</h1>
 
-    <div>
-        <div class="row">
-            <table class="table">
-                <tr>
-                    <th>Title</th>
-                </tr>
-                <tr th:each="question : ${questions}">
-                    <td><a th:text="${question.title}"
-                           th:href="@{/questions/{id}/(id=${question.getId()})}">Question title</a></td>
-                </tr>
-            </table>
-        </div>
+    <div th:if="${!questions.empty}">
+        <div>
+            <div class="row">
+                <table class="table">
+                    <tr>
+                        <th>Title</th>
+                    </tr>
+                    <tr th:each="question : ${questions}">
+                        <td><a th:text="${question.title}"
+                               th:href="@{/questions/{id}/(id=${question.getId()})}">Question title</a></td>
+                    </tr>
+                </table>
+            </div>
 
-        <div class="row" th:hidden="${questions.empty}">
-            <div th:if="${questions.totalPages != 1}" class="form-group col-md-11 pagination-centered">
-                <ul class="pagination">
-                    <li th:class="${questions.number == 0} ? disabled">
-                        <a class="pageLink" th:href="@{/questions/{id}/all/(id=${themeId}, page=1)}">&laquo;</a>
-                    </li>
-                    <li th:class="${questions.number == 0} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.number})}">&larr;</a>
-                    </li>
-                    <li th:class="${questions.number == (page - 1)} ? 'active pointer-disabled'"
-                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                        <a class="pageLink" th:href="@{/questions/{id}/all/(id=${themeId}, page=${page})}"
-                           th:text="${page}"></a>
-                    </li>
-                    <li th:class="${questions.number + 1 == questions.totalPages} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.number + 2})}">&rarr;</a>
-                    </li>
-                    <li th:class="${questions.number + 1 == questions.totalPages} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.totalPages})}">&raquo;</a>
-                    </li>
-                </ul>
+            <div class="row" th:hidden="${questions.empty}">
+                <div th:if="${questions.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                    <ul class="pagination">
+                        <li th:class="${questions.number == 0} ? disabled">
+                            <a class="pageLink" th:href="@{/questions/{id}/all/(id=${themeId}, page=1)}">&laquo;</a>
+                        </li>
+                        <li th:class="${questions.number == 0} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.number})}">&larr;</a>
+                        </li>
+                        <li th:class="${questions.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                            <a class="pageLink" th:href="@{/questions/{id}/all/(id=${themeId}, page=${page})}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li th:class="${questions.number + 1 == questions.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.number + 2})}">&rarr;</a>
+                        </li>
+                        <li th:class="${questions.number + 1 == questions.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/questions/{id}/all/(id=${themeId}, page=${questions.totalPages})}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
+    <div th:unless="${!questions.empty}">
+        No questions found!
+    </div>
+
 </div>
 </body>
 </html>
