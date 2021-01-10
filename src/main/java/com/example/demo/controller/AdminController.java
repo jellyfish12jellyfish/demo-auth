@@ -5,6 +5,7 @@ package com.example.demo.controller;
  * */
 
 import com.example.demo.entity.User;
+import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
 import com.example.demo.service.UserService;
@@ -32,12 +33,14 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
     private final ThemeService themeService;
+    private final QuestionService questionService;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService, ThemeService themeService) {
+    public AdminController(UserService userService, RoleService roleService, ThemeService themeService, QuestionService questionService) {
         this.userService = userService;
         this.roleService = roleService;
         this.themeService = themeService;
+        this.questionService = questionService;
     }
 
     // get admin page
@@ -112,5 +115,10 @@ public class AdminController {
         return "admin/admin-themes";
     }
 
+    @GetMapping("/questions")
+    public String getQuestions(Model model) {
+        model.addAttribute("questions", questionService.findAll());
+        return "admin/admin-themes";
+    }
 
 }
