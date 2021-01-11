@@ -13,4 +13,7 @@ public interface QuestionService {
     Page<Question> findAllPageable(Long id, Pageable pageable);
 
     List<Question> findAll();
+
+    void deleteById(Long questionId);
+
 }
