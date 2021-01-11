@@ -29,7 +29,6 @@ public class AdminController {
 
     private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
-
     private final UserService userService;
     private final RoleService roleService;
     private final ThemeService themeService;
@@ -112,19 +111,25 @@ public class AdminController {
     @GetMapping("/themes")
     public String getThemes(Model model) {
         model.addAttribute("themes", themeService.findAll());
+
+        log.info(">>> GET admin-themes.html");
         return "admin/admin-themes";
     }
 
     @GetMapping("/questions")
     public String getQuestions(Model model) {
         model.addAttribute("questions", questionService.findAll());
-        return "admin/admin-themes";
+
+        log.info(">>> GET admin-questions.html");
+        return "admin/admin-questions";
     }
 
     // delete the user by id
     @GetMapping("/theme/delete")
     public String deleteTheme(@RequestParam("themeId") Long themeId) {
         themeService.deleteById(themeId);
+
+        log.info(">>> GET:redirect admin-themes.html");
         return "redirect:/admin/themes";
     }
 
