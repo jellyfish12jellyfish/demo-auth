@@ -33,4 +33,9 @@ public class ThemeServiceImpl implements ThemeService {
         return themes;
     }
 
+    @Override
+    public void deleteById(Long themeId) {
+        themeRepository.deleteById(themeId);
+    }
+
 }
