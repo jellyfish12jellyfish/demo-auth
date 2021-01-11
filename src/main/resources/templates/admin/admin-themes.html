@@ -6,8 +6,30 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <h1>Themes</h1>
 
-
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Updated at</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="theme : ${themes}">
+                <td th:text="${theme.title}">theme title</td>
+                <td th:text="${#dates.format(theme.createdAt, 'dd.MM.yy, HH:mm:ss')}">created at</td>
+                <td th:text="${#dates.format(theme.updatedAt, 'dd.MM.yy, HH:mm:ss')}">updated at</td>
+                <td>
+                    <a class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 </body>
