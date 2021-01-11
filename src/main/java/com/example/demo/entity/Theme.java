@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "theme")
@@ -32,6 +33,14 @@ public class Theme {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "theme")
+    private List<Question> questionList;
+
+    @PreRemove
+    private void setNull() {
+        questionList.forEach(question -> question.setTheme(null));
+    }
 
     public Theme() {
     }
@@ -72,6 +81,13 @@ public class Theme {
         this.title = title;
     }
 
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
+    }
 
     @Override
     public String toString() {
