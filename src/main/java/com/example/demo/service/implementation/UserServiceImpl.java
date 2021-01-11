@@ -45,32 +45,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         List<User> users = userRepository.findAll();
-        log.info(">>> get all users: {}", users);
+        log.info(">>> Get all users: {}", users);
         return users;
     }
 
     @Override
     public User findById(Long id) {
-        log.info(">>> find user by id: {}", id);
+        log.info(">>> Get user by id: {}", id);
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Did not fine uesr id: " + id));
     }
 
     @Override
     public void deleteById(Long id) {
-        log.info(">>> delete user by id: {}", id);
+        log.info(">>> Delete user by id: {}", id);
         userRepository.deleteById(id);
     }
 
     @Override
     public void save(User user) {
-        log.info(">>> save user: {}", user.getUsername());
+        log.info(">>> Save user: {}", user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Override
     public void update(User user) {
-        log.info(">>> update user: {}", user.getUsername());
+        log.info(">>> Update user: {}", user.getUsername());
         userRepository.save(user);
     }
 
@@ -93,20 +93,20 @@ public class UserServiceImpl implements UserService {
         else if (roles.size() == 1 && roles.contains(ADMIN))
             user.getRoles().add(roleService.findByName(ADMIN));
 
-        log.info(">>> set roles and update");
+        log.info(">>> Set roles and update");
         userRepository.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
-        log.info(">>> find user by username: {}", username);
+        log.info(">>> Get user by username: {}", username);
         return userRepository.findByUsername(username);
     }
 
     @Override
     public List<UserRepository.NameAndLastLoginAt> recentUsers() {
         var recentUsers = userRepository.findAllByOrderByLastLoginAtDesc();
-        log.info(">>> get users by last login at field: {}", recentUsers.size());
+        log.info(">>> Get users by last login at field: {}", recentUsers.size());
         return recentUsers;
     }
 }
