@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
@@ -29,14 +31,28 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question findById(Long id) {
-        log.info(">>> find user by id: {}", id);
+        log.info(">>> Find user by id: {}", id);
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }
 
     @Override
     public Page<Question> findAllPageable(Long id, Pageable pageable) {
+        log.info(">>> Get pageable questions");
         return questionRepository.findAllByThemeId(id, pageable);
+    }
+
+    @Override
+    public List<Question> findAll() {
+        List<Question> questionList = questionRepository.findAll();
+        log.info(">>> Get all questions: {}", questionList.size());
+        return questionList;
+    }
+
+    @Override
+    public void deleteById(Long questionId) {
+        log.info(">>> Delete question by id: {}", questionId);
+        questionRepository.deleteById(questionId);
     }
 
 }

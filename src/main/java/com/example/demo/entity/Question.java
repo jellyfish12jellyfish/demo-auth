@@ -147,8 +147,8 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", body='" + body + '}';
+                "title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                '}';
     }
 }

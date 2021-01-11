@@ -85,4 +85,13 @@ public class UserQuestion {
         result = 31 * result + (lastViewAt != null ? lastViewAt.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "UserQuestion{" +
+                "question=" + question +
+                ", user=" + user +
+                ", lastViewAt=" + lastViewAt +
+                '}';
+    }
 }

@@ -32,15 +32,18 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     public void save(UserQuestion userQuestion) {
         userQuestion.setLastViewAt(new Date());
         userQuestionRepository.save(userQuestion);
+        log.info(">>> Save UserQuestioin object: {}", userQuestion);
     }
 
     @Override
     public UserQuestion findByUserAndQuestion(User user, Question question) {
+        log.info(">>> Get UserQuestion object by User and Question");
         return userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
     }
 
     @Override
     public List<UserQuestion> findAllByUserId(Long userId) {
+        log.info(">>> Get 10 UserQuestions objects");
         return userQuestionRepository
                 .findAllByUserIdOrderByLastViewAtDesc(userId, PageRequest.of(0, 10));
     }

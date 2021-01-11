@@ -11,8 +11,6 @@ import java.util.Optional;
 
 public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long> {
 
-    boolean existsByQuestionAndUser(Question question, User user);
-
     Optional<UserQuestion> findByUserAndQuestion(User user, Question question);
 
     List<UserQuestion> findAllByUserIdOrderByLastViewAtDesc(Long userId, Pageable pageable);

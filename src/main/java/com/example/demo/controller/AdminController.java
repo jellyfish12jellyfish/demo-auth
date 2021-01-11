@@ -5,7 +5,9 @@ package com.example.demo.controller;
  * */
 
 import com.example.demo.entity.User;
+import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
+import com.example.demo.service.ThemeService;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,15 +29,17 @@ public class AdminController {
 
     private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
-
     private final UserService userService;
-
     private final RoleService roleService;
+    private final ThemeService themeService;
+    private final QuestionService questionService;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService, ThemeService themeService, QuestionService questionService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.themeService = themeService;
+        this.questionService = questionService;
     }
 
     // get admin page
@@ -53,8 +57,8 @@ public class AdminController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        log.info(">>> GET user-list.html");
-        return "admin/user-list";
+        log.info(">>> GET admin-admin-user-list.html");
+        return "admin/admin-user-list";
     }
 
     // delete the user by id
@@ -64,7 +68,7 @@ public class AdminController {
         log.info(">>> DELETE user by id: {}", userId);
         userService.deleteById(userId);
 
-        log.info(">>> GET:redirect user-list.html");
+        log.info(">>> GET:redirect admin-user-list.html");
         return "redirect:/admin/user-list";
     }
 
@@ -78,7 +82,7 @@ public class AdminController {
 
         try {
             userService.setUserRoles(formRoles, user);
-            log.info(">>> GET:redirect user-list.html");
+            log.info(">>> GET:redirect admin-user-list.html");
 
             if (principal.getName().equals(user.getUsername())) {
                 session.invalidate();
@@ -86,16 +90,47 @@ public class AdminController {
                 return "redirect:/login";
             }
 
-            log.info(">>> GET:redirect user-list.html");
+            log.info(">>> GET:redirect admin-user-list.html");
             return "redirect:/admin/user-list";
 
         } catch (Exception exception) {
             log.error(">>> ERROR: " + exception);
             model.addAttribute("error", "Something went wrong!");
 
-            log.info(">>> GET user-list.html");
-            return "admin/user-list";
+            log.info(">>> GET admin-user-list.html");
+            return "admin/admin-user-list";
         }
+    }
+
+    @GetMapping("/users")
+    public String getUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "admin/admin-users";
+    }
+
+    @GetMapping("/themes")
+    public String getThemes(Model model) {
+        model.addAttribute("themes", themeService.findAll());
+
+        log.info(">>> GET admin-themes.html");
+        return "admin/admin-themes";
+    }
+
+    @GetMapping("/questions")
+    public String getQuestions(Model model) {
+        model.addAttribute("questions", questionService.findAll());
+
+        log.info(">>> GET admin-questions.html");
+        return "admin/admin-questions";
+    }
+
+    // delete the user by id
+    @GetMapping("/theme/delete")
+    public String deleteTheme(@RequestParam("themeId") Long themeId) {
+        themeService.deleteById(themeId);
+
+        log.info(">>> GET:redirect admin-themes.html");
+        return "redirect:/admin/themes";
     }
 
 }

@@ -31,13 +31,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAll() {
         List<Role> roles = roleRepository.findAll();
-        log.info(">>> get all roles: {}", roles.size());
+        log.info(">>> Get all roles: {}", roles.size());
         return roles;
     }
 
     @Override
     public Role findByName(String name) {
-        log.info(">>> get role by name: {}", name);
+        log.info(">>> Get role by name: {}", name);
         return roleRepository.findByName(name);
     }
 }

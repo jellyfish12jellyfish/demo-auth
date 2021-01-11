@@ -8,9 +8,10 @@
 <div layout:fragment="content">
 
     <div>
-        <h1 th:text="${question.getTitle()}">Question title</h1>
+        <h2 th:text="${question.getTitle()}">Question title</h2>
     </div>
-
+    <hr>
+    <div th:text="${question.body}"></div>
 </div>
 </body>
 </html>
