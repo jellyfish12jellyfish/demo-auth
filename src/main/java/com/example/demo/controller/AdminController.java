@@ -121,4 +121,11 @@ public class AdminController {
         return "admin/admin-themes";
     }
 
+    // delete the user by id
+    @GetMapping("/theme/delete")
+    public String deleteTheme(@RequestParam("themeId") Long themeId) {
+        themeService.deleteById(themeId);
+        return "redirect:/admin/themes";
+    }
+
 }
