@@ -7,4 +7,6 @@ import java.util.List;
 public interface ThemeService {
 
     List<Theme> findAll();
+
+    void deleteById(Long themeId);
 }
