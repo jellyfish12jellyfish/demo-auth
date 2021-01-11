@@ -89,8 +89,7 @@ public class UserQuestion {
     @Override
     public String toString() {
         return "UserQuestion{" +
-                "id=" + id +
-                ", question=" + question +
+                "question=" + question +
                 ", user=" + user +
                 ", lastViewAt=" + lastViewAt +
                 '}';
