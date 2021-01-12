@@ -40,11 +40,11 @@
                 <label for="exampleInputEmail1">Email address</label>
                 <div class="c-error" th:if="${#fields.hasErrors('email')}"
                      th:errors="*{email}">Email error
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                           placeholder="Enter email" th:field="*{email}">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
                 </div>
+                <input type="email" class="form-control mb-4 col-4" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="Enter email" th:field="*{email}">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
             </div>
             <hr>
 
