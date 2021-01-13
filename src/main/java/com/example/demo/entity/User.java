@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -39,6 +40,10 @@ public class User implements UserDetails {
     @Column(name = "last_name", columnDefinition = "varchar default null")
     private String lastName;
 
+    @Email
+    @Column(name = "email")
+    private String email;
+
     @NotBlank
     @Size(min = 8, message = "At least 8 characters")
     @Column(name = "password")
@@ -60,6 +65,12 @@ public class User implements UserDetails {
 
     public User() {
     }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
@@ -182,6 +193,14 @@ public class User implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

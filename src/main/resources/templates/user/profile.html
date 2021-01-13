@@ -35,6 +35,17 @@
                 <input type="text" name="username" id="lastName" th:field="*{lastName}"
                        class="form-control mb-4 col-4" placeholder="enter last name">
             </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <div class="c-error" th:if="${#fields.hasErrors('email')}"
+                     th:errors="*{email}">Email error
+                </div>
+                <input type="email" class="form-control mb-4 col-4" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="Enter email" th:field="*{email}">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
             <hr>
 
             <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
@@ -43,7 +54,8 @@
                 <div id="c-error_username" class="c-error" th:if="${#fields.hasErrors('username')}"
                      th:errors="*{username}">Username error
                 </div>
-                <input type="text" name="username" id="username" th:field="*{username}" class="form-control mb-4 col-4"
+                <input type="text" name="username" id="username" th:field="*{username}"
+                       class="form-control mb-4 col-4"
                        required placeholder="enter username">
             </div>
 

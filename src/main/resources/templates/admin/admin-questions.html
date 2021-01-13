@@ -6,7 +6,25 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Questions</h1>
+    <div>
+        <div>
+            <h1>Questions</h1>
+        </div>
+
+        <div th:if="${!questions.empty}">
+
+        </div>
+
+        <div th:unless="${!questions.empty}">
+            <div>
+                No questions yet...
+            </div>
+            <div>
+                <button class="btn btn-success">Create</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

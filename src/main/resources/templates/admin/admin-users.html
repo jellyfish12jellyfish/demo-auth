@@ -13,6 +13,7 @@
                 <th scope="col">Username</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
+                <th scope="col">Email</th>
                 <th scope="col">Joined at</th>
                 <th scope="col">Login at</th>
                 <th scope="col">Questions</th>
@@ -23,6 +24,7 @@
                 <td th:text="${user.username}">username</td>
                 <td th:text="${user.firstName}">firstname</td>
                 <td th:text="${user.lastName}">lastname</td>
+                <td th:text="${user.email}">email</td>
                 <td th:text="${#dates.format(user.createdAt, 'dd.MM.yy, HH:mm:ss')}">created at</td>
                 <td th:text="${#dates.format(user.lastLoginAt, 'dd.MM.yy, HH:mm:ss')}">login at</td>
                 <td th:text="${user.userQuestions.size()}">questions</td>
