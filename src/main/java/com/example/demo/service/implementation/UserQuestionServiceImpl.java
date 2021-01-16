@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserQuestionServiceImpl implements UserQuestionService {
@@ -36,9 +37,20 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     }
 
     @Override
-    public UserQuestion findByUserAndQuestion(User user, Question question) {
+    public void setViewTime(User user, Question question) {
+
         log.info(">>> Get UserQuestion object by User and Question");
-        return userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
+        UserQuestion userQuestion = userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
+
+        try {
+            // if userQuestion object not found, then create new object, else update timestamp
+            save(Objects.requireNonNullElseGet(userQuestion, () -> new UserQuestion(user, question)));
+
+        } catch (Exception e) {
+            log.error(">>> Error in UserQuestionServiceImpl: ");
+            e.printStackTrace();
+        }
+
     }
 
     @Override

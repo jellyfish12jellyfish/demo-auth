@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,7 +76,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setUserRoles(Set<String> roles, User user) {
+    public void setUserRoles(Set<String> roles, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found: " + id));
 
         user.getRoles().clear();
 
@@ -95,6 +98,14 @@ public class UserServiceImpl implements UserService {
 
         log.info(">>> Set roles and update");
         userRepository.save(user);
+    }
+
+    // если пользователь обновил свои данные, то возвращаем true
+    @Override
+    public boolean checkUser(Principal principal, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+        return principal.getName().equals(user.getUsername());
     }
 
     @Override

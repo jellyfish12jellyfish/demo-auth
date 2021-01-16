@@ -73,41 +73,31 @@ public class AdminController {
     }
 
 
+    // update user roles
     @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Principal principal, HttpSession session, Model model) {
 
-        User user = userService.findById(id);
+        userService.setUserRoles(formRoles, id);
 
-        try {
-            userService.setUserRoles(formRoles, user);
-            log.info(">>> GET:redirect admin-user-list.html");
-
-            if (principal.getName().equals(user.getUsername())) {
-                session.invalidate();
-                log.info(">>> Invalidate session && GET:redirect login.html");
-                return "redirect:/login";
-            }
-
-            log.info(">>> GET:redirect admin-user-list.html");
-            return "redirect:/admin/user-list";
-
-        } catch (Exception exception) {
-            log.error(">>> ERROR: " + exception);
-            model.addAttribute("error", "Something went wrong!");
-
-            log.info(">>> GET admin-user-list.html");
-            return "admin/admin-user-list";
+        if (userService.checkUser(principal, id)) {
+            session.invalidate();
+            log.info(">>> Invalidate session && GET:redirect login.html");
+            return "redirect:/login";
         }
+
+        return "redirect:/admin/user-list";
     }
 
+    // get users page
     @GetMapping("/users")
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "admin/admin-users";
     }
 
+    // get themes page
     @GetMapping("/themes")
     public String getThemes(Model model) {
         model.addAttribute("themes", themeService.findAll());
@@ -116,6 +106,7 @@ public class AdminController {
         return "admin/admin-themes";
     }
 
+    // get questions page
     @GetMapping("/questions")
     public String getQuestions(Model model) {
         model.addAttribute("questions", questionService.findAll());

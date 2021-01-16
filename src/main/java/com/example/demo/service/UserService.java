@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -22,5 +23,7 @@ public interface UserService {
 
     List<UserRepository.NameAndLastLoginAt> recentUsers();
 
-    void setUserRoles(Set<String> roles, User user);
+    void setUserRoles(Set<String> roles, Long id);
+
+    boolean checkUser(Principal principal, Long id);
 }
