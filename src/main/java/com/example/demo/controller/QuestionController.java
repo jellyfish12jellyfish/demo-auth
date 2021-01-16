@@ -7,7 +7,6 @@ package com.example.demo.controller;
 import com.example.demo.domain.Pager;
 import com.example.demo.entity.Question;
 import com.example.demo.entity.User;
-import com.example.demo.entity.UserQuestion;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.UserQuestionService;
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -73,16 +71,7 @@ public class QuestionController {
                               @AuthenticationPrincipal User user, Model model) {
 
         Question question = questionService.findById(questionId);
-
-        try {
-            UserQuestion record = userQuestionService.findByUserAndQuestion(user, question);
-            userQuestionService.save(Objects.requireNonNullElseGet(record, () -> new UserQuestion(user, question)));
-
-        } catch (Exception exception) {
-            log.error(">>> ERROR: {}", exception.getMessage());
-            exception.printStackTrace();
-        }
-
+        userQuestionService.setViewTime(user, question);
         model.addAttribute("question", question);
 
         log.info(">>> GET question.html");
