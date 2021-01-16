@@ -36,9 +36,23 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     }
 
     @Override
-    public UserQuestion findByUserAndQuestion(User user, Question question) {
+    public void setViewTime(User user, Question question) {
+
         log.info(">>> Get UserQuestion object by User and Question");
-        return userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
+        UserQuestion userQuestion = userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
+
+        try {
+            if (userQuestion == null) {
+                save(new UserQuestion(user, question));
+            } else {
+                save(userQuestion);
+            }
+
+        } catch (Exception e) {
+            log.error(">>> Error in UserQuestionServiceImpl: ");
+            e.printStackTrace();
+        }
+
     }
 
     @Override
