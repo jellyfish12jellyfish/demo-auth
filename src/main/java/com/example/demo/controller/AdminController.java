@@ -78,28 +78,15 @@ public class AdminController {
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
                                Principal principal, HttpSession session, Model model) {
 
-        User user = userService.findById(id);
+        userService.setUserRoles(formRoles, id);
 
-        try {
-            userService.setUserRoles(formRoles, user);
-            log.info(">>> GET:redirect admin-user-list.html");
-
-            if (principal.getName().equals(user.getUsername())) {
-                session.invalidate();
-                log.info(">>> Invalidate session && GET:redirect login.html");
-                return "redirect:/login";
-            }
-
-            log.info(">>> GET:redirect admin-user-list.html");
-            return "redirect:/admin/user-list";
-
-        } catch (Exception exception) {
-            log.error(">>> ERROR: " + exception);
-            model.addAttribute("error", "Something went wrong!");
-
-            log.info(">>> GET admin-user-list.html");
-            return "admin/admin-user-list";
+        if (userService.checkUser(principal, id)) {
+            session.invalidate();
+            log.info(">>> Invalidate session && GET:redirect login.html");
+            return "redirect:/login";
         }
+
+        return "redirect:/admin/user-list";
     }
 
     @GetMapping("/users")
