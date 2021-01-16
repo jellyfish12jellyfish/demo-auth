@@ -10,7 +10,7 @@ public interface UserQuestionService {
 
     void save(UserQuestion userQuestion);
 
-    UserQuestion findByUserAndQuestion(User user, Question question);
+    void setViewTime(User user, Question question);
 
     List<UserQuestion> findAllByUserId(Long userId);
 }
