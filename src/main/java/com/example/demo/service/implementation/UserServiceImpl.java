@@ -118,18 +118,21 @@ public class UserServiceImpl implements UserService {
         User userFromDb = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
 
+        // валидация вводимых данных
         if (bindingResult.hasErrors()) {
             log.warn(">>> WARN: field has errors");
             log.info(">>> GET profile.html");
             return "user/profile";
         }
 
+        // проверка нового пароля
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords do not match");
             log.info(">>> GET profile.html");
             return "user/profile";
         }
 
+        // проверяем, изменили ли юзернейм и не занято ли это новое значение кем-то другим
         if (!user.getUsername().equals(userFromDb.getUsername())
                 && userRepository.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "A user with the same name already exists");
@@ -137,6 +140,7 @@ public class UserServiceImpl implements UserService {
             return "user/profile";
         }
 
+        // переносим старые данные
         user.setRoles(userFromDb.getRoles());
         user.setCreatedAt(userFromDb.getCreatedAt());
 
