@@ -12,9 +12,14 @@ import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
@@ -106,6 +111,42 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found: " + id));
         return principal.getName().equals(user.getUsername());
+    }
+
+    @Override
+    public String updateProfile(@Valid User user, Long userId, BindingResult bindingResult, Model model, HttpSession session) {
+        User userFromDb = userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
+
+        if (bindingResult.hasErrors()) {
+            log.warn(">>> WARN: field has errors");
+            log.info(">>> GET profile.html");
+            return "user/profile";
+        }
+
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("passwordError", "Passwords do not match");
+            log.info(">>> GET profile.html");
+            return "user/profile";
+        }
+
+        if (!user.getUsername().equals(userFromDb.getUsername())
+                && userRepository.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("usernameError", "A user with the same name already exists");
+            log.info(">>> GET profile.html");
+            return "user/profile";
+        }
+
+        user.setRoles(userFromDb.getRoles());
+        user.setCreatedAt(userFromDb.getCreatedAt());
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        userRepository.save(user);
+        session.invalidate();
+
+        log.info(">>> GET:redirect login.html");
+        return "redirect:/login";
     }
 
     @Override

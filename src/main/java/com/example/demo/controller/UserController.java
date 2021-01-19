@@ -67,36 +67,7 @@ public class UserController {
                              HttpSession session,
                              @RequestParam("id") Long id) {
 
-        User userFromDB = userService.findById(id);
-
-        if (bindingResult.hasErrors()) {
-            log.warn(">>> WARN: field has errors");
-            log.info(">>> GET profile.html");
-            return "user/profile";
-        }
-
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            model.addAttribute("passwordError", "Passwords do not match");
-            log.info(">>> GET profile.html");
-            return "user/profile";
-        }
-
-        if (!user.getUsername().equals(userFromDB.getUsername())
-                && userService.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("usernameError", "A user with the same name already exists");
-            log.info(">>> GET profile.html");
-            return "user/profile";
-        }
-
-        user.setRoles(userFromDB.getRoles());
-        user.setCreatedAt(userFromDB.getCreatedAt());
-        userService.save(user);
-
-        // destroy the session
-        session.invalidate();
-
-        log.info(">>> GET:redirect login.html");
-        return "redirect:/login";
+        return userService.updateProfile(user, id, bindingResult, model, session);
     }
 }
 
