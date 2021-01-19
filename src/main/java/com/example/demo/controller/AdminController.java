@@ -4,6 +4,7 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
+import com.example.demo.entity.Theme;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
@@ -124,8 +125,14 @@ public class AdminController {
     }
 
     @GetMapping("/theme")
-    public String getThemeById(@RequestParam("themeId") Long themeId, Model model) {
+    public String getUpdateThemePage(@RequestParam("themeId") Long themeId, Model model) {
         model.addAttribute("theme", themeService.getThemeById(themeId));
+        return "theme/theme-form";
+    }
+
+    @GetMapping("/theme/new")
+    public String getCreateThemePage(Model model) {
+        model.addAttribute("theme", new Theme());
         return "theme/theme-form";
     }
 }
