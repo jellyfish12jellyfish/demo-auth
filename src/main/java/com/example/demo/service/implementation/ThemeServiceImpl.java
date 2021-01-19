@@ -39,4 +39,14 @@ public class ThemeServiceImpl implements ThemeService {
         themeRepository.deleteById(themeId);
     }
 
+    @Override
+    public Theme getThemeById(Long themeId) {
+        return themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme not found: " + themeId));
+    }
+
+    @Override
+    public void save(Theme theme) {
+        themeRepository.save(theme);
+    }
+
 }

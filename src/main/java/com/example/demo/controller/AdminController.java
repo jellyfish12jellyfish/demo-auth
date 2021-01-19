@@ -4,7 +4,7 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
-import com.example.demo.entity.User;
+import com.example.demo.entity.Theme;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
@@ -14,12 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
 
@@ -77,11 +76,11 @@ public class AdminController {
     @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
-                               Principal principal, HttpSession session, Model model) {
+                               Principal principal, HttpSession session) {
 
         userService.setUserRoles(formRoles, id);
 
-        if (userService.checkUser(principal, id)) {
+        if (userService.selfUpdate(principal, id)) {
             session.invalidate();
             log.info(">>> Invalidate session && GET:redirect login.html");
             return "redirect:/login";
@@ -115,7 +114,7 @@ public class AdminController {
         return "admin/admin-questions";
     }
 
-    // delete the user by id
+    // delete the theme by id
     @GetMapping("/theme/delete")
     public String deleteTheme(@RequestParam("themeId") Long themeId) {
         themeService.deleteById(themeId);
@@ -124,4 +123,28 @@ public class AdminController {
         return "redirect:/admin/themes";
     }
 
+    // get update theme page
+    @GetMapping("/theme")
+    public String getUpdateThemePage(@RequestParam("themeId") Long themeId, Model model) {
+        model.addAttribute("theme", themeService.getThemeById(themeId));
+        return "theme/theme-form";
+    }
+
+    // get create new theme page
+    @GetMapping("/theme/new")
+    public String getCreateThemePage(Model model) {
+        model.addAttribute("theme", new Theme());
+        return "theme/theme-form";
+    }
+
+    // save a new theme or an updated theme
+    @PostMapping("/theme/save")
+    public String saveTheme(@Valid @ModelAttribute Theme theme, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "theme/theme-form";
+        }
+        themeService.save(theme);
+        return "redirect:/admin/themes";
+    }
 }

@@ -5,14 +5,12 @@ package com.example.demo.entity;
  * */
 
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,11 +30,11 @@ public class User implements UserDetails {
     @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
     private String username;
 
-    @Size(min = 3, max = 25, message = "First name must have between 3 and 25 characters")
+    @Size(max = 25)
     @Column(name = "first_name", columnDefinition = "varchar default null")
     private String firstName;
 
-    @Size(min = 3, max = 25, message = "Last name must have between 3 and 25 characters")
+    @Size(max = 25)
     @Column(name = "last_name", columnDefinition = "varchar default null")
     private String lastName;
 

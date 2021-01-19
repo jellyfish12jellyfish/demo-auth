@@ -20,7 +20,7 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 5)
+    @Size(min = 5, max = 120)
     @Column(name = "title")
     private String title;
 
@@ -78,7 +78,7 @@ public class Theme {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public List<Question> getQuestionList() {

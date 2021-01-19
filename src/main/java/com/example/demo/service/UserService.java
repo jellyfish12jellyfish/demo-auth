@@ -29,7 +29,7 @@ public interface UserService {
 
     void setUserRoles(Set<String> roles, Long id);
 
-    boolean checkUser(Principal principal, Long id);
+    boolean selfUpdate(Principal principal, Long id);
 
     String updateProfile(@Valid User user, Long userId, BindingResult bindingResult, Model model, HttpSession session);
 }
