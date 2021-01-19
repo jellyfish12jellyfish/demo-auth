@@ -11,4 +11,6 @@ public interface ThemeService {
     void deleteById(Long themeId);
 
     Theme getThemeById(Long themeId);
+
+    void save(Theme theme);
 }
