@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Save theme</title>
 </head>
 <body>
 
-<div>
-    <form th:action="@{/admin/theme/save}" th:object="${theme}" method="post">
+<div layout:fragment="content">
+    <div>
+        <form th:action="@{/admin/theme/save}" th:object="${theme}" method="post">
 
-        <!-- Add hidden field to handle update -->
-        <input type="hidden" th:field="*{id}">
+            <!-- Add hidden field to handle update -->
+            <input type="hidden" th:field="*{id}">
 
-        <input type="text" th:field="*{title}">
+            <input type="text" th:field="*{title}">
 
-        <button type="submit">Save</button>
 
-    </form>
+            <div>
+                <label for="title">Title</label>
+                <div class="c-error" th:if="${#fields.hasErrors('firstName')}"
+                     th:errors="*{title}">Title error
+                </div>
+                <input type="text" name="title" id="title" th:field="*{title}"
+                       class="form-control mb-4 col-4" placeholder="enter new title">
+            </div>
 
-    <a href="#">Back to Themes list</a>
+
+            <div>
+                <button class="btn btn-info col-2" type="submit">Save</button>
+            </div>
+
+        </form>
+        <hr>
+        <a th:href="@{/admin/themes}">Back to Themes list</a>
+    </div>
 </div>
 
 </body>
