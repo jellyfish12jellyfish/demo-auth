@@ -52,3 +52,7 @@ footer {
 .pointer-disabled {
     pointer-events: none;
 }
+
+.c-navbar {
+    margin-bottom: 70px;
+}
