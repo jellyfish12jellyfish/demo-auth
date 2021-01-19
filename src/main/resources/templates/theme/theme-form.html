@@ -7,24 +7,20 @@
 <body>
 
 <div layout:fragment="content">
-    <div>
+    <div class="mt-5">
         <form th:action="@{/admin/theme/save}" th:object="${theme}" method="post">
 
             <!-- Add hidden field to handle update -->
             <input type="hidden" th:field="*{id}">
 
-            <input type="text" th:field="*{title}">
-
-
             <div>
                 <label for="title">Title</label>
-                <div class="c-error" th:if="${#fields.hasErrors('firstName')}"
+                <div class="c-error" th:if="${#fields.hasErrors('title')}"
                      th:errors="*{title}">Title error
                 </div>
                 <input type="text" name="title" id="title" th:field="*{title}"
                        class="form-control mb-4 col-4" placeholder="enter new title">
             </div>
-
 
             <div>
                 <button class="btn btn-info col-2" type="submit">Save</button>
