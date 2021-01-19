@@ -32,11 +32,11 @@ public class User implements UserDetails {
     @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
     private String username;
 
-    @Size(max = 25)
+    @Size(min = 3, max = 25, message = "First name must have between 3 and 25 characters")
     @Column(name = "first_name", columnDefinition = "varchar default null")
     private String firstName;
 
-    @Size(max = 25)
+    @Size(min = 3, max = 25, message = "Last name must have between 3 and 25 characters")
     @Column(name = "last_name", columnDefinition = "varchar default null")
     private String lastName;
 
