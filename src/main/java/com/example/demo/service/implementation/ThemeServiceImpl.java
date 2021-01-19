@@ -44,4 +44,9 @@ public class ThemeServiceImpl implements ThemeService {
         return themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme not found: " + themeId));
     }
 
+    @Override
+    public void save(Theme theme) {
+        themeRepository.save(theme);
+    }
+
 }
