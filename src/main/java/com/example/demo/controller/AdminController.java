@@ -14,10 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -124,15 +122,27 @@ public class AdminController {
         return "redirect:/admin/themes";
     }
 
+    // get update theme page
     @GetMapping("/theme")
     public String getUpdateThemePage(@RequestParam("themeId") Long themeId, Model model) {
         model.addAttribute("theme", themeService.getThemeById(themeId));
         return "theme/theme-form";
     }
 
+    // get create new theme page
     @GetMapping("/theme/new")
     public String getCreateThemePage(Model model) {
         model.addAttribute("theme", new Theme());
         return "theme/theme-form";
+    }
+
+    @PostMapping("/theme/save")
+    public String saveTheme(@ModelAttribute Theme theme, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "theme/theme-form";
+        }
+        themeService.save(theme);
+        return "redirect:/admin/themes";
     }
 }
