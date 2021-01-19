@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
 
@@ -137,7 +138,7 @@ public class AdminController {
     }
 
     @PostMapping("/theme/save")
-    public String saveTheme(@ModelAttribute Theme theme, BindingResult bindingResult) {
+    public String saveTheme(@Valid @ModelAttribute Theme theme, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "theme/theme-form";
