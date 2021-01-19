@@ -76,7 +76,7 @@ public class AdminController {
     @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
                                @RequestParam(name = "formRoles", required = false, defaultValue = "") Set<String> formRoles,
-                               Principal principal, HttpSession session, Model model) {
+                               Principal principal, HttpSession session) {
 
         userService.setUserRoles(formRoles, id);
 
@@ -137,6 +137,7 @@ public class AdminController {
         return "theme/theme-form";
     }
 
+    // save a new theme or an updated theme
     @PostMapping("/theme/save")
     public String saveTheme(@Valid @ModelAttribute Theme theme, BindingResult bindingResult) {
 
