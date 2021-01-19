@@ -4,7 +4,6 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
-import com.example.demo.entity.User;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
@@ -115,7 +114,7 @@ public class AdminController {
         return "admin/admin-questions";
     }
 
-    // delete the user by id
+    // delete the theme by id
     @GetMapping("/theme/delete")
     public String deleteTheme(@RequestParam("themeId") Long themeId) {
         themeService.deleteById(themeId);
@@ -124,4 +123,9 @@ public class AdminController {
         return "redirect:/admin/themes";
     }
 
+    @GetMapping("/theme")
+    public String getThemeById(@RequestParam("themeId") Long themeId, Model model) {
+        model.addAttribute("theme", themeService.getThemeById(themeId));
+        return "theme/theme-form";
+    }
 }
