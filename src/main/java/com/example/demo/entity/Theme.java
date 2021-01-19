@@ -20,7 +20,7 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 5)
+    @Size(min = 5, max = 120)
     @Column(name = "title")
     private String title;
 
