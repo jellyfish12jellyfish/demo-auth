@@ -6,7 +6,14 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Themes</h1>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1>Themes</h1>
+        </div>
+        <div>
+            <a href="#">Add new theme</a>
+        </div>
+    </div>
 
     <div th:if="${!themes.empty}">
         <table class="table">
