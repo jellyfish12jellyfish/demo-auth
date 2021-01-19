@@ -30,7 +30,7 @@
                     <td th:text="${question.user.username}">author</td>
                     <td>
                         <a class="btn btn-danger"
-                           onclick="return confirm('Are you sure you want to delete this questions?')"
+                           onclick="return confirm('Are you sure you want to delete this question?')"
                            th:href="@{/admin/questions/delete(questionId=${question.id})}">Delete</a>
                     </td>
                 </tr>
