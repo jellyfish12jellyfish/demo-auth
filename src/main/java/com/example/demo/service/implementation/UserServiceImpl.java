@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
     // если пользователь обновил свои данные, то возвращаем true
     @Override
-    public boolean checkUser(Principal principal, Long id) {
+    public boolean selfUpdate(Principal principal, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found: " + id));
         return principal.getName().equals(user.getUsername());

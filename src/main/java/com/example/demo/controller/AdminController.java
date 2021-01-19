@@ -81,7 +81,7 @@ public class AdminController {
 
         userService.setUserRoles(formRoles, id);
 
-        if (userService.checkUser(principal, id)) {
+        if (userService.selfUpdate(principal, id)) {
             session.invalidate();
             log.info(">>> Invalidate session && GET:redirect login.html");
             return "redirect:/login";
