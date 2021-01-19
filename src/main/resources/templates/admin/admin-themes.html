@@ -20,13 +20,15 @@
             </thead>
             <tbody>
             <tr th:each="theme : ${themes}">
-                <td th:text="${theme.title}">theme title</td>
+                <td>
+                    <a th:text="${theme.title}" th:href="@{/admin/theme(themeId=${theme.getId()})}">theme title</a>
+                </td>
                 <td th:text="${#dates.format(theme.createdAt, 'dd.MM.yy, HH:mm:ss')}">created at</td>
                 <td th:text="${#dates.format(theme.updatedAt, 'dd.MM.yy, HH:mm:ss')}">updated at</td>
                 <td>
                     <a class="btn btn-danger"
                        onclick="return confirm('Are you sure you want to delete this theme?')"
-                       th:href="@{/admin/theme/delete(themeId=${theme.id})}">Delete</a>
+                       th:href="@{/admin/theme/delete(themeId=${theme.getId()})}">Delete</a>
                 </td>
             </tr>
             </tbody>
