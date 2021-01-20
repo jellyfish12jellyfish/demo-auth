@@ -110,7 +110,7 @@ public class Question {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getBody() {
