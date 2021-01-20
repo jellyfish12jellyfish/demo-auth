@@ -24,11 +24,12 @@ public class Question {
     private Long id;
 
     @NotBlank
-    @Size(min = 10)
+    @Size(min = 5, max = 150)
     @Column(name = "title")
     private String title;
 
     @NotBlank
+    @Size(min = 10, max = 500)
     @Column(name = "body")
     private String body;
 
