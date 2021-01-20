@@ -1,10 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Question;
+import com.example.demo.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.security.Principal;
 import java.util.List;
 
 public interface QuestionService {
@@ -17,5 +17,5 @@ public interface QuestionService {
 
     void deleteById(Long questionId);
 
-    void createOrUpdate(Question question, Principal principal);
+    void createOrUpdate(Question question, User userFromDb);
 }
