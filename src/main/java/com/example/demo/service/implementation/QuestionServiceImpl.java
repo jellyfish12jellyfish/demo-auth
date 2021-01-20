@@ -5,6 +5,7 @@ package com.example.demo.service.implementation;
  * */
 
 import com.example.demo.entity.Question;
+import com.example.demo.entity.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.service.QuestionService;
 import org.slf4j.Logger;
@@ -12,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -53,6 +56,19 @@ public class QuestionServiceImpl implements QuestionService {
     public void deleteById(Long questionId) {
         log.info(">>> Delete question by id: {}", questionId);
         questionRepository.deleteById(questionId);
+    }
+
+    @Override
+    public void createOrUpdate(Question question, Principal principal) {
+
+        // если автор вопроса не найден, значит, это, скорее всего, новый вопрос
+        if (question.getUser() == null) {
+            var authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+            question.setUser(user);
+        }
+
+        questionRepository.save(question);
     }
 
 }
