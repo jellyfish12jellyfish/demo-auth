@@ -5,6 +5,7 @@ package com.example.demo.service.implementation;
  * */
 
 import com.example.demo.entity.Question;
+import com.example.demo.entity.Theme;
 import com.example.demo.entity.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.service.QuestionService;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,13 +60,14 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     @Override
-    public void createOrUpdate(Question question, User userFromDb) {
+    public void createOrUpdate(Question question, User userFromDb, Theme theme) {
 
         // если автор вопроса не найден, значит, это, скорее всего, новый вопрос
         if (question.getUser() == null) {
             question.setUser(userFromDb);
         }
-
+        question.setUpdatedAt(new Date());
+        question.setTheme(theme);
         questionRepository.save(question);
     }
 
