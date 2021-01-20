@@ -7,8 +7,13 @@
 <body>
 <div layout:fragment="content">
     <div>
-        <div>
-            <h1>Questions</h1>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1>Questions</h1>
+            </div>
+            <div>
+                <a href="#" th:href="@{/admin/question/new}">Add new question</a>
+            </div>
         </div>
 
         <div th:if="${!questions.empty}">
@@ -24,7 +29,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="question : ${questions}">
-                    <td th:text="${question.title}">questions title</td>
+                    <td><a th:href="@{/admin/question(questionId=${question.getId()})}"
+                           th:text="${question.title}">question title</a></td>
                     <td th:text="${#dates.format(question.createdAt, 'dd.MM.yy, HH:mm:ss')}">created at</td>
                     <td th:text="${#dates.format(question.updatedAt, 'dd.MM.yy, HH:mm:ss')}">updated at</td>
                     <td th:text="${question.user.username}">author</td>
