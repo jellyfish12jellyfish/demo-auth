@@ -35,8 +35,8 @@ public class Question {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt=new Date();
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,10 +71,6 @@ public class Question {
         this.userQuestions = Stream.of(userQuestions).collect(Collectors.toSet());
     }
 
-    @PrePersist
-    void createdAt() {
-        this.createdAt = new Date();
-    }
 
     @PreUpdate
     void updatedAt() {
