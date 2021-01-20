@@ -181,4 +181,13 @@ public class AdminController {
         questionService.createOrUpdate(question, userFromDb);
         return "redirect:/admin/questions";
     }
+
+
+    // delete the question by id
+    @GetMapping("/question/delete")
+    public String deleteQuestion(@RequestParam("questionId") Long questionId) {
+        questionService.deleteById(questionId);
+
+        return "redirect:/admin/questions";
+    }
 }
