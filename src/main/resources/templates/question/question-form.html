@@ -35,14 +35,15 @@
             </div>
 
             <div th:if="${themes != null and not #lists.isEmpty(themes)}">
-                <div class="mb-5">
-                    <select id="themeId" name="theme" th:field="*{theme}">
-                        <option th:each="theme : ${themes}"
-                                th:selected="${question.theme.getId() == theme.getId()}"
-                                th:value="${theme.getId()}"
-                                th:text="${theme.getTitle()}"></option>
-                    </select>
-                </div>
+            <div class="mb-5">
+                <label for="themeId">Select theme</label>
+                <select id="themeId" name="theme" th:field="*{theme}">
+                    <option th:each="theme : ${themes}"
+                            th:selected="${question.theme != null and question.theme.getId() == theme.getId()}"
+                            th:value="${theme.getId()}"
+                            th:text="${theme.getTitle()}"></option>
+                </select>
+            </div>
             </div>
 
             <div>
@@ -51,7 +52,7 @@
 
         </form>
         <hr>
-        <a th:href="@{/admin/themes}">Back to Quetions list</a>
+        <a th:href="@{/admin/questions}">Back to Quetions list</a>
     </div>
 </div>
 
