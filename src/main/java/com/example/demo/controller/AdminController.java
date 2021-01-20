@@ -4,6 +4,7 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
+import com.example.demo.entity.Question;
 import com.example.demo.entity.Theme;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
@@ -152,7 +153,15 @@ public class AdminController {
     // get create new question page
     @GetMapping("/question/new")
     public String getCreateQuestionPage(Model model) {
-        model.addAttribute("theme", new Theme());
+        model.addAttribute("question", new Question());
+        return "question/question-form";
+    }
+
+    // get create new question page
+    @GetMapping("/question")
+    public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
+
+        model.addAttribute("question", questionService.findById(questionId));
         return "question/question-form";
     }
 }
