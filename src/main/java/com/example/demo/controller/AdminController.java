@@ -154,6 +154,7 @@ public class AdminController {
     // get create new question page
     @GetMapping("/question/new")
     public String getCreateQuestionPage(Model model) {
+        model.addAttribute("themes", themeService.findAll());
         model.addAttribute("question", new Question());
         return "question/question-form";
     }
@@ -170,11 +171,12 @@ public class AdminController {
     // save a new question or an updated theme
     @PostMapping("/question/save")
     public String saveQuestion(@Valid @ModelAttribute Question question,
-                               @RequestParam(value = "theme", required = false) Long themeId,
                                BindingResult bindingResult,
-                               Principal principal) {
+                               @RequestParam(value = "theme", required = false) Long themeId,
+                               Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("themes", themeService.findAll());
             return "question/question-form";
         }
 
