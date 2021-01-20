@@ -147,4 +147,12 @@ public class AdminController {
         themeService.save(theme);
         return "redirect:/admin/themes";
     }
+
+
+    // get create new question page
+    @GetMapping("/question/new")
+    public String getCreateQuestionPage(Model model) {
+        model.addAttribute("theme", new Theme());
+        return "question/question-form";
+    }
 }
