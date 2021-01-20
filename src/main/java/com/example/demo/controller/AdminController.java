@@ -162,6 +162,7 @@ public class AdminController {
     @GetMapping("/question")
     public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
         model.addAttribute("question", questionService.findById(questionId));
+        model.addAttribute("themes", themeService.findAll());
         return "question/question-form";
     }
 
@@ -169,6 +170,7 @@ public class AdminController {
     // save a new question or an updated theme
     @PostMapping("/question/save")
     public String saveQuestion(@Valid @ModelAttribute Question question,
+                               @RequestParam(value = "theme", required = false) Long themeId,
                                BindingResult bindingResult,
                                Principal principal) {
 
@@ -177,8 +179,9 @@ public class AdminController {
         }
 
         User userFromDb = userService.findByUsername(principal.getName());
+        Theme theme = themeService.getThemeById(themeId);
 
-        questionService.createOrUpdate(question, userFromDb);
+        questionService.createOrUpdate(question, userFromDb, theme);
         return "redirect:/admin/questions";
     }
 
