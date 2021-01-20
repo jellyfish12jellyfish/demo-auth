@@ -23,6 +23,16 @@
             </div>
 
             <div>
+                <label for="title">Body</label>
+                <div class="c-error" th:if="${#fields.hasErrors('body')}"
+                     th:errors="*{body}">body error
+                </div>
+                <input type="text" name="body" id="body" th:field="*{body}"
+                       class="form-control mb-4 col-4" placeholder="enter new body">
+            </div>
+
+
+            <div>
                 <button class="btn btn-info col-2" type="submit">Save</button>
             </div>
 
