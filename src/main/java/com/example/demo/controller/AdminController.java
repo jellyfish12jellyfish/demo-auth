@@ -166,7 +166,7 @@ public class AdminController {
 
 
     // save a new question or an updated theme
-    @PostMapping("/theme/save")
+    @PostMapping("/question/save")
     public String saveQuestion(@Valid @ModelAttribute Question question,
                                Principal principal,
                                BindingResult bindingResult) {
