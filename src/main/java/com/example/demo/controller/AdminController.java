@@ -6,6 +6,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Question;
 import com.example.demo.entity.Theme;
+import com.example.demo.entity.User;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
@@ -168,13 +169,16 @@ public class AdminController {
     // save a new question or an updated theme
     @PostMapping("/question/save")
     public String saveQuestion(@Valid @ModelAttribute Question question,
-                               Principal principal,
-                               BindingResult bindingResult) {
+                               BindingResult bindingResult,
+                               Principal principal) {
 
         if (bindingResult.hasErrors()) {
             return "question/question-form";
         }
-        questionService.createOrUpdate(question, principal);
+
+        User userFromDb = userService.findByUsername(principal.getName());
+
+        questionService.createOrUpdate(question, userFromDb);
         return "redirect:/admin/questions";
     }
 }
