@@ -23,12 +23,15 @@
             </div>
 
             <div>
-                <label for="title">Body</label>
+                <label for="body">Body</label>
                 <div class="c-error" th:if="${#fields.hasErrors('body')}"
                      th:errors="*{body}">body error
                 </div>
-                <input type="text" name="body" id="body" th:field="*{body}"
-                       class="form-control mb-4 col-4" placeholder="enter new body">
+
+                <textarea name="body" id="body" th:field="*{body}"
+                          class="form-control mb-4 col-4" placeholder="enter new body">
+                </textarea>
+
             </div>
 
 
