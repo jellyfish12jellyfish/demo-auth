@@ -175,6 +175,6 @@ public class AdminController {
             return "question/question-form";
         }
         questionService.createOrUpdate(question, principal);
-        return "redirect:/admin/themes";
+        return "redirect:/admin/questions";
     }
 }
