@@ -157,11 +157,24 @@ public class AdminController {
         return "question/question-form";
     }
 
-    // get create new question page
+    // get update question page
     @GetMapping("/question")
     public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
-
         model.addAttribute("question", questionService.findById(questionId));
         return "question/question-form";
+    }
+
+
+    // save a new question or an updated theme
+    @PostMapping("/theme/save")
+    public String saveQuestion(@Valid @ModelAttribute Question question,
+                               Principal principal,
+                               BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "question/question-form";
+        }
+        questionService.createOrUpdate(question, principal);
+        return "redirect:/admin/themes";
     }
 }
