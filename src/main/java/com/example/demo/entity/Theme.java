@@ -26,8 +26,8 @@ public class Theme {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt = new Date();
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

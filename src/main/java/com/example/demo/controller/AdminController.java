@@ -4,7 +4,9 @@ package com.example.demo.controller;
  * Time: 8:13 PM
  * */
 
+import com.example.demo.entity.Question;
 import com.example.demo.entity.Theme;
+import com.example.demo.entity.User;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
@@ -146,5 +148,51 @@ public class AdminController {
         }
         themeService.save(theme);
         return "redirect:/admin/themes";
+    }
+
+
+    // get create new question page
+    @GetMapping("/question/new")
+    public String getCreateQuestionPage(Model model) {
+        model.addAttribute("themes", themeService.findAll());
+        model.addAttribute("question", new Question());
+        return "question/question-form";
+    }
+
+    // get update question page
+    @GetMapping("/question")
+    public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
+        model.addAttribute("question", questionService.findById(questionId));
+        model.addAttribute("themes", themeService.findAll());
+        return "question/question-form";
+    }
+
+
+    // save a new question or an updated theme
+    @PostMapping("/question/save")
+    public String saveQuestion(@Valid @ModelAttribute Question question,
+                               BindingResult bindingResult,
+                               @RequestParam(value = "theme", required = false) Long themeId,
+                               Principal principal, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("themes", themeService.findAll());
+            return "question/question-form";
+        }
+
+        User userFromDb = userService.findByUsername(principal.getName());
+        Theme theme = themeService.getThemeById(themeId);
+
+        questionService.createOrUpdate(question, userFromDb, theme);
+        return "redirect:/admin/questions";
+    }
+
+
+    // delete the question by id
+    @GetMapping("/question/delete")
+    public String deleteQuestion(@RequestParam("questionId") Long questionId) {
+        questionService.deleteById(questionId);
+
+        return "redirect:/admin/questions";
     }
 }

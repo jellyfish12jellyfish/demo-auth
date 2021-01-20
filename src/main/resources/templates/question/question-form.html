@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Save question</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="mt-5">
+        <form th:action="@{/admin/question/save}" th:object="${question}" method="post">
+
+            <!-- Add hidden field to handle update -->
+            <input type="hidden" th:field="*{id}">
+
+            <div>
+                <label for="title">Title</label>
+                <div class="c-error" th:if="${#fields.hasErrors('title')}"
+                     th:errors="*{title}">Title error
+                </div>
+                <input type="text" name="title" id="title" th:field="*{title}"
+                       class="form-control mb-4 col-4" placeholder="enter new title">
+            </div>
+
+            <div>
+                <label for="body">Body</label>
+                <div class="c-error" th:if="${#fields.hasErrors('body')}"
+                     th:errors="*{body}">body error
+                </div>
+
+                <textarea name="body" id="body" th:field="*{body}"
+                          class="form-control mb-4 col-4" placeholder="enter new body">
+                </textarea>
+
+            </div>
+
+            <div th:if="${themes != null and not #lists.isEmpty(themes)}">
+            <div class="mb-5">
+                <label for="themeId">Select theme</label>
+                <select id="themeId" name="theme" th:field="*{theme}">
+                    <option th:each="theme : ${themes}"
+                            th:selected="${question.theme != null and question.theme.getId() == theme.getId()}"
+                            th:value="${theme.getId()}"
+                            th:text="${theme.getTitle()}"></option>
+                </select>
+            </div>
+            </div>
+
+            <div>
+                <button class="btn btn-info col-2" type="submit">Save</button>
+            </div>
+
+        </form>
+        <hr>
+        <a th:href="@{/admin/questions}">Back to Quetions list</a>
+    </div>
+</div>
+
+</body>
+</html>

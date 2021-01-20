@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Question;
+import com.example.demo.entity.Theme;
+import com.example.demo.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +18,5 @@ public interface QuestionService {
 
     void deleteById(Long questionId);
 
+    void createOrUpdate(Question question, User userFromDb, Theme theme);
 }

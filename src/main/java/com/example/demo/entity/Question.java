@@ -24,18 +24,19 @@ public class Question {
     private Long id;
 
     @NotBlank
-    @Size(min = 10)
+    @Size(min = 5, max = 150)
     @Column(name = "title")
     private String title;
 
     @NotBlank
+    @Size(min = 10, max = 500)
     @Column(name = "body")
     private String body;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt=new Date();
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -70,10 +71,6 @@ public class Question {
         this.userQuestions = Stream.of(userQuestions).collect(Collectors.toSet());
     }
 
-    @PrePersist
-    void createdAt() {
-        this.createdAt = new Date();
-    }
 
     @PreUpdate
     void updatedAt() {
@@ -109,7 +106,7 @@ public class Question {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getBody() {
