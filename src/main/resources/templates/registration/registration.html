@@ -8,15 +8,13 @@
 <body>
 
 <div layout:fragment="content">
-
-    <div class="col-md-4">
-
-        <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
-
+    <h1 class="text-center">Create new account</h1>
+    <div class="login-clean">
         <form action="#" method="post" th:action="@{/registration}" id="registerForm" th:object="${user}">
 
+            <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
+
             <div class="form-group">
-                <label for="username">Username</label>
                 <input type="text" class="form-control" id="username"
                        placeholder="Enter username" name="username" autofocus autocomplete="new-password" required>
                 <span class="c-error" th:if="${#fields.hasErrors('username')}"
@@ -24,7 +22,6 @@
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password"
                        name="password" autocomplete="new-password" required>
                 <span class="c-error" th:if="${#fields.hasErrors('password')}"
@@ -32,7 +29,6 @@
             </div>
 
             <div class="form-group">
-                <label for="confirmPassword">Confirm password</label>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Password"
                        name="confirmPassword" required>
                 <span id="confirmPasswordError" class="c-error"
@@ -40,9 +36,11 @@
                       th:text="${passwordError}">Passwords do not match</span>
             </div>
 
-            <div>
-                <button type="submit" class="btn btn-primary">Create my account</button>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
             </div>
+
+            <a href="/login" th:href="@{/login}" class="forgot">Log In</a>
         </form>
     </div>
 </div>
