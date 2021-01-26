@@ -11,7 +11,9 @@
         <h2 th:text="${question.getTitle()}">Question title</h2>
     </div>
     <hr>
-    <div th:text="${question.body}"></div>
+    <div>
+        <p th:utext="${question.body}"></p>
+    </div>
 </div>
 </body>
 </html>

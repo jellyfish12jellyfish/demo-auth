@@ -29,21 +29,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public abstract class TestClass {
+public abstract class AbstractTestClass {
 
-    static HtmlUnitDriver browser;
+    protected static HtmlUnitDriver browser;
 
-    static final String USERNAME = "john";
-    static final String PASSWORD = "12345678";
+    protected static final String USERNAME = "john";
+    protected static final String PASSWORD = "12345678";
 
     @LocalServerPort
     protected int port;
 
     @Autowired
-    UserService userService;
+    protected UserService userService;
 
     @Autowired
-    RoleService roleService;
+    protected RoleService roleService;
 
     @BeforeClass
     public static void setup() {
@@ -67,12 +67,12 @@ public abstract class TestClass {
         userService.save(user);
     }
 
-    void assertLandedOnAdminPage() {
+    protected void assertLandedOnAdminPage() {
         assertEquals(adminPageUrl(), browser.getCurrentUrl());
     }
 
 
-    void doLogin(String username, String password) {
+    protected void doLogin(String username, String password) {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
 
         browser.findElementByName("username").sendKeys(username);
@@ -82,8 +82,8 @@ public abstract class TestClass {
     }
 
 
-    void doRegistration(String username, String password) {
-        browser.findElementByLinkText("Sign Up").click();
+    protected void doRegistration(String username, String password) {
+        browser.findElementById("signUp").click();
 
         assertEquals(registrationPageUrl(), browser.getCurrentUrl());
 
@@ -94,7 +94,7 @@ public abstract class TestClass {
         browser.findElementByCssSelector("form#registerForm").submit();
     }
 
-    void updateProfile(String username, String password, String confirmPassword) {
+    protected void updateProfile(String username, String password, String confirmPassword) {
         assertLandedOnProfilePage();
 
         // clear fields
@@ -110,46 +110,46 @@ public abstract class TestClass {
         browser.findElementByCssSelector("form#updateForm").submit();
     }
 
-    void assertLandedOnLoginPage() {
+    protected void assertLandedOnLoginPage() {
         assertEquals(loginPageUrl(), browser.getCurrentUrl());
     }
 
-    void assertLandedOnHomePage() {
+    protected void assertLandedOnHomePage() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
     }
 
-    void assertLandedOnProfilePage() {
+    protected void assertLandedOnProfilePage() {
         assertEquals(profilePageUrl(), browser.getCurrentUrl());
     }
 
-    void clickLoginLink() {
+    protected void clickLoginLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id='login']").click();
     }
 
-    void clickProfileLink() {
+    protected void clickProfileLink() {
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("a[id=profileLink]").click();
     }
 
     // url helper methods
-    String homePageUrl() {
+    protected String homePageUrl() {
         return "http://localhost:" + port + "/";
     }
 
-    String loginPageUrl() {
+    protected String loginPageUrl() {
         return homePageUrl() + "login";
     }
 
-    String registrationPageUrl() {
+    protected String registrationPageUrl() {
         return homePageUrl() + "registration";
     }
 
-    String profilePageUrl() {
+    protected String profilePageUrl() {
         return homePageUrl() + "profile";
     }
 
-    String adminPageUrl() {
+    protected String adminPageUrl() {
         return homePageUrl() + "admin";
     }
 }

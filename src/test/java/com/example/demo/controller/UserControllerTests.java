@@ -1,16 +1,17 @@
-package com.example.demo;
+package com.example.demo.controller;
 /*
  * Date: 1/3/21
  * Time: 8:03 AM
  * */
 
+import com.example.demo.AbstractTestClass;
 import com.example.demo.entity.User;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UserControllerTests extends TestClass {
+public class UserControllerTests extends AbstractTestClass {
 
 
     @Test
