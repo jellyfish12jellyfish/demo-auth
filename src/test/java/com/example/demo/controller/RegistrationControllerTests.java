@@ -1,9 +1,10 @@
-package com.example.demo;
+package com.example.demo.controller;
 /*
  * Date: 12/2/20
  * Time: 9:29 PM
  * */
 
+import com.example.demo.AbstractTestClass;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

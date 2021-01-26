@@ -1,9 +1,10 @@
-package com.example.demo;
+package com.example.demo.controller;
 /*
  * Date: 1/3/21
  * Time: 8:03 AM
  * */
 
+import com.example.demo.AbstractTestClass;
 import com.example.demo.entity.User;
 import org.junit.Test;
 
