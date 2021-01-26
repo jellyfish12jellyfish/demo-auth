@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RegistrationControllerTests extends TestClass {
+public class RegistrationControllerTests extends AbstractTestClass {
 
     @Test
     public void testLogin_HappyPath() throws Exception {
