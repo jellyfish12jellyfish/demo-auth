@@ -3,10 +3,12 @@
       layout:decorate="~{fragments/base}">
 <head>
     <title>Save question</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 
 <div layout:fragment="content">
+
     <div class="mt-5">
         <form th:action="@{/admin/question/save}" th:object="${question}" method="post">
 
@@ -23,27 +25,27 @@
             </div>
 
             <div>
-                <label for="body">Body</label>
+                <label for="editor">Body</label>
                 <div class="c-error" th:if="${#fields.hasErrors('body')}"
                      th:errors="*{body}">body error
                 </div>
 
-                <textarea name="body" id="body" th:field="*{body}"
-                          class="form-control mb-4 col-4" placeholder="enter new body">
+                <textarea  name="body" id="editor" th:field="*{body}"
+                           placeholder="enter new body" rows="20" cols="20">
                 </textarea>
 
             </div>
 
             <div th:if="${themes != null and not #lists.isEmpty(themes)}">
-            <div class="mb-5">
-                <label for="themeId">Select theme</label>
-                <select id="themeId" name="theme" th:field="*{theme}">
-                    <option th:each="theme : ${themes}"
-                            th:selected="${question.theme != null and question.theme.getId() == theme.getId()}"
-                            th:value="${theme.getId()}"
-                            th:text="${theme.getTitle()}"></option>
-                </select>
-            </div>
+                <div class="mb-5">
+                    <label for="themeId">Select theme</label>
+                    <select id="themeId" name="theme" th:field="*{theme}">
+                        <option th:each="theme : ${themes}"
+                                th:selected="${question.theme != null and question.theme.getId() == theme.getId()}"
+                                th:value="${theme.getId()}"
+                                th:text="${theme.getTitle()}"></option>
+                    </select>
+                </div>
             </div>
 
             <div>
@@ -54,6 +56,13 @@
         <hr>
         <a th:href="@{/admin/questions}">Back to Quetions list</a>
     </div>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </div>
 
 </body>
