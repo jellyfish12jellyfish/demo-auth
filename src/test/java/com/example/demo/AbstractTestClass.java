@@ -83,7 +83,7 @@ public abstract class AbstractTestClass {
 
 
     void doRegistration(String username, String password) {
-        browser.findElementByLinkText("Sign Up").click();
+        browser.findElementById("signUp").click();
 
         assertEquals(registrationPageUrl(), browser.getCurrentUrl());
 
