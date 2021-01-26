@@ -58,7 +58,7 @@ public class RegistrationControllerTests extends AbstractTestClass {
 
         assertEquals(homePageUrl(), browser.getCurrentUrl());
         browser.findElementByCssSelector("form#logoutForm").submit();
-        assertEquals(homePageUrl(), browser.getCurrentUrl());
+        assertEquals(loginPageUrl(), browser.getCurrentUrl());
     }
 
 }
