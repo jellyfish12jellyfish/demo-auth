@@ -36,6 +36,6 @@ public class JpaUserDetailsService implements UserDetailsService {
 
         userRepository.setLastLoginTime(username);
         log.info(">>> update login at timestamp");
-        return userFromDB;
+        return new CustomUserDetails(userFromDB);
     }
 }
