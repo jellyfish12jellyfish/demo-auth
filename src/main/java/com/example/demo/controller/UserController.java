@@ -5,6 +5,7 @@ package com.example.demo.controller;
  * */
 
 import com.example.demo.entity.User;
+import com.example.demo.security.CustomUserDetails;
 import com.example.demo.service.UserQuestionService;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
@@ -42,9 +43,14 @@ public class UserController {
     public String home(Principal principal, Model model) {
 
         if (principal != null) {
-            var authentication = SecurityContextHolder.getContext().getAuthentication();
-            User user = (User) authentication.getPrincipal();
-            model.addAttribute("userQuestions", userQuestionService.findAllByUserId(user.getId()));
+            try {
+                var authentication = SecurityContextHolder.getContext().getAuthentication();
+                CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+                model.addAttribute("userQuestions", userQuestionService.findAllByUserId(user.getUser().getId()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         return "home";
