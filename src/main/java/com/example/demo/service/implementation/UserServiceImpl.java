@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,6 @@ public class UserServiceImpl implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-
     @Override
     public List<User> findAll() {
         List<User> users = userRepository.findAll();
@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         log.info(">>> Save user: {}", user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userRepository.save(user);
     }
 
