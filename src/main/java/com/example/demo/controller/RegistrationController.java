@@ -4,7 +4,6 @@ package com.example.demo.controller;
  * Time: 8:19 PM
  * */
 
-import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -54,32 +52,16 @@ public class RegistrationController {
                           BindingResult bindingResult,
                           Model model) {
 
-        if (bindingResult.hasErrors()) {
-            log.warn(">>> WARN: field has errors");
-            log.info(">>> GET registration.html");
+        boolean fieldHasErrors = userService.checkFieldErrors(user, bindingResult, model);
+
+        if (fieldHasErrors) {
             return "registration/registration";
         }
 
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            model.addAttribute("passwordError", "Passwords do not match");
-            log.warn(">>> WARN: passwords do not match");
-
-            log.info(">>> GET registration.html");
-            return "registration/registration";
-        }
-
-        if (userService.findByUsername(user.getUsername()) != null) {
-            log.warn(">>> WARN: username already exists");
-            model.addAttribute("usernameError", "A user with the same name already exists");
-
-            log.info(">>> GET registration.html");
-            return "registration/registration";
-        }
-
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userService.save(user);
 
         log.info(">>> GET:redirect login.html");
         return "redirect:/login";
     }
+
 }
