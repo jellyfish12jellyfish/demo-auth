@@ -73,7 +73,6 @@ public class AdminController {
         return "redirect:/admin/user-list";
     }
 
-
     // update user roles
     @PostMapping("/update")
     public String setUserRoles(@RequestParam("userId") Long id,
@@ -150,7 +149,6 @@ public class AdminController {
         return "redirect:/admin/themes";
     }
 
-
     // get create new question page
     @GetMapping("/question/new")
     public String getCreateQuestionPage(Model model) {
@@ -166,7 +164,6 @@ public class AdminController {
         model.addAttribute("themes", themeService.findAll());
         return "question/question-form";
     }
-
 
     // save a new question or an updated theme
     @PostMapping("/question/save")
