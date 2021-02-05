@@ -32,4 +32,6 @@ public interface UserService {
     boolean selfUpdate(Principal principal, Long id);
 
     String updateProfile(@Valid User user, Long userId, BindingResult bindingResult, Model model, HttpSession session);
+
+    boolean checkFieldErrors(User user, BindingResult bindingResult, Model model);
 }
