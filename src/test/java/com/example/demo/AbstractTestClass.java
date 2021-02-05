@@ -63,7 +63,6 @@ public abstract class AbstractTestClass {
         User user = new User();
         user.setUsername(USERNAME);
         user.setPassword(PASSWORD);
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userService.save(user);
     }
 
