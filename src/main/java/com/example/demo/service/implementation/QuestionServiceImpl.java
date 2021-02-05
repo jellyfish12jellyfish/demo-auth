@@ -58,7 +58,6 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.deleteById(questionId);
     }
 
-
     @Override
     public void createOrUpdate(Question question, User userFromDb, Theme theme) {
 

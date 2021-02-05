@@ -19,7 +19,6 @@ public class RoleServiceImpl implements RoleService {
 
     private static final Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
 
-
     // DI
     private final RoleRepository roleRepository;
 
