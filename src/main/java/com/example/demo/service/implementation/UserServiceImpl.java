@@ -155,6 +155,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean checkFieldErrors(User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            log.warn(">>> WARN: field has errors");
+            log.info(">>> GET registration.html");
+            return true;
+        }
+
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("passwordError", "Passwords do not match");
+            log.warn(">>> WARN: passwords do not match");
+
+            log.info(">>> GET registration.html");
+            return true;
+        }
+
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            log.warn(">>> WARN: username already exists");
+            model.addAttribute("usernameError", "A user with the same name already exists");
+
+            log.info(">>> GET registration.html");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public User findByUsername(String username) {
         log.info(">>> Get user by username: {}", username);
         return userRepository.findByUsername(username);
