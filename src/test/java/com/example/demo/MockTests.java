@@ -11,9 +11,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -28,5 +29,13 @@ public class MockTests {
     public void loginUnauthenticated() throws Exception {
         mvc.perform(get("/login"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Test /questions with unauthenticated user")
+    public void themesUnauthenticated() throws Exception {
+        mvc.perform(get("/questions"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"));
     }
 }
