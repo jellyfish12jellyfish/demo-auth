@@ -15,12 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MockTests {
+
+    private final static String LOGIN_URL = "http://localhost/login";
 
     @Autowired
     private MockMvc mvc;
@@ -33,18 +36,26 @@ public class MockTests {
     }
 
     @Test
-    @DisplayName("Test /questions with unauthenticated user")
+    @DisplayName("Test /questions with unauthenticated user returns login page")
     public void themesUnauthenticated() throws Exception {
         mvc.perform(get("/questions"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"));
+                .andExpect(redirectedUrl(LOGIN_URL));
     }
 
     @Test
-    @DisplayName("Test /question with authenticated user")
+    @DisplayName("Test /question with authenticated user returns ok")
     @WithMockUser
     public void themesAuthenticated() throws Exception {
         mvc.perform(get("/questions"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Test /profile with unauthenticated user returns login page")
+    void profileUnatuhenticated() throws Exception {
+        mvc.perform(get("/profile"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(LOGIN_URL));
     }
 }
