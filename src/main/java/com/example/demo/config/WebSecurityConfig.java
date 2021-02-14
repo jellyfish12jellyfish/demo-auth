@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .mvcMatchers("/user/**", "/questions/**").hasAnyRole("USER", "ADMIN")
+                .mvcMatchers("/user/**", "/questions/**", "/profile/**").hasAnyRole("USER", "ADMIN")
                 .mvcMatchers("/registration/**", "/static/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login")
