@@ -4,15 +4,18 @@ package com.example.demo;
  * Time: 6:23 PM
  * */
 
+import com.example.demo.entity.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -22,6 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MockTests {
+
+    @Mock
+    SpringTemplateEngine springTemplateEngine;
+
+    @Mock
+    SpringResourceTemplateResolver springResourceTemplateResolver;
 
     private final static String LOGIN_URL = "http://localhost/login";
 
@@ -57,5 +66,21 @@ public class MockTests {
         mvc.perform(get("/profile"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(LOGIN_URL));
+    }
+
+    @Test
+    @DisplayName("Test /admin with authenticated user returns 403")
+    @WithMockUser
+    public void userNotAdmin() throws Exception {
+        mvc.perform(get("/admin"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DisplayName("Test /admin with authenticated admin returns ok")
+    @WithMockUser(roles = "ADMIN")
+    void userIsAdmin() throws Exception {
+        mvc.perform(get("/admin"))
+                .andExpect(status().isOk());
     }
 }
