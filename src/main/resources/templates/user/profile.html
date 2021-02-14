@@ -9,7 +9,7 @@
 <div layout:fragment="content">
     <h1>Profile page</h1>
 
-    <div>Joined at: <span th:text="${#dates.format(user.getCreatedAt(), 'dd-MM-yyyy | HH:mm')}"></span></div>
+    <div>Joined at: <span th:text="${#dates.format(user?.getCreatedAt(), 'dd-MM-yyyy | HH:mm')}"></span></div>
 
     <hr>
     <div>
