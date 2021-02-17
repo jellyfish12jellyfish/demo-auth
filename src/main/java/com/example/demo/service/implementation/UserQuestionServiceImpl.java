@@ -40,11 +40,17 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     public void setViewTime(User user, Question question) {
 
         log.info(">>> Get UserQuestion object by User and Question");
-        UserQuestion userQuestion = userQuestionRepository.findByUserAndQuestion(user, question).orElse(null);
+        UserQuestion userQuestion = userQuestionRepository
+                .findByUserAndQuestion(user, question)
+                .orElse(null);
 
         try {
-            // if userQuestion object not found, then create new object, else update timestamp
-            save(Objects.requireNonNullElseGet(userQuestion, () -> new UserQuestion(user, question)));
+
+            if (userQuestion == null) {
+                save(new UserQuestion(user, question));
+            } else {
+                save(userQuestion);
+            }
 
         } catch (Exception e) {
             log.error(">>> Error in UserQuestionServiceImpl: ");
