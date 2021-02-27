@@ -64,14 +64,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        log.info(">>> Save user: {}", user.getUsername());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
-        userRepository.save(user);
-    }
-
-    @Override
     public void update(User user) {
         log.info(">>> Update user: {}", user.getUsername());
         userRepository.save(user);
