@@ -27,8 +27,8 @@ public class LoadDatabase {
             List<Role> roles = roleRepository.findAll();
 
             if (roles.isEmpty()) {
-                log.info("Preloading ROLE_USER: " + (roleRepository.save(new Role(1L, "ROLE_USER"))));
-                log.info("Preloading ROLE_ADMIN: " + (roleRepository.save(new Role(2L, "ROLE_ADMIN"))));
+                log.info("Preloading ROLE_USER: " + (roleRepository.save(new Role(1, "ROLE_USER"))));
+                log.info("Preloading ROLE_ADMIN: " + (roleRepository.save(new Role(2, "ROLE_ADMIN"))));
             }
         };
     }
@@ -39,8 +39,8 @@ public class LoadDatabase {
     CommandLineRunner initTestDatabase(RoleRepository roleRepository) {
 
         return args -> {
-            log.info("Preloading ROLE_USER: " + (roleRepository.save(new Role(1L, "ROLE_USER"))));
-            log.info("Preloading ROLE_ADMIN: " + (roleRepository.save(new Role(2L, "ROLE_ADMIN"))));
+            log.info("Preloading ROLE_USER: " + (roleRepository.save(new Role(1, "ROLE_USER"))));
+            log.info("Preloading ROLE_ADMIN: " + (roleRepository.save(new Role(2, "ROLE_ADMIN"))));
         };
     }
 }
