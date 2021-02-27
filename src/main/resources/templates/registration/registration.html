@@ -15,8 +15,8 @@
             <span id="usernameError" style="color:red;" th:if="${usernameError}" th:text="${usernameError}"></span>
 
             <div class="form-group">
-                <input type="text" class="form-control" id="username"
-                       placeholder="Enter username" name="username" autofocus autocomplete="new-password" required>
+                <input type="email" class="form-control" id="username"
+                       placeholder="Enter email" name="username" autofocus autocomplete="new-password" required>
                 <span class="c-error" th:if="${#fields.hasErrors('username')}"
                       th:errors="*{username}">Username error</span>
             </div>
