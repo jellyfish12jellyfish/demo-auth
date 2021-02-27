@@ -20,12 +20,12 @@ import java.security.Principal;
 
 @Slf4j
 @Controller
-public class RegistrationController {
+public class AuthController {
 
     private final UserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
