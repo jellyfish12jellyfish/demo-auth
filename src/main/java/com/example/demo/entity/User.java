@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -34,8 +33,8 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 20, message = "Username must have between 3 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){3,80}$", message = "Your username must start with a letter")
+    @Email
+    @Column(unique = true, nullable = false)
     private String username;
 
     @Size(max = 25)
@@ -43,9 +42,6 @@ public class User {
 
     @Size(max = 25)
     private String lastName;
-
-    @Email
-    private String email;
 
     @NotBlank
     @Size(min = 8, message = "At least 8 characters")
@@ -170,13 +166,6 @@ public class User {
         this.lastName = lastName.trim();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public String toString() {
