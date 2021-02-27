@@ -6,7 +6,6 @@ package com.example.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -19,10 +18,8 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "name")
     private String name;
 
     @Transient
@@ -33,21 +30,21 @@ public class Role implements GrantedAuthority {
     }
 
 
-    public Role(Long id, String name) {
+    public Role(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Role(Long id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -70,5 +67,12 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getName();
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
