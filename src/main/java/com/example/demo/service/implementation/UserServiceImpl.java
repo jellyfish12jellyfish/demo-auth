@@ -177,6 +177,19 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    // registering user
+    @Override
+    public void registerUser(User user) {
+        log.info(">>> Registering user: {}", user.getUsername());
+
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
+
+        userRepository.save(user);
+    }
+
     @Override
     public User findByUsername(String username) {
         log.info(">>> Get user by username: {}", username);
