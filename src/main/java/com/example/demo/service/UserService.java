@@ -34,4 +34,6 @@ public interface UserService {
     String updateProfile(@Valid User user, Long userId, BindingResult bindingResult, Model model, HttpSession session);
 
     boolean checkFieldErrors(User user, BindingResult bindingResult, Model model);
+
+    void registerUser(User user);
 }
