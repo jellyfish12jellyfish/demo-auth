@@ -34,9 +34,7 @@ public class UserServiceImpl implements UserService {
     private static final String USER = "ROLE_USER";
 
     private final UserRepository userRepository;
-
     private final RoleService roleService;
-
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -69,7 +67,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         log.info(">>> Save user: {}", user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
         userRepository.save(user);
     }
 
@@ -143,7 +141,8 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userFromDb.getRoles());
         user.setCreatedAt(userFromDb.getCreatedAt());
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
         userRepository.save(user);
         session.invalidate();
