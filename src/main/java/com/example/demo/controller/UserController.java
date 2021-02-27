@@ -8,8 +8,7 @@ import com.example.demo.entity.User;
 import com.example.demo.security.CustomUserDetails;
 import com.example.demo.service.UserQuestionService;
 import com.example.demo.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
+@Slf4j
 @Controller
 public class UserController {
-
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 

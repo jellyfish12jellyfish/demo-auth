@@ -10,8 +10,7 @@ import com.example.demo.entity.User;
 import com.example.demo.service.QuestionService;
 import com.example.demo.service.UserQuestionService;
 import com.example.demo.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("/questions")
 public class QuestionController {
@@ -32,8 +32,6 @@ public class QuestionController {
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 10;
-
-    private static final Logger log = LoggerFactory.getLogger(QuestionController.class.getName());
 
     private final QuestionService questionService;
     private final UserService userService;

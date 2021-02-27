@@ -9,8 +9,7 @@ import com.example.demo.entity.Theme;
 import com.example.demo.entity.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.service.QuestionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +18,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class QuestionServiceImpl implements QuestionService {
-
-    private static final Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
 
     // DI
     private final QuestionRepository questionRepository;

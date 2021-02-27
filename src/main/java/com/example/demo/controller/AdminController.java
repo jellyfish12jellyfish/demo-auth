@@ -11,8 +11,7 @@ import com.example.demo.service.QuestionService;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.ThemeService;
 import com.example.demo.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +23,10 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-    private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
     private final UserService userService;
     private final RoleService roleService;
