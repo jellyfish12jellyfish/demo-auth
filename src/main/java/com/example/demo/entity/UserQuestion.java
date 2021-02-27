@@ -4,7 +4,6 @@ package com.example.demo.entity;
  * Time: 7:59 AM
  * */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,6 @@ public class UserQuestion {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "last_view_at")
     private Date lastViewAt;
 
     public UserQuestion() {

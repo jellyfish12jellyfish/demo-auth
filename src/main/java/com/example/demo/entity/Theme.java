@@ -30,7 +30,6 @@ public class Theme {
     private Long id;
 
     @Size(min = 5, max = 120)
-    @Column(name = "title")
     private String title;
 
     @CreationTimestamp
@@ -40,7 +39,6 @@ public class Theme {
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @OneToMany(mappedBy = "theme")
