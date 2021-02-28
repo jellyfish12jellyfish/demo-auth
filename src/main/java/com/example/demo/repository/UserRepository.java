@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     interface NameAndLastLoginAt {
         String getUsername();
+
         String getLastLoginAt();
     }
 
@@ -26,4 +27,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<NameAndLastLoginAt> findAllByOrderByLastLoginAtDesc();
 
+    User findUserByVerificationCode(String code);
 }
