@@ -63,7 +63,8 @@ public abstract class AbstractTestClass {
         User user = new User();
         user.setUsername(USERNAME);
         user.setPassword(PASSWORD);
-        userService.registerUser(user);
+        // todo fix this method later
+        userService.registerUser(user, "");
     }
 
     protected void assertLandedOnAdminPage() {
