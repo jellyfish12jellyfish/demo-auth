@@ -53,7 +53,7 @@ public class AdminController {
     @GetMapping("/user-list")
     public String listUsers(Model model) {
 
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("roles", roleService.getRoles());
         model.addAttribute("users", userService.findAll());
 
         log.info(">>> GET admin-admin-user-list.html");

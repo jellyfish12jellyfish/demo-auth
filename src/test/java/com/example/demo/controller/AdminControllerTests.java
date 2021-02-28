@@ -18,7 +18,7 @@ public class AdminControllerTests extends AbstractTestClass {
     @Before
     public void setAdminRole() {
         User user = userService.findByUsername(USERNAME);
-        Role role_admin = roleService.findByName("ROLE_ADMIN");
+        Role role_admin = roleService.getRoleByName("ROLE_ADMIN");
         user.getRoles().add(role_admin);
         userService.update(user);
     }

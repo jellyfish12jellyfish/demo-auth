@@ -91,17 +91,17 @@ public class UserServiceImpl implements UserService {
 
         // если переданы 2 роли, мы назначаем их
         if (roles.size() == 2) {
-            Set<Role> roleSet = new HashSet<>(roleService.findAll());
+            Set<Role> roleSet = new HashSet<>(roleService.getRoles());
             user.setRoles(roleSet);
         }
 
         // если только 1 роль и мн-во содержит ROLE_USER, назаначаем юзеру эту роль
         else if (roles.size() == 1 && roles.contains(USER))
-            user.getRoles().add(roleService.findByName(USER));
+            user.getRoles().add(roleService.getRoleByName(USER));
 
             // если только 1 роль и мн-во содержит ROLE_AMDIN, назаначаем юзеру эту роль
         else if (roles.size() == 1 && roles.contains(ADMIN))
-            user.getRoles().add(roleService.findByName(ADMIN));
+            user.getRoles().add(roleService.getRoleByName(ADMIN));
 
         log.info(">>> Set roles and update");
         userRepository.save(user);
