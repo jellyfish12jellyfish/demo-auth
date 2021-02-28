@@ -31,7 +31,7 @@ public class UserControllerTests extends AbstractTestClass {
         assertEquals(usernameFromNavbar, "Jane");
 
         // get user from DB
-        User updatedUser = userService.findById(1L);
+        User updatedUser = userService.getUserById(1L);
         assertEquals(updatedUser.getUsername(), "Jane");
 
     }

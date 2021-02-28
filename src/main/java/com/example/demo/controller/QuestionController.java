@@ -71,7 +71,7 @@ public class QuestionController {
                               Principal principal, Model model) {
 
         Question question = questionService.getQuestionById(questionId);
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.getUserByUsername(principal.getName());
 
         userQuestionService.setViewTime(user, question);
         model.addAttribute("question", question);

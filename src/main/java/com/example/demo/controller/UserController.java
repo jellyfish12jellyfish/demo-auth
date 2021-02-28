@@ -59,7 +59,7 @@ public class UserController {
     public String getProfilePage(Principal principal, Model model) {
 
         // get user from the service
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("user", userService.getUserByUsername(principal.getName()));
 
         log.info(">>> GET profile.html");
         return "user/profile";

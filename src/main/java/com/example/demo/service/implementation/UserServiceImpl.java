@@ -58,26 +58,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getUsers() {
         List<User> users = userRepository.findAll();
         log.info(">>> Get all users: {}", users);
         return users;
     }
 
     @Override
-    public User findById(Long id) {
+    public User getUserById(Long id) {
         log.info(">>> Get user by id: {}", id);
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Did not fine uesr id: " + id));
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteUserById(Long id) {
         log.info(">>> Delete user by id: {}", id);
         userRepository.deleteById(id);
     }
 
     @Override
-    public void update(User user) {
+    public void updateUser(User user) {
         log.info(">>> Update user: {}", user.getUsername());
         userRepository.save(user);
     }
@@ -253,7 +253,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User getUserByUsername(String username) {
         log.info(">>> Get user by username: {}", username);
         return userRepository.findByUsername(username);
     }

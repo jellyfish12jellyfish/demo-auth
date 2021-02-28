@@ -54,7 +54,7 @@ public class AdminController {
     public String listUsers(Model model) {
 
         model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.getUsers());
 
         log.info(">>> GET admin-admin-user-list.html");
         return "admin/admin-user-list";
@@ -65,7 +65,7 @@ public class AdminController {
     public String deleteUser(@RequestParam("userId") Long userId) {
 
         log.info(">>> DELETE user by id: {}", userId);
-        userService.deleteById(userId);
+        userService.deleteUserById(userId);
 
         log.info(">>> GET:redirect admin-user-list.html");
         return "redirect:/admin/user-list";
@@ -91,7 +91,7 @@ public class AdminController {
     // get users page
     @GetMapping("/users")
     public String getUsers(Model model) {
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.getUsers());
         return "admin/admin-users";
     }
 
@@ -175,7 +175,7 @@ public class AdminController {
             return "question/question-form";
         }
 
-        User userFromDb = userService.findByUsername(principal.getName());
+        User userFromDb = userService.getUserByUsername(principal.getName());
         Theme theme = themeService.getThemeById(themeId);
 
         questionService.createOrUpdateQuestion(question, userFromDb, theme);

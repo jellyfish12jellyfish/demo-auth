@@ -13,15 +13,15 @@ import java.util.Set;
 
 public interface UserService {
 
-    List<User> findAll();
+    List<User> getUsers();
 
-    User findById(Long id);
+    User getUserById(Long id);
 
-    void deleteById(Long id);
+    void deleteUserById(Long id);
 
-    void update(User user);
+    void updateUser(User user);
 
-    User findByUsername(String username);
+    User getUserByUsername(String username);
 
     List<UserRepository.NameAndLastLoginAt> recentUsers();
 
