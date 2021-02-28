@@ -33,5 +33,9 @@ public interface UserService {
 
     boolean checkFieldErrors(User user, BindingResult bindingResult, Model model);
 
-    void registerUser(User user);
+    void registerUser(User user, String siteUrl);
+
+    void sendVerificationEmail(User user, String siteUrl);
+
+    boolean verifyUser(String verificationCode);
 }
