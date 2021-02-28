@@ -25,14 +25,14 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public List<Theme> findAll() {
+    public List<Theme> getThemes() {
         List<Theme> themes = themeRepository.findAll();
         log.info(">>> Get all themes: {}", themes.size());
         return themes;
     }
 
     @Override
-    public void deleteById(Long themeId) {
+    public void deleteThemeById(Long themeId) {
         log.info(">>> Delete theme by id: {}", themeId);
         themeRepository.deleteById(themeId);
     }

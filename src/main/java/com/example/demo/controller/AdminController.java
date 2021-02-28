@@ -98,7 +98,7 @@ public class AdminController {
     // get themes page
     @GetMapping("/themes")
     public String getThemes(Model model) {
-        model.addAttribute("themes", themeService.findAll());
+        model.addAttribute("themes", themeService.getThemes());
 
         log.info(">>> GET admin-themes.html");
         return "admin/admin-themes";
@@ -116,7 +116,7 @@ public class AdminController {
     // delete the theme by id
     @GetMapping("/theme/delete")
     public String deleteTheme(@RequestParam("themeId") Long themeId) {
-        themeService.deleteById(themeId);
+        themeService.deleteThemeById(themeId);
 
         log.info(">>> GET:redirect admin-themes.html");
         return "redirect:/admin/themes";
@@ -150,7 +150,7 @@ public class AdminController {
     // get create new question page
     @GetMapping("/question/new")
     public String getCreateQuestionPage(Model model) {
-        model.addAttribute("themes", themeService.findAll());
+        model.addAttribute("themes", themeService.getThemes());
         model.addAttribute("question", new Question());
         return "question/question-form";
     }
@@ -159,7 +159,7 @@ public class AdminController {
     @GetMapping("/question")
     public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
         model.addAttribute("question", questionService.getQuestionById(questionId));
-        model.addAttribute("themes", themeService.findAll());
+        model.addAttribute("themes", themeService.getThemes());
         return "question/question-form";
     }
 
@@ -171,7 +171,7 @@ public class AdminController {
                                Principal principal, Model model) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("themes", themeService.findAll());
+            model.addAttribute("themes", themeService.getThemes());
             return "question/question-form";
         }
 

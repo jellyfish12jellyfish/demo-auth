@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ThemeService {
 
-    List<Theme> findAll();
+    List<Theme> getThemes();
 
-    void deleteById(Long themeId);
+    void deleteThemeById(Long themeId);
 
     Theme getThemeById(Long themeId);
 
