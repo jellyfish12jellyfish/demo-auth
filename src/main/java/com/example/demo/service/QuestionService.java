@@ -10,13 +10,14 @@ import java.util.List;
 
 public interface QuestionService {
 
-    Question findById(Long id);
+    Question getQuestionById(Long id);
 
-    Page<Question> findAllPageable(Long id, Pageable pageable);
+    Page<Question> getPageableQuestions(Long id, Pageable pageable);
 
-    List<Question> findAll();
+    List<Question> getQuestions();
 
-    void deleteById(Long questionId);
+    void deleteQuestionById(Long questionId);
 
-    void createOrUpdate(Question question, User userFromDb, Theme theme);
+    void createOrUpdateQuestion(Question question, User userFromDb, Theme theme);
+
 }

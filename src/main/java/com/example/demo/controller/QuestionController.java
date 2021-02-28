@@ -53,7 +53,7 @@ public class QuestionController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Question> questions =
-                questionService.findAllPageable(id, PageRequest.of(evalPage, evalPageSize));
+                questionService.getPageableQuestions(id, PageRequest.of(evalPage, evalPageSize));
 
         Pager pager = new Pager(questions.getTotalPages(), questions.getNumber(), BUTTONS_TO_SHOW);
 
@@ -70,7 +70,7 @@ public class QuestionController {
     public String getQuestion(@PathVariable("id") Long questionId,
                               Principal principal, Model model) {
 
-        Question question = questionService.findById(questionId);
+        Question question = questionService.getQuestionById(questionId);
         User user = userService.findByUsername(principal.getName());
 
         userQuestionService.setViewTime(user, question);

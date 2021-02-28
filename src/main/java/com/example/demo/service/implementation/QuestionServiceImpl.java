@@ -31,33 +31,33 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question findById(Long id) {
+    public Question getQuestionById(Long id) {
         log.info(">>> Find user by id: {}", id);
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
     }
 
     @Override
-    public Page<Question> findAllPageable(Long id, Pageable pageable) {
+    public Page<Question> getPageableQuestions(Long id, Pageable pageable) {
         log.info(">>> Get pageable questions");
         return questionRepository.findAllByThemeId(id, pageable);
     }
 
     @Override
-    public List<Question> findAll() {
+    public List<Question> getQuestions() {
         List<Question> questionList = questionRepository.findAll();
         log.info(">>> Get all questions: {}", questionList.size());
         return questionList;
     }
 
     @Override
-    public void deleteById(Long questionId) {
+    public void deleteQuestionById(Long questionId) {
         log.info(">>> Delete question by id: {}", questionId);
         questionRepository.deleteById(questionId);
     }
 
     @Override
-    public void createOrUpdate(Question question, User userFromDb, Theme theme) {
+    public void createOrUpdateQuestion(Question question, User userFromDb, Theme theme) {
 
         // если автор вопроса не найден, значит, это, скорее всего, новый вопрос
         if (question.getUser() == null) {

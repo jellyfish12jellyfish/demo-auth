@@ -107,7 +107,7 @@ public class AdminController {
     // get questions page
     @GetMapping("/questions")
     public String getQuestions(Model model) {
-        model.addAttribute("questions", questionService.findAll());
+        model.addAttribute("questions", questionService.getQuestions());
 
         log.info(">>> GET admin-questions.html");
         return "admin/admin-questions";
@@ -158,7 +158,7 @@ public class AdminController {
     // get update question page
     @GetMapping("/question")
     public String getUpdateQuestionPage(@RequestParam("questionId") Long questionId, Model model) {
-        model.addAttribute("question", questionService.findById(questionId));
+        model.addAttribute("question", questionService.getQuestionById(questionId));
         model.addAttribute("themes", themeService.findAll());
         return "question/question-form";
     }
@@ -178,7 +178,7 @@ public class AdminController {
         User userFromDb = userService.findByUsername(principal.getName());
         Theme theme = themeService.getThemeById(themeId);
 
-        questionService.createOrUpdate(question, userFromDb, theme);
+        questionService.createOrUpdateQuestion(question, userFromDb, theme);
         return "redirect:/admin/questions";
     }
 
@@ -186,7 +186,7 @@ public class AdminController {
     // delete the question by id
     @GetMapping("/question/delete")
     public String deleteQuestion(@RequestParam("questionId") Long questionId) {
-        questionService.deleteById(questionId);
+        questionService.deleteQuestionById(questionId);
 
         return "redirect:/admin/questions";
     }
