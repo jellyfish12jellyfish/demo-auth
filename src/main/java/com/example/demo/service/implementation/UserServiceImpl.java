@@ -10,15 +10,23 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,15 +41,20 @@ public class UserServiceImpl implements UserService {
     private static final String ADMIN = "ROLE_ADMIN";
     private static final String USER = "ROLE_USER";
 
+    @Autowired
+    private Environment env;
+
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JavaMailSender javaMailSender;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder, JavaMailSender javaMailSender) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.javaMailSender = javaMailSender;
     }
 
     @Override
@@ -170,8 +183,9 @@ public class UserServiceImpl implements UserService {
     }
 
     // registering user
+    @Async
     @Override
-    public void registerUser(User user) {
+    public void registerUser(User user, String siteUrl) {
         log.info(">>> Registering user: {}", user.getUsername());
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
@@ -179,7 +193,63 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
 
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+        user.setEnabled(false);
+
         userRepository.save(user);
+
+        sendVerificationEmail(user, siteUrl);
+    }
+
+    @Async
+    @Override
+    public void sendVerificationEmail(User user, String siteUrl) {
+        String toAddress = user.getUsername();
+        String fromAddress = env.getProperty("SPRING_MAIL_USERNAME");
+        String senderName = "Demo Auth inc.";
+        String subject = "Please verify your registration";
+
+        String content = "Dear [[name]], <br>" +
+                "Please click the link below to verify your registration:<br>" +
+                "<h3><a href=\"[[URL]]\" target=\"_self\">Verify</a></h3><br>";
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+        MimeMessageHelper msgHelper = new MimeMessageHelper(msg);
+
+        try {
+            assert fromAddress != null;
+            msgHelper.setFrom(fromAddress, senderName);
+            msgHelper.setTo(toAddress);
+            msgHelper.setSubject(subject);
+
+            content = content.replace("[[name]]", user.getUsername());
+            String verifyUrl = siteUrl + "/verify?code=" + user.getVerificationCode();
+
+            content = content.replace("[[URL]]", verifyUrl);
+
+            msgHelper.setText(content, true);
+            javaMailSender.send(msg);
+
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            log.error(">>> Something went wrong, check sendEmail method\n");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean verifyUser(String verificationCode) {
+        User user = userRepository.findUserByVerificationCode(verificationCode);
+
+        if (user == null || user.isEnabled()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setEnabled(true);
+            userRepository.save(user);
+
+            return true;
+        }
     }
 
     @Override
