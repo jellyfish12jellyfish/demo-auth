@@ -12,5 +12,5 @@ public interface UserQuestionService {
 
     void setViewTime(User user, Question question);
 
-    List<UserQuestion> findAllByUserId(Long userId);
+    List<UserQuestion> getQuestionsByUserId(Long userId);
 }

@@ -57,7 +57,7 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     }
 
     @Override
-    public List<UserQuestion> findAllByUserId(Long userId) {
+    public List<UserQuestion> getQuestionsByUserId(Long userId) {
         log.info(">>> Get 10 UserQuestions objects");
         return userQuestionRepository
                 .findAllByUserIdOrderByLastViewAtDesc(userId, PageRequest.of(0, 10));

@@ -44,7 +44,8 @@ public class UserController {
             try {
                 var authentication = SecurityContextHolder.getContext().getAuthentication();
                 CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-                model.addAttribute("userQuestions", userQuestionService.findAllByUserId(user.getUser().getId()));
+                model.addAttribute("userQuestions",
+                        userQuestionService.getQuestionsByUserId(user.getUser().getId()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
